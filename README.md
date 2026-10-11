@@ -72,6 +72,10 @@ per intervention.
 | `configs/` | every campaign configuration (YAML) and the analysis settings |
 | `docs/03_preregistration/` | pre-registration, statistical analysis plan, detection protocol, amendments, hash list |
 | `docs/06_corpus/` | labelled scratchpad corpus codebook and seal |
+| `docs/01_literature/` | literature library (BibTeX and verified notes) and gap table |
+| `docs/02_design/` | engine interfaces |
+| `docs/04_runbooks/` | how to run a campaign, add a lever or a metric, produce figures, export the corpus |
+| `docs/FOLLOWUP_EXPERIMENTS.md` | follow-up experiments, not run |
 | `src/finswarm/` | simulator, LLM layer, interventions, metrics, analysis |
 | `scripts/` | analysis, verification, figures, pre-registration check |
 | `tests/` | unit, property and smoke tests (mock provider) |
