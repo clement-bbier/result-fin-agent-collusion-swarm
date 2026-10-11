@@ -1,0 +1,52 @@
+# TR-M -- Second-family trunks (A-005: Llama-3.3-70B via OpenRouter, lane openrouter_llama, seeds 0-5): same market as TR-H, dealer_v1, prefix P1.
+# A-005 (2026-10-10): ministral-8b-latest and ministral-14b-latest failed as dealer_v1 instruments (PILOT-M: 40 % parse failures,
+# 3.3 calls per decision), so the second family moves to meta-llama/llama-3.3-70b-instruct (0.22 / 0.50 USD per million tokens,
+# lane budget 10 USD shared by TR-M 4.0, SH-M 2.0, LT-M 2.5). The campaign keeps its name TR-M so the registered arms and run ids stay.
+# PREREG section 2 (H1-M confirmatory robustness arm, second model family, D-11); docs/03_preregistration/campaign_table.md.
+# Expected LLM calls: 6 seeds x 4 dealers x 100 = 2,400 (about 1.3 USD at 1,500 in / 300 out tokens; lane budget line 4.0 USD)
+# Protocol: temperature 1.0, max_tokens 2048 (A-004), no thinking effort, memory_step 25; same market, view, clock and prompt as TR-H.
+# A trunk qualifies if Delta_bar(71-100) >= 0.30 (Gate 2), same rule as TR-H. Not droppable (campaign_table drop order).
+name: TR-M
+tier: 1
+prereg_id: PREREG-v1
+seeds: [0, 1, 2, 3, 4, 5]
+max_concurrent_runs: 6
+lanes:
+  openrouter_llama: {provider: openrouter, models: [meta-llama/llama-3.3-70b-instruct], max_in_flight: 4, budget_usd: 4.0}
+base:
+  name: TR-M
+  periods: 100
+  ticks_per_period: 100
+  market:
+    mechanism: dealer
+    n_dealers: 4
+    cost: 1.0
+    alpha: 1.0
+    price_grid: {min: 1.0, max: 4.0, tick: 0.05}
+    routing: {tau: null, outside_utility: 0.0}
+    demand: {kind: swarm, a: 2.0, a0: 0.0, mu: 0.25, beta: 100.0}
+    fringe: {share: 0.0, horizon_ticks: 50}
+  swarm:
+    mode: agents
+    n_agents: 10000
+    arrivals: {lam_mean: 0.0001, lam_sd_log: 0.5}
+    type_weights: {ZI_BUYER: 0.75, INFORMED: 0.1, NOISE: 0.1, TREND: 0.05}
+  llm:
+    memory_step: 25
+    lane: openrouter_llama
+    mode: live
+    allow_mixed_families: false
+    params: {effort: null, max_tokens: 2048, temperature: 1.0}
+    slots:
+    - {name: Dealer A, role: dealer, model: meta-llama/llama-3.3-70b-instruct, family: llama, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer B, role: dealer, model: meta-llama/llama-3.3-70b-instruct, family: llama, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer C, role: dealer, model: meta-llama/llama-3.3-70b-instruct, family: llama, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer D, role: dealer, model: meta-llama/llama-3.3-70b-instruct, family: llama, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+  view: {id: V0, show_rival_quotes: true, show_trades: true, history_periods: 100}
+  clock: {mode: sync, epoch_ticks: 100}
+  checkpoint: {every_periods: 10, keep_last: 3}
+  logging: {swarm_order_sample: 0.01, snapshot_every: 10, snapshot_levels: 10, store_prompts: true}
+  events: []
+  tags:
+    arm: trunk
+    label: TR-M

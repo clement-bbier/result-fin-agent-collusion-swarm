@@ -1,0 +1,71 @@
+# GH-H -- Ghost markets: K = 4 ghost sub-runs per sham branch (rivals replayed open loop, rival_policy replay_parent).
+# PREREG section 4 Controls: ghost markets; docs/03_preregistration/campaign_table.md.
+# Expected LLM calls: 12 shams x 4 ghosts x 1 LLM slot x 50 = 2,400 (new; the sham branches themselves are SH-H's)
+# Parent trunk: TR-H (campaign name = run name = TR-H, so trunk run ids are shared with TR-H.yaml
+# and resume skips them; run TR-H first, otherwise this file re-simulates the 12 trunks).
+# The branch below is SH-H's `sham` branch verbatim (same name and events, hence the same child run ids) plus
+# `ghost: replay_parent` (BranchSpec.ghost, campaign-level, not part of the child config). Run it after SH-H:
+# the finished shams are skipped and only the ghosts run (results/campaigns/TR-H/<sham run id>/ghost/<k>/).
+# Ghost k keeps slot k's LLM agent; the 3 rivals replay the sham's logged quotes from period 100 on. Each ghost
+# is a replicate (tags.replicate_id = sham/ghost:<k>): its seeds are salted after the branch point, so it draws
+# fresh samples instead of replaying the sham from the cache; periods 91-100 replay the trunk (cache hits).
+# The dry-run projection counts trunks (4,800), sham branches (2,400) and ghosts (2,400); only the ghosts are new.
+name: TR-H
+tier: 0
+prereg_id: PREREG-v1
+seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+max_concurrent_runs: 12
+lanes:
+  anthropic_haiku: {provider: anthropic, models: [claude-haiku-5-5], max_in_flight: 48, budget_usd: 4.0}
+base:
+  name: TR-H
+  periods: 100
+  ticks_per_period: 100
+  market:
+    mechanism: dealer
+    n_dealers: 4
+    cost: 1.0
+    alpha: 1.0
+    price_grid: {min: 1.0, max: 4.0, tick: 0.05}
+    routing: {tau: null, outside_utility: 0.0}
+    demand: {kind: swarm, a: 2.0, a0: 0.0, mu: 0.25, beta: 100.0}
+    fringe: {share: 0.0, horizon_ticks: 50}
+  swarm:
+    mode: agents
+    n_agents: 10000
+    arrivals: {lam_mean: 0.0001, lam_sd_log: 0.5}
+    type_weights: {ZI_BUYER: 0.75, INFORMED: 0.1, NOISE: 0.1, TREND: 0.05}
+  llm:
+    memory_step: 25
+    lane: anthropic_haiku
+    mode: live
+    allow_mixed_families: false
+    params: {effort: low, max_tokens: 2048}
+    slots:
+    - {name: Dealer A, role: dealer, model: claude-haiku-5-5, family: anthropic, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer B, role: dealer, model: claude-haiku-5-5, family: anthropic, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer C, role: dealer, model: claude-haiku-5-5, family: anthropic, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer D, role: dealer, model: claude-haiku-5-5, family: anthropic, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+  view: {id: V0, show_rival_quotes: true, show_trades: true, history_periods: 100}
+  clock: {mode: sync, epoch_ticks: 100}
+  checkpoint: {every_periods: 10, keep_last: 3}
+  logging: {swarm_order_sample: 0.01, snapshot_every: 10, snapshot_levels: 10, store_prompts: true}
+  events: []
+  tags:
+    arm: trunk
+    label: TR-H
+branches:
+- name: sham
+  ghost: replay_parent
+  parent: TR-H
+  at: period:100
+  events:
+  - type: set_param
+    path: periods
+    value: 150
+  - type: set_param
+    path: tags.arm
+    value: sham
+  - type: set_param
+    path: tags.label
+    value: SH-H

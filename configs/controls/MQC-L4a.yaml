@@ -1,0 +1,90 @@
+# MQC-L4a -- Mechanical quality cost of lever L4a: the SC-1 market (SC1: 4 best_responder dealers) with the lever applied at T0 = 100, paired with a sham branch, 20 seeds.
+# PREREG section 2 (MQC axis); docs/03_preregistration/campaign_table.md.
+# Expected LLM calls: 0 (mock lane)
+# The SC-1 trunk runs 100 periods (campaign name SC-1); branches run to period 150, window 111-150.
+# MQC_l = surplus(sham) - surplus(lever) in pp, computed by the metrics module.
+name: SC-1
+tier: 0
+prereg_id: PREREG-v1
+seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+max_concurrent_runs: 12
+lanes:
+  mock: {provider: mock, models: [mock-v1], max_in_flight: 64, free: true}
+base:
+  name: SC-1
+  periods: 100
+  ticks_per_period: 100
+  market:
+    mechanism: dealer
+    n_dealers: 4
+    cost: 1.0
+    alpha: 1.0
+    price_grid: {min: 1.0, max: 4.0, tick: 0.05}
+    routing: {tau: null, outside_utility: 0.0}
+    demand: {kind: swarm, a: 2.0, a0: 0.0, mu: 0.25, beta: 100.0}
+    fringe: {share: 0.0, horizon_ticks: 50}
+  swarm:
+    mode: agents
+    n_agents: 10000
+    arrivals: {lam_mean: 0.0001, lam_sd_log: 0.5}
+    type_weights: {ZI_BUYER: 0.75, INFORMED: 0.1, NOISE: 0.1, TREND: 0.05}
+  llm:
+    lane: mock
+    mode: mock
+    allow_mixed_families: false
+    params: {effort: low, max_tokens: 2048}
+    slots:
+    - {name: Dealer A, role: dealer, model: scripted, family: mock, policy: best_responder}
+    - {name: Dealer B, role: dealer, model: scripted, family: mock, policy: best_responder}
+    - {name: Dealer C, role: dealer, model: scripted, family: mock, policy: best_responder}
+    - {name: Dealer D, role: dealer, model: scripted, family: mock, policy: best_responder}
+  view: {id: V0, show_rival_quotes: true, show_trades: true, history_periods: 100}
+  clock: {mode: sync, epoch_ticks: 100}
+  checkpoint: {every_periods: 10, keep_last: 3}
+  logging: {swarm_order_sample: 0.01, snapshot_every: 10, snapshot_levels: 10, store_prompts: true}
+  events: []
+  tags:
+    arm: SC-1
+    label: SC-1
+branches:
+- name: sham
+  parent: SC-1
+  at: period:100
+  events:
+  - type: set_param
+    path: periods
+    value: 150
+  - type: set_param
+    path: tags.arm
+    value: sham
+  - type: set_param
+    path: tags.label
+    value: MQC-L4a
+- name: L4a
+  parent: SC-1
+  at: period:100
+  events:
+  - type: set_param
+    path: periods
+    value: 150
+  - type: set_param
+    path: tags.arm
+    value: L4a
+  - type: set_param
+    path: tags.label
+    value: MQC-L4a
+  - type: set_param
+    path: view.id
+    value: V1
+  - type: set_param
+    path: view.anonymise_ids
+    value: true
+  - type: set_param
+    path: view.canonicalise
+    value: true
+  - type: set_param
+    path: view.price_round
+    value: 0.05
+  - type: set_param
+    path: view.size_round
+    value: 1.0

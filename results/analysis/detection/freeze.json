@@ -1,0 +1,25 @@
+{
+  "rules_sha256": "a7d8d1bf789b6f18f926bb5e3d48babbeb8af90e9571f054e5fa93c862dff1b2",
+  "rules_path": "configs\\detection\\frozen_rules.json",
+  "n_dev": 130,
+  "n_eval": 130,
+  "dev_groups": [
+    "CPU:1",
+    "CPU:10",
+    "CPU:11",
+    "CPU:12",
+    "CPU:13",
+    "CPU:14",
+    "CPU:19",
+    "CPU:3",
+    "CPU:5",
+    "CPU:9",
+    "H:1",
+    "H:2",
+    "H:4",
+    "H:5",
+    "H:7",
+    "H:8"
+  ],
+  "note": "commit configs/detection/frozen_rules.json before --detect evaluate"
+}

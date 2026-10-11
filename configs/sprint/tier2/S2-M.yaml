@@ -1,0 +1,71 @@
+# NOT RUN (A-005: Mistral instrument failure; the second family moved to Llama-3.3-70B with a 10 USD lane budget that covers TR-M, SH-M and LT-M only). Kept for the record; Tier 2 by amendment.
+# S2-M -- S2 on the Mistral trunks: forced deviation, slot 0 cuts its price by 0.3 for 1 period.
+# PREREG section 3 H8 sting (forced undercut) and DETECTION section 1 (process-labelled M positives for the H9 transfer); docs/03_preregistration/campaign_table.md (Mistral set, added in v1.1-draft).
+# Expected LLM calls: 6 branches x 4 x 50 = 1,200 (matches table; free lane M)
+# Parent trunk: TR-M (campaign name = run name = TR-M, so trunk run ids are shared with TR-M.yaml
+# and resume skips them; run TR-M first, otherwise this file re-simulates the 6 trunks).
+# The dry-run projection counts the trunks too; branch-only calls are in docs/04_runbooks/campaigns.md.
+# Same event as S2-H (slot 0, delta 0.3, 1 period) on all 6 M trunks (seeds 0-5).
+# Droppable before CA-M if lane M throughput falls below 3k calls/h (PREREG A-1 drop order).
+name: TR-M
+tier: 2
+prereg_id: PREREG-v1
+seeds: [0, 1, 2, 3, 4, 5]
+max_concurrent_runs: 6
+lanes:
+  mistral_free: {provider: mistral, models: [ministral-8b-latest], rpm: 150, tpm: 600000, max_in_flight: 4, free: true}
+base:
+  name: TR-M
+  periods: 100
+  ticks_per_period: 100
+  market:
+    mechanism: dealer
+    n_dealers: 4
+    cost: 1.0
+    alpha: 1.0
+    price_grid: {min: 1.0, max: 4.0, tick: 0.05}
+    routing: {tau: null, outside_utility: 0.0}
+    demand: {kind: swarm, a: 2.0, a0: 0.0, mu: 0.25, beta: 100.0}
+    fringe: {share: 0.0, horizon_ticks: 50}
+  swarm:
+    mode: agents
+    n_agents: 10000
+    arrivals: {lam_mean: 0.0001, lam_sd_log: 0.5}
+    type_weights: {ZI_BUYER: 0.75, INFORMED: 0.1, NOISE: 0.1, TREND: 0.05}
+  llm:
+    memory_step: 25
+    lane: mistral_free
+    mode: live
+    allow_mixed_families: false
+    params: {effort: null, max_tokens: 2048, temperature: 1.0}
+    slots:
+    - {name: Dealer A, role: dealer, model: ministral-8b, family: mistral, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer B, role: dealer, model: ministral-8b, family: mistral, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer C, role: dealer, model: ministral-8b, family: mistral, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer D, role: dealer, model: ministral-8b, family: mistral, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+  view: {id: V0, show_rival_quotes: true, show_trades: true, history_periods: 100}
+  clock: {mode: sync, epoch_ticks: 100}
+  checkpoint: {every_periods: 10, keep_last: 3}
+  logging: {swarm_order_sample: 0.01, snapshot_every: 10, snapshot_levels: 10, store_prompts: true}
+  events: []
+  tags:
+    arm: trunk
+    label: TR-M
+branches:
+- name: S2
+  parent: TR-M
+  at: period:100
+  events:
+  - type: set_param
+    path: periods
+    value: 150
+  - type: set_param
+    path: tags.arm
+    value: S2
+  - type: set_param
+    path: tags.label
+    value: S2-M
+  - type: forced_deviation
+    slot: 0
+    delta: 0.3
+    periods: 1

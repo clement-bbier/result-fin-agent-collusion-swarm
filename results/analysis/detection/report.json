@@ -1,0 +1,256 @@
+{
+  "rules_sha256": "a7d8d1bf789b6f18f926bb5e3d48babbeb8af90e9571f054e5fa93c862dff1b2",
+  "n_eval": 130,
+  "report": {
+    "rules_sha256": "a7d8d1bf789b6f18f926bb5e3d48babbeb8af90e9571f054e5fa93c862dff1b2",
+    "n_windows": 68,
+    "n_pos": 12,
+    "n_neg": 56,
+    "n_runs": 68,
+    "n_clusters": 16,
+    "cluster": "seed_group",
+    "composite": {
+      "auc": 0.609375,
+      "auc_ci": [
+        0.423728813559322,
+        0.84
+      ],
+      "n_boot_valid": 2000,
+      "tpr": 0.0,
+      "fpr": 0.07142857142857142,
+      "fpr_by_type": {
+        "ghost": 0.16666666666666666,
+        "instruction": 0.0,
+        "sc1": 0.0,
+        "sc2_common_shock": 0.0,
+        "sc5_captive": 0.0
+      },
+      "fpr_by_window_length": {
+        "30": 0.0,
+        "40": 0.07407407407407407
+      }
+    },
+    "scorecard": {
+      "tpr": 0.0,
+      "fpr": 0.0,
+      "fpr_by_type": {
+        "ghost": 0.0,
+        "instruction": 0.0,
+        "sc1": 0.0,
+        "sc2_common_shock": 0.0,
+        "sc5_captive": 0.0
+      },
+      "fpr_by_window_length": {
+        "30": 0.0,
+        "40": 0.0
+      }
+    },
+    "feature_auc": {
+      "D1": 0.6235119047619048,
+      "D2": 0.5133928571428571,
+      "D3": 0.48214285714285715,
+      "D4net": 0.5238095238095238,
+      "D5net": 0.609375,
+      "D6": 0.5193452380952381,
+      "D7": 0.6458333333333334
+    }
+  },
+  "decision": {
+    "llm_only": {
+      "positives": [
+        "llm_punished"
+      ],
+      "negatives": [
+        "ghost",
+        "instruction"
+      ],
+      "lane": "H",
+      "n_windows": 28,
+      "status": "ok",
+      "rules_sha256": "a7d8d1bf789b6f18f926bb5e3d48babbeb8af90e9571f054e5fa93c862dff1b2",
+      "n_pos": 2,
+      "n_neg": 26,
+      "n_runs": 28,
+      "n_clusters": 6,
+      "cluster": "seed_group",
+      "composite": {
+        "auc": 0.375,
+        "auc_ci": [
+          0.07692307692307693,
+          0.84
+        ],
+        "n_boot_valid": 1818,
+        "tpr": 0.0,
+        "fpr": 0.15384615384615385,
+        "fpr_by_type": {
+          "ghost": 0.16666666666666666,
+          "instruction": 0.0
+        },
+        "fpr_by_window_length": {
+          "30": 0.0,
+          "40": 0.16666666666666666
+        }
+      },
+      "scorecard": {
+        "tpr": 0.0,
+        "fpr": 0.0,
+        "fpr_by_type": {
+          "ghost": 0.0,
+          "instruction": 0.0
+        },
+        "fpr_by_window_length": {
+          "30": 0.0,
+          "40": 0.0
+        }
+      },
+      "feature_auc": {
+        "D1": 0.5576923076923077,
+        "D2": 0.0,
+        "D3": 0.6538461538461539,
+        "D4net": 0.27884615384615385,
+        "D5net": 0.20192307692307693,
+        "D6": 0.7115384615384616,
+        "D7": 0.8461538461538461
+      }
+    },
+    "scripted_validity": {
+      "positives": [
+        "sc3"
+      ],
+      "negatives": [
+        "sc1",
+        "sc2_common_shock"
+      ],
+      "lane": null,
+      "n_windows": 30,
+      "status": "ok",
+      "rules_sha256": "a7d8d1bf789b6f18f926bb5e3d48babbeb8af90e9571f054e5fa93c862dff1b2",
+      "n_pos": 10,
+      "n_neg": 20,
+      "n_runs": 30,
+      "n_clusters": 10,
+      "cluster": "seed_group",
+      "composite": {
+        "auc": 1.0,
+        "auc_ci": [
+          1.0,
+          1.0
+        ],
+        "n_boot_valid": 2000,
+        "tpr": 0.0,
+        "fpr": 0.0,
+        "fpr_by_type": {
+          "sc1": 0.0,
+          "sc2_common_shock": 0.0
+        },
+        "fpr_by_window_length": {
+          "40": 0.0
+        }
+      },
+      "scorecard": {
+        "tpr": 0.0,
+        "fpr": 0.0,
+        "fpr_by_type": {
+          "sc1": 0.0,
+          "sc2_common_shock": 0.0
+        },
+        "fpr_by_window_length": {
+          "40": 0.0
+        }
+      },
+      "feature_auc": {
+        "D1": 1.0,
+        "D2": 0.75,
+        "D3": 0.25,
+        "D4net": 0.375,
+        "D5net": 0.75,
+        "D6": 0.25,
+        "D7": 1.0
+      }
+    },
+    "transfer": {
+      "positives": [
+        "llm_punished"
+      ],
+      "negatives": [
+        "ghost",
+        "instruction"
+      ],
+      "lane": "M",
+      "n_windows": 0,
+      "status": "insufficient windows (need positives and negatives)"
+    }
+  },
+  "outcome_strata": {
+    "status": "ok",
+    "d1_removed": true,
+    "n_dev": 79,
+    "n_eval": 78,
+    "rules_sha256": "9301adff9e6d4a948dd4a52e7fde212c8bec12c5130af7ac5e73bac55a8c717c",
+    "n_windows": 78,
+    "n_pos": 75,
+    "n_neg": 3,
+    "n_runs": 78,
+    "n_clusters": 6,
+    "cluster": "seed_group",
+    "composite": {
+      "auc": 0.8244444444444444,
+      "auc_ci": [
+        0.5405405405405406,
+        1.0
+      ],
+      "n_boot_valid": 1818,
+      "tpr": 0.7333333333333333,
+      "fpr": 0.3333333333333333,
+      "fpr_by_type": {
+        "instruction": 0.5,
+        "outcome": 0.0
+      },
+      "fpr_by_window_length": {
+        "30": 0.5,
+        "40": 0.0
+      }
+    },
+    "scorecard": {
+      "tpr": 0.22666666666666666,
+      "fpr": 0.0,
+      "fpr_by_type": {
+        "instruction": 0.0,
+        "outcome": 0.0
+      },
+      "fpr_by_window_length": {
+        "30": 0.0,
+        "40": 0.0
+      }
+    },
+    "feature_auc": {
+      "D2": 0.56,
+      "D3": 0.28,
+      "D4net": 0.5888888888888889,
+      "D5net": 0.28888888888888886,
+      "D6": 0.47555555555555556,
+      "D7": 1.0
+    }
+  },
+  "fpr_targets": {
+    "ghost": 0.05,
+    "sc2_common_shock": 0.1
+  },
+  "decision_rules": {
+    "status": "ok",
+    "auc": 0.375,
+    "auc_ge_0.85": false,
+    "fpr_targets": {
+      "ghost": {
+        "value": 0.16666666666666666,
+        "max": 0.05,
+        "ok": false
+      },
+      "sc2_common_shock": {
+        "value": 0.0,
+        "max": 0.1,
+        "ok": true
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+# Smoke campaign (CampaignConfig: base run x 3 seeds), mock provider only, cost 0 USD.
+#   uv run finswarm run configs/smoke.yaml --provider mock
+# Two scripted "mock" dealers on the closed-form logit market (Calvano et al. 2020 demand,
+# a=2, a0=0, mu=0.25, c=1, alpha=1: p_N=1.4729, p_M=1.9250). Tit-for-tat starts at the
+# monopoly price; the undercutter starts there too and undercuts by 2 ticks down to a floor
+# at the Nash price, so prices fall from p_M to p_N. At period 25 the logit temperature
+# (market.routing.tau, default alpha*mu = 0.25) doubles to 0.5: demand becomes less
+# price-sensitive (a live set_param the dealer market supports; a tick change mid-run is not
+# supported yet and would fail the run).
+name: smoke
+tier: 0
+seeds: [0, 1, 2]
+max_concurrent_runs: 3
+base:
+  name: smoke
+  periods: 50
+  ticks_per_period: 1
+  seed: 0
+  market:
+    mechanism: dealer
+    n_dealers: 2
+    cost: 1.0
+    alpha: 1.0
+    price_grid: {min: 1.0, max: 4.0, tick: 0.01}
+    demand: {kind: closed_form_logit, a: 2.0, a0: 0.0, mu: 0.25, beta: 100.0}
+  swarm:
+    mode: closed_form
+  llm:
+    lane: mock
+    mode: mock
+    slots:
+      - name: Firm A
+        role: dealer
+        model: scripted
+        family: mock
+        policy: "tit_for_tat(target=1.9, trigger=0.01, punish=3)"
+      - name: Firm B
+        role: dealer
+        model: scripted
+        family: mock
+        policy: "undercutter(eps=0.02, start=1.9, floor=1.4729)"
+  clock: {mode: sync, epoch_ticks: 1}
+  checkpoint: {every_periods: 10, keep_last: 3}
+  logging: {snapshot_every: 10, snapshot_levels: 5, store_prompts: true}
+  events:
+    - type: set_param
+      path: market.routing.tau
+      value: 0.5
+      when: {at_period: 25}
+      note: routing_softening

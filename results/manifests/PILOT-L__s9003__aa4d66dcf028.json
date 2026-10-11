@@ -1,0 +1,356 @@
+{
+ "alpha": 1.0,
+ "arm": "pilot",
+ "benchmarks": {
+  "p_mono": 2.054411180500227,
+  "p_nash": 1.3314606898837602,
+  "pi_mono": 20.110279512503435,
+  "pi_nash": 8.146068988378701
+ },
+ "branch_events": [],
+ "branch_events_hash": null,
+ "branch_period": null,
+ "checkpoints": [
+  {
+   "names": [
+    "initial"
+   ],
+   "period": 0
+  },
+  {
+   "names": [
+    "final"
+   ],
+   "period": 5
+  }
+ ],
+ "condition": "PILOT-L",
+ "config_hash": "6d4a004f94fae2179d01d7291d9cb1a6218b3b9857177f5dd63d560f4674b3b4",
+ "cost_usd": 0.0,
+ "environment": {
+  "implementation": "CPython",
+  "machine": "AMD64",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.12.10"
+ },
+ "error": null,
+ "finished_at": "2026-10-10T11:35:02+00:00",
+ "git": {
+  "commit": "9a1ee429b6abafca659184515fd526d1004b834c",
+  "dirty": false
+ },
+ "impl": {
+  "llm_agents": "agents.llm",
+  "market": "market.registry",
+  "view": "market.view"
+ },
+ "label": "PILOT-L",
+ "llm": {
+  "cache_hits": 0,
+  "cached_tokens": 1712,
+  "calls": 20,
+  "cost_usd": 0.0,
+  "input_tokens": 17337,
+  "output_tokens": 4992,
+  "parse_failures": 0,
+  "refusals": 0
+ },
+ "llm_mode": "live",
+ "name": "PILOT-L",
+ "online": {
+  "delta": 0.4516746843199365,
+  "delta_ma20": null,
+  "price_mean": 2.5625
+ },
+ "packages": {
+  "anthropic": "1.13.0",
+  "finswarm": "0.1.0",
+  "mistralai": "3.2.0",
+  "numpy": "2.5.3",
+  "polars": "2.0.0",
+  "pyarrow": "26.0.0",
+  "pydantic": "2.14.0"
+ },
+ "parent_run_id": null,
+ "periods": 5,
+ "periods_completed": 5,
+ "provider": "openrouter",
+ "resolved_config": {
+  "branch_period": null,
+  "checkpoint": {
+   "every_periods": 10,
+   "keep_last": 3
+  },
+  "clock": {
+   "epoch_ticks": 100,
+   "mode": "sync",
+   "speed_bump_jitter": 0,
+   "speed_bump_max": 0,
+   "staleness_window": 0
+  },
+  "events": [],
+  "ghost": {
+   "enabled": false,
+   "parent_run_id": null,
+   "rival_policy": "replay_parent"
+  },
+  "llm": {
+   "allow_mixed_families": false,
+   "comm_channel": "none",
+   "lane": "openrouter",
+   "max_repairs": 3,
+   "memory_step": 25,
+   "mode": "live",
+   "oversight_notice": false,
+   "params": {
+    "effort": null,
+    "max_tokens": 2048,
+    "temperature": 1.0
+   },
+   "slots": [
+    {
+     "family": "llama",
+     "memory_periods": 100,
+     "model": "meta-llama/llama-3.3-70b-instruct",
+     "name": "Dealer A",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "dealer_v1",
+     "role": "dealer"
+    },
+    {
+     "family": "llama",
+     "memory_periods": 100,
+     "model": "meta-llama/llama-3.3-70b-instruct",
+     "name": "Dealer B",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "dealer_v1",
+     "role": "dealer"
+    },
+    {
+     "family": "llama",
+     "memory_periods": 100,
+     "model": "meta-llama/llama-3.3-70b-instruct",
+     "name": "Dealer C",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "dealer_v1",
+     "role": "dealer"
+    },
+    {
+     "family": "llama",
+     "memory_periods": 100,
+     "model": "meta-llama/llama-3.3-70b-instruct",
+     "name": "Dealer D",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "dealer_v1",
+     "role": "dealer"
+    }
+   ]
+  },
+  "logging": {
+   "snapshot_every": 10,
+   "snapshot_levels": 10,
+   "store_prompts": true,
+   "swarm_order_sample": 0.01
+  },
+  "market": {
+   "alpha": 1.0,
+   "batch": {
+    "clearing": "uniform",
+    "k": 1,
+    "k_max": null,
+    "k_min": null,
+    "rationing": "prorata"
+   },
+   "book": {
+    "cap": 64,
+    "levels": 4096
+   },
+   "cost": 1.0,
+   "demand": {
+    "a": 2.0,
+    "a0": 0.0,
+    "beta": 100.0,
+    "kind": "swarm",
+    "mu": 0.25
+   },
+   "fringe": {
+    "horizon_ticks": 50,
+    "share": 0.0
+   },
+   "mechanism": "dealer",
+   "n_dealers": 4,
+   "price_grid": {
+    "max": 4.0,
+    "min": 1.0,
+    "tick": 0.05
+   },
+   "routing": {
+    "outside_utility": 0.0,
+    "tau": null
+   },
+   "two_sided": false
+  },
+  "name": "PILOT-L",
+  "parent_run_id": null,
+  "periods": 5,
+  "seed": 9003,
+  "swarm": {
+   "arrivals": {
+    "lam_mean": 0.0001,
+    "lam_sd_log": 0.5
+   },
+   "attention_mean": 0.2,
+   "mode": "agents",
+   "n_agents": 10000,
+   "sentiment_rho": 0.99,
+   "sentiment_sigma": 0.05,
+   "sentiment_weight": 0.1,
+   "signal_noise_sd": 0.05,
+   "type_weights": {
+    "INFORMED": 0.1,
+    "NOISE": 0.1,
+    "TREND": 0.05,
+    "ZI_BUYER": 0.75
+   },
+   "value_private_sd": 0.1
+  },
+  "tags": {
+   "arm": "pilot",
+   "campaign": "PILOT-L",
+   "label": "PILOT-L"
+  },
+  "ticks_per_period": 100,
+  "view": {
+   "aggregate_levels": 0,
+   "anonymise_ids": false,
+   "canonicalise": false,
+   "delay_ticks": 0,
+   "depth_truncation": 0,
+   "history_periods": 100,
+   "id": "V0",
+   "price_round": null,
+   "reshuffle_every": 0,
+   "show_flow": false,
+   "show_rival_quotes": true,
+   "show_trades": true,
+   "size_round": null
+  }
+ },
+ "resumes": [],
+ "run_id": "PILOT-L__s9003__aa4d66dcf028",
+ "schema_version": 1,
+ "seed": 9003,
+ "seeds": {
+  "root": 9003,
+  "streams": {
+   "batch": {
+    "entropy": 9003,
+    "spawn_key": [
+     3
+    ]
+   },
+   "interventions": {
+    "entropy": 9003,
+    "spawn_key": [
+     5
+    ]
+   },
+   "llm": {
+    "entropy": 9003,
+    "spawn_key": [
+     4
+    ]
+   },
+   "matching": {
+    "entropy": 9003,
+    "spawn_key": [
+     2
+    ]
+   },
+   "population": {
+    "entropy": 9003,
+    "spawn_key": [
+     0
+    ]
+   },
+   "swarm": {
+    "entropy": 9003,
+    "spawn_key": [
+     1
+    ]
+   },
+   "view": {
+    "entropy": 9003,
+    "spawn_key": [
+     6
+    ]
+   }
+  }
+ },
+ "slots": [
+  {
+   "active": true,
+   "agent_id": 10000,
+   "family": "llama",
+   "kind": "LLM",
+   "lane": "openrouter_llama",
+   "model": "meta-llama/llama-3.3-70b-instruct",
+   "name": "Dealer A",
+   "policy": null,
+   "prompt_version": "dealer_v1",
+   "slot": 0,
+   "spec_type": "llm"
+  },
+  {
+   "active": true,
+   "agent_id": 10001,
+   "family": "llama",
+   "kind": "LLM",
+   "lane": "openrouter_llama",
+   "model": "meta-llama/llama-3.3-70b-instruct",
+   "name": "Dealer B",
+   "policy": null,
+   "prompt_version": "dealer_v1",
+   "slot": 1,
+   "spec_type": "llm"
+  },
+  {
+   "active": true,
+   "agent_id": 10002,
+   "family": "llama",
+   "kind": "LLM",
+   "lane": "openrouter_llama",
+   "model": "meta-llama/llama-3.3-70b-instruct",
+   "name": "Dealer C",
+   "policy": null,
+   "prompt_version": "dealer_v1",
+   "slot": 2,
+   "spec_type": "llm"
+  },
+  {
+   "active": true,
+   "agent_id": 10003,
+   "family": "llama",
+   "kind": "LLM",
+   "lane": "openrouter_llama",
+   "model": "meta-llama/llama-3.3-70b-instruct",
+   "name": "Dealer D",
+   "policy": null,
+   "prompt_version": "dealer_v1",
+   "slot": 3,
+   "spec_type": "llm"
+  }
+ ],
+ "started_at": "2026-10-10T11:33:56+00:00",
+ "status": "ok",
+ "trunk_id": "PILOT-L__s9003__aa4d66dcf028",
+ "wall_time_s": 71.264
+}

@@ -1,0 +1,460 @@
+{
+ "alpha": 1.0,
+ "arm": "L7",
+ "benchmarks": {
+  "p_mono": 2.054411180500227,
+  "p_nash": 1.3314606898837602,
+  "pi_mono": 20.110279512503435,
+  "pi_nash": 8.146068988378701
+ },
+ "branch_events": [
+  {
+   "note": "",
+   "path": "tags.arm",
+   "source": "branch",
+   "type": "set_param",
+   "value": "L7",
+   "when": {
+    "at_period": 100,
+    "at_tick": null,
+    "on_condition": null
+   }
+  },
+  {
+   "note": "",
+   "path": "tags.label",
+   "source": "branch",
+   "type": "set_param",
+   "value": "MQC-L7",
+   "when": {
+    "at_period": 100,
+    "at_tick": null,
+    "on_condition": null
+   }
+  },
+  {
+   "note": "",
+   "path": "clock.speed_bump_max",
+   "source": "branch",
+   "type": "set_param",
+   "value": 300,
+   "when": {
+    "at_period": 100,
+    "at_tick": null,
+    "on_condition": null
+   }
+  }
+ ],
+ "branch_events_hash": "b875a17fc3001fb2",
+ "branch_horizon": 150,
+ "branch_name": "L7",
+ "branch_period": 100,
+ "checkpoints": [
+  {
+   "names": [
+    "branch_origin",
+    "event0_set_param",
+    "event1_set_param",
+    "event2_set_param",
+    "periodic"
+   ],
+   "period": 100
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 120
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 130
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 140
+  },
+  {
+   "names": [
+    "final"
+   ],
+   "period": 150
+  }
+ ],
+ "condition": "SC-1--L7",
+ "config_hash": "6ed32392cdd921ba3891b67daafa0c8a7a85be226553e3cf616ed211e4e79ceb",
+ "cost_usd": 0.0,
+ "environment": {
+  "implementation": "CPython",
+  "machine": "AMD64",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.12.10"
+ },
+ "error": null,
+ "finished_at": "2026-10-10T18:12:02+00:00",
+ "git": {
+  "commit": "82ca269d57db4088679babb4d18679663e4a7c25",
+  "dirty": true
+ },
+ "impl": {
+  "llm_agents": "agents.llm",
+  "market": "market.registry",
+  "view": "market.view"
+ },
+ "label": "MQC-L7",
+ "llm": {
+  "cache_hits": 0,
+  "cached_tokens": 0,
+  "calls": 0,
+  "cost_usd": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "parse_failures": 0,
+  "refusals": 0
+ },
+ "llm_mode": "mock",
+ "name": "SC-1--L7",
+ "online": {
+  "delta": -0.02997013364615052,
+  "delta_ma20": 0.014276413080235143,
+  "price_mean": 1.35
+ },
+ "packages": {
+  "anthropic": "1.13.0",
+  "finswarm": "0.1.0",
+  "mistralai": "3.2.0",
+  "numpy": "2.5.3",
+  "polars": "2.0.0",
+  "pyarrow": "26.0.0",
+  "pydantic": "2.14.0"
+ },
+ "parent_run_id": "SC-1__s4__80cc16d36220",
+ "periods": 150,
+ "periods_completed": 150,
+ "provider": null,
+ "resolved_config": {
+  "branch_period": 100,
+  "checkpoint": {
+   "every_periods": 10,
+   "keep_last": 3
+  },
+  "clock": {
+   "epoch_ticks": 100,
+   "mode": "sync",
+   "speed_bump_jitter": 0,
+   "speed_bump_max": 0,
+   "staleness_window": 0
+  },
+  "events": [
+   {
+    "note": "",
+    "path": "tags.arm",
+    "source": "branch",
+    "type": "set_param",
+    "value": "L7",
+    "when": {
+     "at_period": 100,
+     "at_tick": null,
+     "on_condition": null
+    }
+   },
+   {
+    "note": "",
+    "path": "tags.label",
+    "source": "branch",
+    "type": "set_param",
+    "value": "MQC-L7",
+    "when": {
+     "at_period": 100,
+     "at_tick": null,
+     "on_condition": null
+    }
+   },
+   {
+    "note": "",
+    "path": "clock.speed_bump_max",
+    "source": "branch",
+    "type": "set_param",
+    "value": 300,
+    "when": {
+     "at_period": 100,
+     "at_tick": null,
+     "on_condition": null
+    }
+   }
+  ],
+  "ghost": {
+   "enabled": false,
+   "parent_run_id": null,
+   "rival_policy": "replay_parent"
+  },
+  "llm": {
+   "allow_mixed_families": false,
+   "comm_channel": "none",
+   "lane": "mock",
+   "max_repairs": 3,
+   "memory_step": 0,
+   "mode": "mock",
+   "oversight_notice": false,
+   "params": {
+    "effort": "low",
+    "max_tokens": 2048,
+    "temperature": null
+   },
+   "slots": [
+    {
+     "family": "mock",
+     "memory_periods": 100,
+     "model": "scripted",
+     "name": "Dealer A",
+     "params": {},
+     "policy": "best_responder",
+     "prefix": "P1",
+     "prompt": "fish_v1",
+     "role": "dealer"
+    },
+    {
+     "family": "mock",
+     "memory_periods": 100,
+     "model": "scripted",
+     "name": "Dealer B",
+     "params": {},
+     "policy": "best_responder",
+     "prefix": "P1",
+     "prompt": "fish_v1",
+     "role": "dealer"
+    },
+    {
+     "family": "mock",
+     "memory_periods": 100,
+     "model": "scripted",
+     "name": "Dealer C",
+     "params": {},
+     "policy": "best_responder",
+     "prefix": "P1",
+     "prompt": "fish_v1",
+     "role": "dealer"
+    },
+    {
+     "family": "mock",
+     "memory_periods": 100,
+     "model": "scripted",
+     "name": "Dealer D",
+     "params": {},
+     "policy": "best_responder",
+     "prefix": "P1",
+     "prompt": "fish_v1",
+     "role": "dealer"
+    }
+   ]
+  },
+  "logging": {
+   "snapshot_every": 10,
+   "snapshot_levels": 10,
+   "store_prompts": true,
+   "swarm_order_sample": 0.01
+  },
+  "market": {
+   "alpha": 1.0,
+   "batch": {
+    "clearing": "uniform",
+    "k": 1,
+    "k_max": null,
+    "k_min": null,
+    "rationing": "prorata"
+   },
+   "book": {
+    "cap": 64,
+    "levels": 4096
+   },
+   "cost": 1.0,
+   "demand": {
+    "a": 2.0,
+    "a0": 0.0,
+    "beta": 100.0,
+    "kind": "swarm",
+    "mu": 0.25
+   },
+   "fringe": {
+    "horizon_ticks": 50,
+    "share": 0.0
+   },
+   "mechanism": "dealer",
+   "n_dealers": 4,
+   "price_grid": {
+    "max": 4.0,
+    "min": 1.0,
+    "tick": 0.05
+   },
+   "routing": {
+    "outside_utility": 0.0,
+    "tau": null
+   },
+   "two_sided": false
+  },
+  "name": "SC-1--L7",
+  "parent_run_id": "SC-1__s4__80cc16d36220",
+  "periods": 150,
+  "seed": 4,
+  "swarm": {
+   "arrivals": {
+    "lam_mean": 0.0001,
+    "lam_sd_log": 0.5
+   },
+   "attention_mean": 0.2,
+   "mode": "agents",
+   "n_agents": 10000,
+   "sentiment_rho": 0.99,
+   "sentiment_sigma": 0.05,
+   "sentiment_weight": 0.1,
+   "signal_noise_sd": 0.05,
+   "type_weights": {
+    "INFORMED": 0.1,
+    "NOISE": 0.1,
+    "TREND": 0.05,
+    "ZI_BUYER": 0.75
+   },
+   "value_private_sd": 0.1
+  },
+  "tags": {
+   "arm": "SC-1",
+   "campaign": "SC-1",
+   "label": "SC-1",
+   "prereg_id": "PREREG-v1",
+   "replicate_id": "L7"
+  },
+  "ticks_per_period": 100,
+  "view": {
+   "aggregate_levels": 0,
+   "anonymise_ids": false,
+   "canonicalise": false,
+   "delay_ticks": 0,
+   "depth_truncation": 0,
+   "history_periods": 100,
+   "id": "V0",
+   "price_round": null,
+   "reshuffle_every": 0,
+   "show_flow": false,
+   "show_rival_quotes": true,
+   "show_trades": true,
+   "size_round": null
+  }
+ },
+ "resumes": [],
+ "run_id": "SC-1--L7__s4__2a8c469517a8",
+ "schema_version": 1,
+ "seed": 4,
+ "seeds": {
+  "interventions_respawn": [
+   4,
+   791846262404399047
+  ],
+  "root": 4,
+  "streams": {
+   "batch": {
+    "entropy": 4,
+    "spawn_key": [
+     3
+    ]
+   },
+   "interventions": {
+    "entropy": 4,
+    "spawn_key": [
+     5
+    ]
+   },
+   "llm": {
+    "entropy": 4,
+    "spawn_key": [
+     4
+    ]
+   },
+   "matching": {
+    "entropy": 4,
+    "spawn_key": [
+     2
+    ]
+   },
+   "population": {
+    "entropy": 4,
+    "spawn_key": [
+     0
+    ]
+   },
+   "swarm": {
+    "entropy": 4,
+    "spawn_key": [
+     1
+    ]
+   },
+   "view": {
+    "entropy": 4,
+    "spawn_key": [
+     6
+    ]
+   }
+  }
+ },
+ "slots": [
+  {
+   "active": true,
+   "agent_id": 10000,
+   "family": null,
+   "kind": "SCRIPTED",
+   "lane": "mock",
+   "model": null,
+   "name": "Dealer A",
+   "policy": "best_responder",
+   "prompt_version": null,
+   "slot": 0,
+   "spec_type": "scripted"
+  },
+  {
+   "active": true,
+   "agent_id": 10001,
+   "family": null,
+   "kind": "SCRIPTED",
+   "lane": "mock",
+   "model": null,
+   "name": "Dealer B",
+   "policy": "best_responder",
+   "prompt_version": null,
+   "slot": 1,
+   "spec_type": "scripted"
+  },
+  {
+   "active": true,
+   "agent_id": 10002,
+   "family": null,
+   "kind": "SCRIPTED",
+   "lane": "mock",
+   "model": null,
+   "name": "Dealer C",
+   "policy": "best_responder",
+   "prompt_version": null,
+   "slot": 2,
+   "spec_type": "scripted"
+  },
+  {
+   "active": true,
+   "agent_id": 10003,
+   "family": null,
+   "kind": "SCRIPTED",
+   "lane": "mock",
+   "model": null,
+   "name": "Dealer D",
+   "policy": "best_responder",
+   "prompt_version": null,
+   "slot": 3,
+   "spec_type": "scripted"
+  }
+ ],
+ "started_at": "2026-10-10T18:11:47+00:00",
+ "status": "ok",
+ "trunk_id": "SC-1__s4__80cc16d36220",
+ "wall_time_s": 16.312
+}

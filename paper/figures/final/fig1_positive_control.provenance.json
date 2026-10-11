@@ -1,0 +1,140 @@
+{
+  "figure": "fig1_positive_control",
+  "label": "confirmatory reporting item (PREREG Gate 1 / 1b / AC-H; outline Fig. 1); no new statistic",
+  "code": {
+    "worktree_head": "59b0b4f2ec06a79b9615bcdfdfaef8fb0b999dc1",
+    "note": "src/finswarm/analysis, src/finswarm/metrics, scripts/analyze.py, scripts/make_figures.py, configs/analysis unchanged since 30164f1"
+  },
+  "commands": [
+    "uv run python scripts/analyze.py <ROOT>/results/campaigns/<C> --root . --out-root results/analysis/instruments   (C = PC-H, PC-H-dealer, PC-S, AC-H; 0 excluded, 0 ignored)",
+    "merge (scratchpad merge_stats.py): concatenate runs, union arms, union benchmarks (benchmarks identical across the four files)",
+    "uv run python scripts/make_figures.py <ROOT>/results/campaigns/PC-H --stats <scratchpad>/fig1_merged_stats.json --out paper/figures/fig1 --pc-arms PC-H,PC-H-dealer,PC-S"
+  ],
+  "inputs": {
+    "stats": {
+      "PC-H": {
+        "path": "C:\\Users\\perso\\Documents\\projets-perso\\fin-agent-collution-swarm\\.claude\\worktrees\\science\\results\\analysis\\instruments\\PC-H\\stats.json",
+        "sha256": "d3abdc4f0f8a1a0ac2b253b7eeb2ae8154688fa78dfd9e4ac3e31a61e92188ad",
+        "n_runs": 24,
+        "n_excluded": 0,
+        "n_ignored": 0
+      },
+      "PC-H-dealer": {
+        "path": "C:\\Users\\perso\\Documents\\projets-perso\\fin-agent-collution-swarm\\.claude\\worktrees\\science\\results\\analysis\\instruments\\PC-H-dealer\\stats.json",
+        "sha256": "e33ea8c26dd4260424c0e2a74a3f5723a5f153a196e8df5a8021912777354eb3",
+        "n_runs": 8,
+        "n_excluded": 0,
+        "n_ignored": 0
+      },
+      "PC-S": {
+        "path": "C:\\Users\\perso\\Documents\\projets-perso\\fin-agent-collution-swarm\\.claude\\worktrees\\science\\results\\analysis\\instruments\\PC-S\\stats.json",
+        "sha256": "6ac0eb4c950b7628d6aa0ffd184de34a4c897c25494eeb3d5234efcf6f803ce6",
+        "n_runs": 5,
+        "n_excluded": 0,
+        "n_ignored": 0
+      },
+      "AC-H": {
+        "path": "C:\\Users\\perso\\Documents\\projets-perso\\fin-agent-collution-swarm\\.claude\\worktrees\\science\\results\\analysis\\instruments\\AC-H\\stats.json",
+        "sha256": "ba0ab86e647aac5c86c32fe62d494188d8e36c779f8a995ff433929ec1b06346",
+        "n_runs": 4,
+        "n_excluded": 0,
+        "n_ignored": 0
+      }
+    },
+    "merged_stats": {
+      "path": "C:\\Users\\perso\\AppData\\Local\\Temp\\claude\\C--Users-perso-Documents-projets-perso-fin-agent-collution-swarm\\50b4361b-48c5-4ba6-80c9-a29d992f0827\\scratchpad\\fig1_merged_stats.json",
+      "sha256": "6941e866f894fe39d6d399dd1be3b058ad6f65c503ea951863b58868f42607bb",
+      "kept_in": "session scratchpad"
+    },
+    "gate_reads": {
+      "gates": {
+        "path": "C:\\Users\\perso\\Documents\\projets-perso\\fin-agent-collution-swarm\\results\\analysis\\gates\\gates.json",
+        "sha256": "d1a3e94db8a00babfb5abc9752f029d8940620dcffcdffbe8742b64d77a3027d"
+      },
+      "gates_S": {
+        "path": "C:\\Users\\perso\\Documents\\projets-perso\\fin-agent-collution-swarm\\results\\analysis\\gates_S\\gates.json",
+        "sha256": "3215617f1d33183d52384ea0612159e4cbd723120d5f36b4b7252ec8eb4c57a5"
+      },
+      "amendments": "A-000-1 (Gate 1 H, Gate 1b, AC-H), A-000-2 (Gate 1 S)"
+    }
+  },
+  "outputs": {
+    "fig1_positive_control.json": "efc83927e2a2bce51cf497bf9490e4edef2e5e1a322c5b30587c7e5b03a38198",
+    "fig1_positive_control.pdf": "dd44511b06405f079b97059d6e04d2d59d0ba86649b8f98df73b65f14060577b",
+    "fig1_positive_control.png": "6d89620a2d21883b2ced7d39137a1ceb51ec3df230e5ee14b2256f2c4d369a24"
+  },
+  "run_ids_plotted": [
+    "PC-H-alpha=1.0_min=1.0_max=4.0_tick=0.01__s0__900cac4a423d",
+    "PC-H-alpha=1.0_min=1.0_max=4.0_tick=0.01__s1__f9b9870f363d",
+    "PC-H-alpha=1.0_min=1.0_max=4.0_tick=0.01__s2__0ca6bb7f2a90",
+    "PC-H-alpha=1.0_min=1.0_max=4.0_tick=0.01__s3__c14467d60aee",
+    "PC-H-alpha=1.0_min=1.0_max=4.0_tick=0.01__s4__089726117a22",
+    "PC-H-alpha=1.0_min=1.0_max=4.0_tick=0.01__s5__e6478272de29",
+    "PC-H-alpha=1.0_min=1.0_max=4.0_tick=0.01__s6__7940a4201f21",
+    "PC-H-alpha=1.0_min=1.0_max=4.0_tick=0.01__s7__b8f53ed2c6bc",
+    "PC-H-alpha=10.0_min=10.0_max=40.0_tick=0.1__s0__15489e2076f4",
+    "PC-H-alpha=10.0_min=10.0_max=40.0_tick=0.1__s1__ae4688f03c57",
+    "PC-H-alpha=10.0_min=10.0_max=40.0_tick=0.1__s2__e5dcb70aaf9a",
+    "PC-H-alpha=10.0_min=10.0_max=40.0_tick=0.1__s3__af3b5f01cd06",
+    "PC-H-alpha=10.0_min=10.0_max=40.0_tick=0.1__s4__dd75026bd1fe",
+    "PC-H-alpha=10.0_min=10.0_max=40.0_tick=0.1__s5__ff3569a75e98",
+    "PC-H-alpha=10.0_min=10.0_max=40.0_tick=0.1__s6__d4dfbf267abc",
+    "PC-H-alpha=10.0_min=10.0_max=40.0_tick=0.1__s7__825cdeda7393",
+    "PC-H-alpha=3.2_min=3.2_max=12.8_tick=0.032__s0__3d5a83a3686f",
+    "PC-H-alpha=3.2_min=3.2_max=12.8_tick=0.032__s1__d1b4891be30f",
+    "PC-H-alpha=3.2_min=3.2_max=12.8_tick=0.032__s2__8c5d2eaaf1fd",
+    "PC-H-alpha=3.2_min=3.2_max=12.8_tick=0.032__s3__2d2ed2d7e9a1",
+    "PC-H-alpha=3.2_min=3.2_max=12.8_tick=0.032__s4__c2bb6fb80870",
+    "PC-H-alpha=3.2_min=3.2_max=12.8_tick=0.032__s5__1cab316b1a24",
+    "PC-H-alpha=3.2_min=3.2_max=12.8_tick=0.032__s6__2143bac8cbc7",
+    "PC-H-alpha=3.2_min=3.2_max=12.8_tick=0.032__s7__a8f41c4be005",
+    "PC-H-dealer__s0__75c2ff937020",
+    "PC-H-dealer__s1__30ec6d87fbbe",
+    "PC-H-dealer__s2__162fb23bc43a",
+    "PC-H-dealer__s3__6ea69bbbb3af",
+    "PC-H-dealer__s4__794822854c07",
+    "PC-H-dealer__s5__cca8d442c97e",
+    "PC-H-dealer__s6__390294e720f5",
+    "PC-H-dealer__s7__df07da403d06",
+    "PC-S__s0__28b6cd2def24",
+    "PC-S__s1__da56555fad19",
+    "PC-S__s2__a796669f3235",
+    "PC-S__s3__ec57657c29e1",
+    "PC-S__s4__d38425bda101"
+  ],
+  "run_ids_ac_h_marker": [
+    "AC-H__s0__ba1adbb7ff6b",
+    "AC-H__s1__61cf84fd3400",
+    "AC-H__s2__62282ae797db",
+    "AC-H__s3__59588f54a620"
+  ],
+  "gate_cross_check": {
+    "PC-H mean Delta_p": {
+      "figure": 0.1062,
+      "gate_read": 0.106,
+      "match_3dp": true
+    },
+    "PC-H-dealer mean Delta_p": {
+      "figure": 0.6491,
+      "gate_read": 0.649,
+      "match_3dp": true
+    },
+    "PC-S mean Delta_p": {
+      "figure": 0.3594,
+      "gate_read": 0.359,
+      "match_3dp": true
+    },
+    "AC-H median Delta_p": {
+      "figure": 0.3369,
+      "gate_read": 0.337,
+      "match_3dp": true
+    }
+  },
+  "caveats": [
+    "The Delta_pi panel shades [0.35, 0.95] labelled 'published (Delta_pi)'; PREREG Gate 1 and docs/01_literature/library.md mark this band UNVERIFIED (soft check only). figures.plot_positive_control has no option to omit it; not fixed here.",
+    "The generated sidecar lists 37 run ids (PC-H 24, PC-H-dealer 8, PC-S 5); the 4 AC-H run ids behind the median marker are listed here only.",
+    "Per-seed panels draw t-based 95 % CIs (figures.mean_ci); the gate read reports bootstrap CIs (PC-H 0.11 [0.04, 0.20], PC-H-dealer 0.65 [0.42, 0.80], PC-S 0.36 [0.14, 0.53]). Caption should quote the gate CIs.",
+    "The AC-H median is a Delta_p against the TR-H trunk benchmarks (4-dealer market, 1 LLM + 3 best responders, periods 71-100), drawn on the axis of the Fish duopoly Delta_p (own closed form, periods 251-300); same index scale, different market.",
+    "PC-M (Gate 1, M lane) absent: no analysable run (relaunch running, Gate 1 M read pending)."
+  ]
+}

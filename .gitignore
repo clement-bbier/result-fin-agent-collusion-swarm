@@ -1,0 +1,88 @@
+# secrets
+.env
+.env.*
+!.env.example
+# sealed answer key of the labelled corpus (lives outside the repo; belt and braces)
+**/key_SEALED.csv
+# python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.numba_cache/
+# claude code worktrees and logs
+.claude/worktrees/
+.claude/logs/
+# results and caches (manifests and final figures are tracked explicitly)
+results/*
+!results/manifests/
+# smoke-run manifests are not evidence and must never dirty the tree; PILOT-* and campaign
+# manifests stay tracked
+results/manifests/smoke*.json
+results/manifests/smoke_swarm*.json
+!results/figures/
+results/figures/*
+!results/figures/final/
+cache/
+*.parquet
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+# notebooks outputs
+notebooks/**/*.ipynb_checkpoints
+# os / ide
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# owner working copies of CSV sheets opened in Excel
+*.xlsx
+.edge-profile/
+paper/build/
+
+# --- Sprint process and AI-assistant tooling (kept locally, not part of the published research) ---
+# Claude Code configuration, agents, hooks, skills and session instructions
+.claude/
+CLAUDE.md
+.worktreeinclude
+# Sprint scheduling, coordination and release-operations notes
+docs/05_sprint/BACKLOG.md
+docs/05_sprint/CRITICAL_PATH.md
+docs/05_sprint/PHASE.md
+docs/05_sprint/judging_rubric.md
+docs/05_sprint/paper_session_prompt.md
+docs/05_sprint/release_dry_run.md
+docs/05_sprint/schedule.md
+docs/04_runbooks/parallel_sessions.md
+docs/04_runbooks/worktrees_and_sessions.md
+docs/04_runbooks/release.md
+docs/04_runbooks/campaigns.md
+docs/05_sprint/SPRINT_LOG.md
+# Cost reporting and run-planning tools (spend is reported in the paper; configs/budget.yaml stays as a safety cap)
+scripts/cost_report.py
+scripts/price_prompt.py
+scripts/campaigns_table.py
+tests/unit/test_campaigns_table.py
+scripts/sprint_status.py
+scripts/worktrees.py
+tests/unit/test_hooks.py
+tests/unit/test_worktrees.py
+# Writing scaffolds and correspondence (the paper itself stays in paper/draft and paper/release)
+paper/cover_note.md
+paper/abstract.md
+paper/outline.md
+paper/numbers.example.json
+paper/draft/OWNER_BRIEF.md
+paper/draft/README.md
+paper/draft/BUILD.md
+# Superseded figure drafts (the paper uses paper/figures/final/)
+paper/figures/skeleton/
+paper/figures/fig1/
+paper/figures/fig2/
+paper/figures/fig3/
+paper/figures/fig4/

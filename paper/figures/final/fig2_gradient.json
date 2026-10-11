@@ -1,0 +1,118 @@
+{
+  "figure": "structural_gradient",
+  "code_sha": "7ad1c251948ffd3921cdaa0ea154a2df2ec7ff44",
+  "role": "confirmatory",
+  "inputs": [
+    {
+      "path": "C:\\Users\\perso\\Documents\\projets-perso\\fin-agent-collution-swarm\\.claude\\worktrees\\science\\results\\analysis\\TR-H\\stats.json",
+      "sha256": "943e3e0e532db8feb272f73a27c7c0c07f2dc7ff19d371bec74b14aa8ae8344f"
+    },
+    {
+      "path": "C:\\Users\\perso\\Documents\\projets-perso\\fin-agent-collution-swarm\\.claude\\worktrees\\science\\results\\analysis\\GR-H\\stats.json",
+      "sha256": "9db33a31f08f2edff3e9b50e766c38a1926b76cb9b73107063f9eac9940bddba"
+    }
+  ],
+  "run_ids": [
+    "GR-H-tau=0.02_level=s4__s3001__8f6b4250c5f2",
+    "GR-H-tau=0.02_level=s4__s3002__320bd0465db6",
+    "GR-H-tau=0.02_level=s4__s3003__5d374f7a63fb",
+    "GR-H-tau=0.02_level=s4__s3004__2e8a1739c60a",
+    "GR-H-tau=0.0625_level=s3__s3001__066d1c5256ee",
+    "GR-H-tau=0.0625_level=s3__s3002__72caa317b157",
+    "GR-H-tau=0.0625_level=s3__s3003__196dbff258f0",
+    "GR-H-tau=0.0625_level=s3__s3004__6d03fcf925e0",
+    "GR-H-tau=0.125_level=s2__s3001__2a995aa09c65",
+    "GR-H-tau=0.125_level=s2__s3002__f611673b9d33",
+    "GR-H-tau=0.125_level=s2__s3003__ff4a5ff5ecae",
+    "GR-H-tau=0.125_level=s2__s3004__5b2cafdcfc47",
+    "GR-H-tau=None_level=s1__s3001__d46c184ff308",
+    "GR-H-tau=None_level=s1__s3002__8b58086625e9",
+    "GR-H-tau=None_level=s1__s3003__932830ec3793",
+    "GR-H-tau=None_level=s1__s3004__24900117dbe2",
+    "TR-H__s0__8a386a416fe8",
+    "TR-H__s10__3e0320183d5c",
+    "TR-H__s11__96c4a7d59545",
+    "TR-H__s1__d863903e953b",
+    "TR-H__s2__bfb5abcf0c58",
+    "TR-H__s3__784c2eb07b8d",
+    "TR-H__s4__98fb48657300",
+    "TR-H__s5__5a8511c1528d",
+    "TR-H__s6__b153526db546",
+    "TR-H__s7__b1ad7d2d4409",
+    "TR-H__s8__0e725e4cef95",
+    "TR-H__s9__a2a7d47758a8"
+  ],
+  "data": {
+    "notes": {
+      "markers": "square = pooled TR-H s1 (trunk role); circle = CRN-paired GR-H levels"
+    },
+    "trunk": {
+      "mean": 0.9887529918176862,
+      "lo": 0.9651929919707981,
+      "hi": 1.0123129916645741,
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.8711375374809031,
+        1.0,
+        1.0,
+        0.9938983643313305,
+        1.0,
+        1.0
+      ],
+      "marker": "s"
+    },
+    "GR-s1": {
+      "mean": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "marker": "o"
+    },
+    "GR-s2": {
+      "mean": 0.9671260348927777,
+      "lo": 0.8625064060972725,
+      "hi": 1.071745663688283,
+      "values": [
+        0.8685041395711107,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "marker": "o"
+    },
+    "GR-s3": {
+      "mean": 0.9127757142310888,
+      "lo": 0.7709917613599107,
+      "hi": 1.054559667102267,
+      "values": [
+        0.972881782001134,
+        0.8686444485937133,
+        1.0,
+        0.8095766263295083
+      ],
+      "marker": "o"
+    },
+    "GR-s4": {
+      "mean": 0.8171035507395811,
+      "lo": 0.6730367128011222,
+      "hi": 0.9611703886780399,
+      "values": [
+        0.8908119262131967,
+        0.7285182554456028,
+        0.8993774255037086,
+        0.7497065957958164
+      ],
+      "marker": "o"
+    }
+  }
+}

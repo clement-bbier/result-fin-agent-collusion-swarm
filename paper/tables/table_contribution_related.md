@@ -1,0 +1,10 @@
+# Contribution table for Related Work (cells limited to what `library.md` states; UNVERIFIED where not read)
+
+| Study | Setting | Intervention timing | Pairing | Cost axis | Finding |
+| --- | --- | --- | --- | --- | --- |
+| Garra 2026 (`garra2026`) | Fish-style Bertrand-logit duopoly baseline, DeepSeek-V3.1 (single provider), 300 periods, 7 runs per prompt; three firms once the entrant is in | Present in every period (not mid-run); entry timing UNVERIFIED | Independent runs, no checkpoint pairing | None | Random-price entrant: Delta -0.367 (P1), 0 of 7 runs above Nash; baseline 0.569, warning 0.242, regulator 0.080 (plan figures); levels against different benchmarks |
+| Keppo et al. 2026 (`keppo2026`) | Bertrand-logit, R1-Qwen LLM pricers | Composition and information varied by design, not an intervention at a checkpoint | Not stated (UNVERIFIED) | None stated | Abstract: more competing LLMs and LLM-vs-Q-learner heterogeneity break up collusion (qualitative); patience heterogeneity cuts the price lift from 22 % to 10 % |
+| Conjeaud et al. 2026 (`conjeaud2026`) | Algorithmic (non-LLM) pricing under asynchronous updating | Design of the market | UNVERIFIED | UNVERIFIED | Not read beyond title and authors: UNVERIFIED |
+| Cartea, Chang, Penalva 2022 (`cartea2022tick`) | Reinforcement-learning dealers, tick size | Design of the market | Not applicable | None stated | A wider tick makes collusion easier for RL dealers |
+| Barclay et al. 1999 (`barclay1999`) | Field evidence: 1997 Nasdaq order-handling rules | Regulatory event | Before / after | Trading costs and depths | Spreads fell after limit-order display |
+| **This study** | Four LLM dealers (Haiku 5.5), one-sided posted prices, swarm demand, Bertrand-logit benchmarks | Eight market-rule changes and entry applied at an established-regime checkpoint (period 100) | Paired by trunk, with sham and second sham | Registered market-quality cost in competitive scripted markets (SC1 static best responders) | Six design changes leave asks at the ceiling; entry of a non-colluding seller reduces them (capped dC_p 0.62, Holm p < 0.001) at no measured cost |

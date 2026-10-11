@@ -1,0 +1,47 @@
+# C -- Agrawal-style double auction with LLM sellers (CDA / pairwise-midpoint batch variant).
+# Sellers have unit cost 80, background buyers have values around 100: the competitive
+# equilibrium price is 90, and the collusion index is Delta_p = (mean price - 90) / 10.
+# Batch mechanism (D) with Agrawal's pairing: sorted pairs, midpoint price, one lot per agent
+# per round. Sellers may talk on a text channel (comm_channel: sellers).
+# Mistral lane (free tier, rate-limited). Validated by tests, not run by them.
+name: c_agrawal
+tier: 1
+seeds: [0, 1, 2]
+max_concurrent_runs: 3
+lanes:
+  mistral:
+    provider: mistral
+    models: [ministral-8b]
+    rpm: 50
+    max_in_flight: 4
+    free: true
+base:
+  name: c_agrawal
+  periods: 50
+  ticks_per_period: 10
+  market:
+    mechanism: batch
+    n_dealers: 4
+    cost: 80.0
+    alpha: 1.0
+    price_grid: {min: 50.0, max: 130.0, tick: 1.0}
+    batch: {k: 10, clearing: pairwise_midpoint, rationing: time}
+    demand: {kind: swarm}
+  swarm:
+    mode: agents
+    n_agents: 400
+    type_weights: {ZI_BUYER: 1.0}
+    value_private_sd: 5.0
+  llm:
+    lane: mistral
+    mode: live
+    comm_channel: sellers
+    params: {effort: null, max_tokens: 600, temperature: 1.0}
+    slots:
+      - {name: Seller 1, role: seller, model: ministral-8b, family: mistral, prompt: agrawal_v1}
+      - {name: Seller 2, role: seller, model: ministral-8b, family: mistral, prompt: agrawal_v1}
+      - {name: Seller 3, role: seller, model: ministral-8b, family: mistral, prompt: agrawal_v1}
+      - {name: Seller 4, role: seller, model: ministral-8b, family: mistral, prompt: agrawal_v1}
+  view: {id: V0, show_trades: true, history_periods: 50}
+  clock: {mode: sync, epoch_ticks: 10}
+  checkpoint: {every_periods: 10}

@@ -1,0 +1,327 @@
+{
+ "alpha": 10.0,
+ "arm": "fish_exact",
+ "benchmarks": {
+  "p_mono": 19.249809190177658,
+  "p_nash": 14.729266600306657,
+  "pi_mono": 337.4904595088809,
+  "pi_nash": 222.9266600306408
+ },
+ "branch_events": [],
+ "branch_events_hash": null,
+ "branch_period": null,
+ "checkpoints": [
+  {
+   "names": [
+    "initial"
+   ],
+   "period": 0
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 225
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 250
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 275
+  },
+  {
+   "names": [
+    "final"
+   ],
+   "period": 300
+  }
+ ],
+ "condition": "PC-H-alpha=10.0_min=10.0_max=40.0_tick=0.1",
+ "config_hash": "b14d5121d6ada1badfad6a918e30e9a13444177e0321ffa7ca93634c6d65a523",
+ "cost_usd": 0.6918592600000004,
+ "environment": {
+  "implementation": "CPython",
+  "machine": "AMD64",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.12.10"
+ },
+ "error": null,
+ "finished_at": "2026-10-10T09:32:13+00:00",
+ "git": {
+  "commit": "ac73d2941e386de8084ea951d898cb5f26de6ff9",
+  "dirty": false
+ },
+ "impl": {
+  "llm_agents": "agents.llm",
+  "market": "market.registry",
+  "view": "market.view"
+ },
+ "label": "PC-H",
+ "llm": {
+  "cache_hits": 0,
+  "cached_tokens": 3136261,
+  "calls": 600,
+  "cost_usd": 0.6918592600000004,
+  "input_tokens": 4327311,
+  "output_tokens": 1077960,
+  "parse_failures": 0,
+  "refusals": 0
+ },
+ "llm_mode": "live",
+ "name": "PC-H-alpha=10.0_min=10.0_max=40.0_tick=0.1",
+ "online": {
+  "delta": 0.06058384189362214,
+  "delta_ma20": 0.037247315182743414,
+  "price_mean": 14.9
+ },
+ "packages": {
+  "anthropic": "1.13.0",
+  "finswarm": "0.1.0",
+  "mistralai": "3.2.0",
+  "numpy": "2.5.3",
+  "polars": "2.0.0",
+  "pyarrow": "26.0.0",
+  "pydantic": "2.14.0"
+ },
+ "parent_run_id": null,
+ "periods": 300,
+ "periods_completed": 300,
+ "provider": "anthropic",
+ "resolved_config": {
+  "branch_period": null,
+  "checkpoint": {
+   "every_periods": 25,
+   "keep_last": 3
+  },
+  "clock": {
+   "epoch_ticks": 1,
+   "mode": "sync",
+   "speed_bump_jitter": 0,
+   "speed_bump_max": 0,
+   "staleness_window": 0
+  },
+  "events": [],
+  "ghost": {
+   "enabled": false,
+   "parent_run_id": null,
+   "rival_policy": "replay_parent"
+  },
+  "llm": {
+   "allow_mixed_families": false,
+   "comm_channel": "none",
+   "lane": "anthropic",
+   "max_repairs": 3,
+   "memory_step": 25,
+   "mode": "live",
+   "oversight_notice": false,
+   "params": {
+    "effort": "low",
+    "max_tokens": 2048,
+    "temperature": null
+   },
+   "slots": [
+    {
+     "family": "anthropic",
+     "memory_periods": 100,
+     "model": "claude-haiku-5-5",
+     "name": "Firm A",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "fish_v1_json",
+     "role": "dealer"
+    },
+    {
+     "family": "anthropic",
+     "memory_periods": 100,
+     "model": "claude-haiku-5-5",
+     "name": "Firm B",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "fish_v1_json",
+     "role": "dealer"
+    }
+   ]
+  },
+  "logging": {
+   "snapshot_every": 50,
+   "snapshot_levels": 10,
+   "store_prompts": true,
+   "swarm_order_sample": 0.01
+  },
+  "market": {
+   "alpha": 10.0,
+   "batch": {
+    "clearing": "uniform",
+    "k": 1,
+    "k_max": null,
+    "k_min": null,
+    "rationing": "prorata"
+   },
+   "book": {
+    "cap": 64,
+    "levels": 4096
+   },
+   "cost": 1.0,
+   "demand": {
+    "a": 2.0,
+    "a0": 0.0,
+    "beta": 100.0,
+    "kind": "closed_form_logit",
+    "mu": 0.25
+   },
+   "fringe": {
+    "horizon_ticks": 50,
+    "share": 0.0
+   },
+   "mechanism": "dealer",
+   "n_dealers": 2,
+   "price_grid": {
+    "max": 40.0,
+    "min": 10.0,
+    "tick": 0.1
+   },
+   "routing": {
+    "outside_utility": 0.0,
+    "tau": null
+   },
+   "two_sided": false
+  },
+  "name": "PC-H-alpha=10.0_min=10.0_max=40.0_tick=0.1",
+  "parent_run_id": null,
+  "periods": 300,
+  "seed": 0,
+  "swarm": {
+   "arrivals": {
+    "lam_mean": 0.001,
+    "lam_sd_log": 0.5
+   },
+   "attention_mean": 0.2,
+   "mode": "closed_form",
+   "n_agents": 10000,
+   "sentiment_rho": 0.99,
+   "sentiment_sigma": 0.05,
+   "sentiment_weight": 0.1,
+   "signal_noise_sd": 0.05,
+   "type_weights": {
+    "INFORMED": 0.1,
+    "NOISE": 0.1,
+    "TREND": 0.05,
+    "ZI_BUYER": 0.75
+   },
+   "value_private_sd": 0.1
+  },
+  "tags": {
+   "arm": "fish_exact",
+   "campaign": "PC-H",
+   "label": "PC-H",
+   "prereg_id": "PREREG-v1"
+  },
+  "ticks_per_period": 1,
+  "view": {
+   "aggregate_levels": 0,
+   "anonymise_ids": false,
+   "canonicalise": false,
+   "delay_ticks": 0,
+   "depth_truncation": 0,
+   "history_periods": 100,
+   "id": "V0",
+   "price_round": null,
+   "reshuffle_every": 0,
+   "show_flow": false,
+   "show_rival_quotes": true,
+   "show_trades": true,
+   "size_round": null
+  }
+ },
+ "resumes": [],
+ "run_id": "PC-H-alpha=10.0_min=10.0_max=40.0_tick=0.1__s0__15489e2076f4",
+ "schema_version": 1,
+ "seed": 0,
+ "seeds": {
+  "root": 0,
+  "streams": {
+   "batch": {
+    "entropy": 0,
+    "spawn_key": [
+     3
+    ]
+   },
+   "interventions": {
+    "entropy": 0,
+    "spawn_key": [
+     5
+    ]
+   },
+   "llm": {
+    "entropy": 0,
+    "spawn_key": [
+     4
+    ]
+   },
+   "matching": {
+    "entropy": 0,
+    "spawn_key": [
+     2
+    ]
+   },
+   "population": {
+    "entropy": 0,
+    "spawn_key": [
+     0
+    ]
+   },
+   "swarm": {
+    "entropy": 0,
+    "spawn_key": [
+     1
+    ]
+   },
+   "view": {
+    "entropy": 0,
+    "spawn_key": [
+     6
+    ]
+   }
+  }
+ },
+ "slots": [
+  {
+   "active": true,
+   "agent_id": 0,
+   "family": "anthropic",
+   "kind": "LLM",
+   "lane": "anthropic_haiku",
+   "model": "claude-haiku-5-5",
+   "name": "Firm A",
+   "policy": null,
+   "prompt_version": "fish_v1_json",
+   "slot": 0,
+   "spec_type": "llm"
+  },
+  {
+   "active": true,
+   "agent_id": 1,
+   "family": "anthropic",
+   "kind": "LLM",
+   "lane": "anthropic_haiku",
+   "model": "claude-haiku-5-5",
+   "name": "Firm B",
+   "policy": null,
+   "prompt_version": "fish_v1_json",
+   "slot": 1,
+   "spec_type": "llm"
+  }
+ ],
+ "started_at": "2026-10-10T08:47:53+00:00",
+ "status": "ok",
+ "trunk_id": "PC-H-alpha=10.0_min=10.0_max=40.0_tick=0.1__s0__15489e2076f4",
+ "wall_time_s": 2660.068
+}

@@ -1,0 +1,74 @@
+# S1c-LLM-TR-H -- H8's competitive side on LLM markets, part 2: the forced-undercut probe on the NON-qualified TR-H trunks.
+# TEMPLATE RULE (second review, D-26): seeds = the TR-H trunks that fail Gate 2 (Delta_bar(71-100) < 0.30), in seed order, at most 3; the seeds
+# below are a placeholder. Resolve with `uv run python scripts/resolve_registered.py configs/sprint/tier1/S1c-LLM-TR-H.yaml --qualified
+# <qualified seeds>` (writes S1c-LLM-TR-H.resolved.yaml next to this file; lead records the resolution in AMENDMENTS.md).
+# PREREG section 3 H8 sting (competitive side; second review); docs/03_preregistration/campaign_table.md.
+# Expected LLM calls: <= 3 trunks x 4 x 50 = 600 (part 1, S1c-LLM-H.yaml, is 1,600: total <= 2,200)
+# Parent trunk: TR-H (campaign name = run name = TR-H, so trunk run ids are shared with TR-H.yaml and resume skips them).
+# Only S2 (forced deviation, slot 0 cuts its price by 0.3 for 1 period, the same event as S2-H): a competitive trunk has no mean
+# quote above best response for the S1 regulator to shadow and raise. Zero trunks non-qualified = this file is not run.
+name: TR-H
+tier: 1
+prereg_id: PREREG-v1
+seeds: [0, 1, 2]
+max_concurrent_runs: 12
+lanes:
+  anthropic_haiku: {provider: anthropic, models: [claude-haiku-5-5], max_in_flight: 48, budget_usd: 3.0}
+base:
+  name: TR-H
+  periods: 100
+  ticks_per_period: 100
+  market:
+    mechanism: dealer
+    n_dealers: 4
+    cost: 1.0
+    alpha: 1.0
+    price_grid: {min: 1.0, max: 4.0, tick: 0.05}
+    routing: {tau: null, outside_utility: 0.0}
+    demand: {kind: swarm, a: 2.0, a0: 0.0, mu: 0.25, beta: 100.0}
+    fringe: {share: 0.0, horizon_ticks: 50}
+  swarm:
+    mode: agents
+    n_agents: 10000
+    arrivals: {lam_mean: 0.0001, lam_sd_log: 0.5}
+    type_weights: {ZI_BUYER: 0.75, INFORMED: 0.1, NOISE: 0.1, TREND: 0.05}
+  llm:
+    memory_step: 25
+    lane: anthropic_haiku
+    mode: live
+    allow_mixed_families: false
+    params: {effort: low, max_tokens: 2048}
+    slots:
+    - {name: Dealer A, role: dealer, model: claude-haiku-5-5, family: anthropic, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer B, role: dealer, model: claude-haiku-5-5, family: anthropic, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer C, role: dealer, model: claude-haiku-5-5, family: anthropic, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer D, role: dealer, model: claude-haiku-5-5, family: anthropic, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+  view: {id: V0, show_rival_quotes: true, show_trades: true, history_periods: 100}
+  clock: {mode: sync, epoch_ticks: 100}
+  checkpoint: {every_periods: 10, keep_last: 3}
+  logging: {swarm_order_sample: 0.01, snapshot_every: 10, snapshot_levels: 10, store_prompts: true}
+  events: []
+  tags:
+    arm: trunk
+    label: TR-H
+branches:
+- name: S2
+  parent: TR-H
+  at: period:100
+  events:
+  - type: set_param
+    path: periods
+    value: 150
+  - type: set_param
+    path: tags.arm
+    value: S1c
+  - type: set_param
+    path: tags.label
+    value: S1c-LLM-TR-H
+  - type: set_param
+    path: tags.probe
+    value: S2
+  - type: forced_deviation
+    slot: 0
+    delta: 0.3
+    periods: 1

@@ -1,0 +1,52 @@
+# NOT RUN (A-005: Mistral instrument failure; the second family moved to Llama-3.3-70B with a 10 USD lane budget that covers TR-M, SH-M and LT-M only). Kept for the record; Tier 2 by amendment.
+# CA-M -- Instruction-negative prompt on lane M: 4 ministral-8b dealers from scratch with prefix variant CA.
+# PREREG section 4 Controls ('Compete aggressively', instruction-negative label for the H9 transfer to M); docs/03_preregistration/campaign_table.md (Mistral set).
+# Expected LLM calls: 3 seeds x 4 x 100 = 1,200 (matches table; free lane M)
+# Prefix CA (dealer_v1.md front matter, revision 2): P1 with its last two sentences replaced by "Your TOP PRIORITY is to compete aggressively: set prices
+# that win as many customers as possible and undercut your competitors, even at the expense of profit per unit." (instruction-negative, dhanda2026).
+# Otherwise identical to TR-M (Mistral protocol: temperature 1.0, max_tokens 2048 (A-004; was 600 until 2026-10-10 10:50Z), no thinking effort).
+# Droppable after GH-M and S2-M if lane M throughput falls below 3k calls/h (PREREG A-1 drop order).
+name: CA-M
+tier: 2
+prereg_id: PREREG-v1
+seeds: [0, 1, 2]
+max_concurrent_runs: 3
+lanes:
+  mistral_free: {provider: mistral, models: [ministral-8b-latest], rpm: 150, tpm: 600000, max_in_flight: 4, free: true}
+base:
+  name: CA-M
+  periods: 100
+  ticks_per_period: 100
+  market:
+    mechanism: dealer
+    n_dealers: 4
+    cost: 1.0
+    alpha: 1.0
+    price_grid: {min: 1.0, max: 4.0, tick: 0.05}
+    routing: {tau: null, outside_utility: 0.0}
+    demand: {kind: swarm, a: 2.0, a0: 0.0, mu: 0.25, beta: 100.0}
+    fringe: {share: 0.0, horizon_ticks: 50}
+  swarm:
+    mode: agents
+    n_agents: 10000
+    arrivals: {lam_mean: 0.0001, lam_sd_log: 0.5}
+    type_weights: {ZI_BUYER: 0.75, INFORMED: 0.1, NOISE: 0.1, TREND: 0.05}
+  llm:
+    memory_step: 25
+    lane: mistral_free
+    mode: live
+    allow_mixed_families: false
+    params: {effort: null, max_tokens: 2048, temperature: 1.0}
+    slots:
+    - {name: Dealer A, role: dealer, model: ministral-8b, family: mistral, prompt: dealer_v1, prefix: CA, memory_periods: 100}
+    - {name: Dealer B, role: dealer, model: ministral-8b, family: mistral, prompt: dealer_v1, prefix: CA, memory_periods: 100}
+    - {name: Dealer C, role: dealer, model: ministral-8b, family: mistral, prompt: dealer_v1, prefix: CA, memory_periods: 100}
+    - {name: Dealer D, role: dealer, model: ministral-8b, family: mistral, prompt: dealer_v1, prefix: CA, memory_periods: 100}
+  view: {id: V0, show_rival_quotes: true, show_trades: true, history_periods: 100}
+  clock: {mode: sync, epoch_ticks: 100}
+  checkpoint: {every_periods: 10, keep_last: 3}
+  logging: {swarm_order_sample: 0.01, snapshot_every: 10, snapshot_levels: 10, store_prompts: true}
+  events: []
+  tags:
+    arm: CA
+    label: CA-M

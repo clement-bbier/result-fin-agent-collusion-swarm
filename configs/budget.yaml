@@ -1,0 +1,8 @@
+# Global LLM spend policy (owner: integrator). Read by finswarm.llm.scheduler.load_budget_policy
+# (lane scheduler: warnings and hard stop on paid providers, persisted through the ledger) and by
+# the runner (per-run cap: a run whose LLM cost exceeds per_run_max_usd is paused at the next
+# period boundary and can be resumed). Free lanes and the mock provider cost 0.
+anthropic_total_usd: 200
+warn_usd: [100, 150]
+stop_usd: 195
+per_run_max_usd: 25

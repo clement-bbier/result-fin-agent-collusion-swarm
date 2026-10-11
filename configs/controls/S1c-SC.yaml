@@ -1,0 +1,67 @@
+# S1c-SC -- S1c: the S1 sting (rise 0.2) applied to the competitive scripted market SC-1 (4 best_responder dealers), 20 seeds, for the follow rate in competitive markets.
+# PREREG section 3 H8 (competitive control for the sting); docs/03_preregistration/campaign_table.md.
+# Expected LLM calls: 0 (mock lane)
+# campaign_table lists S1c in the former sequential family without a separate call count.
+name: SC-1
+tier: 1
+prereg_id: PREREG-v1
+seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+max_concurrent_runs: 12
+lanes:
+  mock: {provider: mock, models: [mock-v1], max_in_flight: 64, free: true}
+base:
+  name: SC-1
+  periods: 100
+  ticks_per_period: 100
+  market:
+    mechanism: dealer
+    n_dealers: 4
+    cost: 1.0
+    alpha: 1.0
+    price_grid: {min: 1.0, max: 4.0, tick: 0.05}
+    routing: {tau: null, outside_utility: 0.0}
+    demand: {kind: swarm, a: 2.0, a0: 0.0, mu: 0.25, beta: 100.0}
+    fringe: {share: 0.0, horizon_ticks: 50}
+  swarm:
+    mode: agents
+    n_agents: 10000
+    arrivals: {lam_mean: 0.0001, lam_sd_log: 0.5}
+    type_weights: {ZI_BUYER: 0.75, INFORMED: 0.1, NOISE: 0.1, TREND: 0.05}
+  llm:
+    lane: mock
+    mode: mock
+    allow_mixed_families: false
+    params: {effort: low, max_tokens: 2048}
+    slots:
+    - {name: Dealer A, role: dealer, model: scripted, family: mock, policy: best_responder}
+    - {name: Dealer B, role: dealer, model: scripted, family: mock, policy: best_responder}
+    - {name: Dealer C, role: dealer, model: scripted, family: mock, policy: best_responder}
+    - {name: Dealer D, role: dealer, model: scripted, family: mock, policy: best_responder}
+  view: {id: V0, show_rival_quotes: true, show_trades: true, history_periods: 100}
+  clock: {mode: sync, epoch_ticks: 100}
+  checkpoint: {every_periods: 10, keep_last: 3}
+  logging: {swarm_order_sample: 0.01, snapshot_every: 10, snapshot_levels: 10, store_prompts: true}
+  events: []
+  tags:
+    arm: SC-1
+    label: SC-1
+branches:
+- name: S1c
+  parent: SC-1
+  at: period:100
+  events:
+  - type: set_param
+    path: periods
+    value: 150
+  - type: set_param
+    path: tags.arm
+    value: S1c
+  - type: set_param
+    path: tags.label
+    value: S1c
+  - type: sting
+    slot: 4
+    delta: 0.2
+    shadow_epochs: 5
+    hold_epochs: 5
+    probes: 3

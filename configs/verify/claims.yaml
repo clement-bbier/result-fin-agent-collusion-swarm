@@ -1,0 +1,1734 @@
+# Claims -> verify rows (paper/claims.md C1..C10; SAP section 12). Read by
+# finswarm.analysis.numbers (`scripts/analyze.py --numbers`) to produce paper/numbers.json: for
+# every row the EXPECTED value is copied from the registered analysis outputs (stats.json,
+# gates.json, family_s.json, detection report.json) and scripts/verify.py re-derives it from
+# the raw logs with no finswarm code. A claim whose expected value is not yet available is
+# written with expected null and verifies as "pending".
+#
+# source: {file: <analysis output>, path: <dotted path into its JSON>}; "{out}" expands to the
+# analysis out-root, "{camp}" to the campaigns root. runs: glob of run directories (verify.py).
+# Benchmarks are pinned values: "{bench:<pin>:<market>}" expands to the pinned p_N/p_M/pi_N/pi_M
+# of configs/analysis/benchmarks/<pin>.json via the registry.
+version: 1
+tolerance_default: 0.005
+windows: {branch: [111, 150], trunk: [71, 100], fish: [251, 300]}
+members: [0, 1, 2, 3]
+
+claims:
+  # ---------------------------------------------------------------- C1 / C1b / C1c (gates)
+  C1_delta_p_mean:
+    claim: C1
+    metric: delta_price
+    runs: "{camp}/PC-H/*"
+    params: {window: fish, members: [0, 1], bench: run_closed_form, agg: mean}
+    source: {file: "{out}/gates/gates.json", path: "gates.Gate 1 (PC-H).delta_p.mean"}
+  C1_delta_p_ci_lo:
+    claim: C1
+    metric: delta_price
+    runs: "{camp}/PC-H/*"
+    params: {window: fish, members: [0, 1], bench: run_closed_form, agg: bca_lo, strata: alpha, B: 10000}
+    source: {file: "{out}/gates/gates.json", path: "gates.Gate 1 (PC-H).delta_p.lo"}
+    tolerance: 0.02
+  C1_delta_p_ci_hi:
+    claim: C1
+    metric: delta_price
+    runs: "{camp}/PC-H/*"
+    params: {window: fish, members: [0, 1], bench: run_closed_form, agg: bca_hi, strata: alpha, B: 10000}
+    source: {file: "{out}/gates/gates.json", path: "gates.Gate 1 (PC-H).delta_p.hi"}
+    tolerance: 0.02
+  C1_share_runs_above_0_10:
+    claim: C1
+    metric: delta_price
+    runs: "{camp}/PC-H/*"
+    params: {window: fish, members: [0, 1], bench: run_closed_form, agg: "share_above:0.10"}
+    source: {file: "{out}/gates/gates.json", path: "gates.Gate 1 (PC-H).criteria.share_runs_above.value"}
+    tolerance: 0.0
+  C1_delta_pi_mean:
+    claim: C1
+    metric: delta
+    runs: "{camp}/PC-H/*"
+    params: {window: fish, members: [0, 1], bench: run_closed_form, agg: mean}
+    source: {file: "{out}/gates/gates.json", path: "gates.Gate 1 (PC-H).delta_pi_mean"}
+  C1_parse_fail_rate:
+    claim: C1
+    metric: parse_fail_rate
+    runs: "{camp}/PC-H/*"
+    params: {agg: pooled}
+    source: {file: "{out}/gates/gates.json", path: "gates.Gate 1 (PC-H).criteria.parse_failures.value"}
+    tolerance: 0.001
+  C1b_delta_p_mean:
+    claim: C1b
+    metric: delta_price
+    runs: "{camp}/PC-H-dealer/*"
+    params: {window: fish, members: [0, 1], bench: run_closed_form, agg: mean}
+    source: {file: "{out}/gates/gates.json", path: "gates.Gate 1b (PC-H-dealer).delta_p.mean"}
+  C1b_delta_pi_mean:
+    claim: C1b
+    metric: delta
+    runs: "{camp}/PC-H-dealer/*"
+    params: {window: fish, members: [0, 1], bench: run_closed_form, agg: mean}
+    source: {file: "{out}/gates/gates.json", path: "gates.Gate 1b (PC-H-dealer).delta_pi_mean"}
+  C1c_anchoring_median_delta_p:
+    claim: C1c
+    metric: delta_price
+    runs: "{camp}/AC-H/*"
+    params: {window: trunk, members: [0], bench: "{bench:TR-H:trunk}", agg: median}
+    source: {file: "{out}/gates/gates.json", path: "gates.AC-H anchoring diagnostic (AC-H).median_delta_p"}
+  # ---------------------------------------------------------------- Gate 2 (established)
+  G2_n_established:
+    claim: C3a
+    metric: established
+    runs: "{camp}/TR-H/*"
+    params: {arm: trunk, window: trunk, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", thresholds: {delta_price: 0.30, delta: 0.30}, agg: count}
+    source: {file: "{out}/gates/gates.json", path: "gates.Gate 2 (TR-H).n_qualified"}
+    tolerance: 0.0
+  G2_trend_slope:
+    claim: C3a
+    metric: trend_slope
+    runs: "{camp}/TR-H/*"
+    params: {arm: trunk, window: [81, 100], members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}"}
+    source: {file: "{out}/gates/gates.json", path: "gates.Gate 2 (TR-H).trend_rule.slope"}
+    tolerance: 0.0005
+  # ---------------------------------------------------------------- C2 gradient (H2)
+  C2_spearman_rho:
+    claim: C2
+    metric: spearman_level
+    runs: "{camp}/GR-H/*"
+    params: {window: trunk, members: [0, 1, 2, 3], bench: run_closed_form, cap: 1.0, level_key: resolved_config.tags.level, level_map: {s1: 1, s2: 2, s3: 3, s4: 4}, group_key: seed, stat: rho}
+    source: {file: "{out}/family_s/family_s.json", path: "hypotheses.H2.spearman.rho"}
+  C2_spearman_p_perm:
+    claim: C2
+    metric: spearman_level
+    runs: "{camp}/GR-H/*"
+    params: {window: trunk, members: [0, 1, 2, 3], bench: run_closed_form, cap: 1.0, level_key: resolved_config.tags.level, level_map: {s1: 1, s2: 2, s3: 3, s4: 4}, group_key: seed, stat: p_perm, n_perm: 10000}
+    source: {file: "{out}/family_s/family_s.json", path: "hypotheses.H2.spearman.p_perm"}
+    tolerance: 0.01
+  C2_s1_minus_s4:
+    claim: C2
+    metric: welch_one_sided
+    runs: "{camp}/TR-H/*"
+    params: {arm: trunk, window: trunk, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, treatment_runs: "{camp}/GR-H/*", treatment_filter: {resolved_config.tags.level: s4}, treatment_bench: run_closed_form, extra_runs: "{camp}/GR-H/*", extra_filter: {resolved_config.tags.level: s1}, mei: 0.30, stat: diff}
+    source: {file: "{out}/family_s/family_s.json", path: "hypotheses.H2.welch_s1_minus_s4.diff"}
+  # ---------------------------------------------------------------- C3a primary (H1)
+  C3a_delta_c_p:
+    claim: C3a
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "h1.mean"}
+  C3a_p_trunk_scoring:
+    claim: C3a
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: p_t_one_sided}
+    source: {file: "{out}/TR-H/stats.json", path: "h1.p_one_sided"}
+    tolerance: 0.001
+  C3a_p_own_scoring:
+    claim: C3a
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L2}", cap: 1.0, run_metric: delta_price, stat: p_t_one_sided}
+    source: {file: "{out}/TR-H/stats.json", path: "h1.own_scoring.p_one_sided"}
+    tolerance: 0.001
+  C3a_t_lower_bound_95:
+    claim: C3a
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: t_lower_95}
+    source: {file: "{out}/TR-H/stats.json", path: "h1.lower_bound_one_sided_95"}
+  C3a_bca90_lo:
+    claim: C3a
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: bca90_lo, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "h1.practical_significance.bca_90.0"}
+    tolerance: 0.02
+  C3a_mqc_L2:
+    claim: C3a
+    metric: mqc_pp
+    runs: "{camp}/SC-1/*"
+    params: {arm: sham, label: MQC-L2, treatment_runs: "{camp}/SC-1/*", treatment_arm: L2, window: branch, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "h1.mqc"}
+    tolerance: 0.05
+  # ---------------------------------------------------------------- C3b family (H1-R)
+  C3b_holm_p_L2:
+    claim: C3b
+    metric: holm_family
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", family: [L1, L2, L3, L4a, L5, L6, L7, L8], qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, lever: L2, stat: p_holm}
+    source: {file: "{out}/TR-H/stats.json", path: "h1r.levers.L2.p_holm"}
+    tolerance: 0.001
+  C3b_n_rejected_trunk_scoring:
+    claim: C3b
+    metric: holm_family
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", family: [L1, L2, L3, L4a, L5, L6, L7, L8], qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: n_rejected}
+    source: {file: "{out}/TR-H/stats.json", path: "h1r.n_rejected_trunk"}
+    tolerance: 0.0
+  C3b_holm_p_L1:
+    claim: C3b
+    metric: holm_family
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", family: [L1, L2, L3, L4a, L5, L6, L7, L8], qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, lever: L1, stat: p_holm}
+    source: {file: "{out}/TR-H/stats.json", path: "h1r.levers.L1.p_holm"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+    alpha: 0.05
+  C3b_holm_p_L3:
+    claim: C3b
+    metric: holm_family
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", family: [L1, L2, L3, L4a, L5, L6, L7, L8], qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, lever: L3, stat: p_holm}
+    source: {file: "{out}/TR-H/stats.json", path: "h1r.levers.L3.p_holm"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+    alpha: 0.05
+  C3b_holm_p_L4a:
+    claim: C3b
+    metric: holm_family
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", family: [L1, L2, L3, L4a, L5, L6, L7, L8], qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, lever: L4a, stat: p_holm}
+    source: {file: "{out}/TR-H/stats.json", path: "h1r.levers.L4a.p_holm"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+    alpha: 0.05
+  C3b_holm_p_L5:
+    claim: C3b
+    metric: holm_family
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", family: [L1, L2, L3, L4a, L5, L6, L7, L8], qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, lever: L5, stat: p_holm}
+    source: {file: "{out}/TR-H/stats.json", path: "h1r.levers.L5.p_holm"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+    alpha: 0.05
+  C3b_holm_p_L6:
+    claim: C3b
+    metric: holm_family
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", family: [L1, L2, L3, L4a, L5, L6, L7, L8], qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, lever: L6, stat: p_holm}
+    source: {file: "{out}/TR-H/stats.json", path: "h1r.levers.L6.p_holm"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+    alpha: 0.05
+  C3b_holm_p_L7:
+    claim: C3b
+    metric: holm_family
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", family: [L1, L2, L3, L4a, L5, L6, L7, L8], qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, lever: L7, stat: p_holm}
+    source: {file: "{out}/TR-H/stats.json", path: "h1r.levers.L7.p_holm"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+    alpha: 0.05
+  C3b_delta_c_p_L1:
+    claim: C3b
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L1, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L1.delta_p.mean"}
+  C3b_delta_c_p_L3:
+    claim: C3b
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L3, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L3.delta_p.mean"}
+  C3b_delta_c_p_L4a:
+    claim: C3b
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L4a, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L4a.delta_p.mean"}
+  C3b_delta_c_p_L5:
+    claim: C3b
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L5, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L5.delta_p.mean"}
+  C3b_delta_c_p_L6:
+    claim: C3b
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6.delta_p.mean"}
+  C3b_delta_c_p_L7:
+    claim: C3b
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L7, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L7.delta_p.mean"}
+  C11_entrant_L6_mean:
+    claim: C11
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: mean, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6.delta_p.mean"}
+    tolerance: 0.005
+  C11_entrant_L6_bca_lo:
+    claim: C11
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: bca_lo, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6.delta_p.bca_lo"}
+    tolerance: 0.02
+  C11_entrant_L6_bca_hi:
+    claim: C11
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: bca_hi, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6.delta_p.bca_hi"}
+    tolerance: 0.02
+  C11_entrant_L6b_mean:
+    claim: C11
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6b, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: mean, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6b.delta_p.mean"}
+    tolerance: 0.005
+  C11_entrant_L6b_bca_lo:
+    claim: C11
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6b, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: bca_lo, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6b.delta_p.bca_lo"}
+    tolerance: 0.02
+  C11_entrant_L6b_bca_hi:
+    claim: C11
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6b, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: bca_hi, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6b.delta_p.bca_hi"}
+    tolerance: 0.02
+  C11_entrant_L6c_mean:
+    claim: C11
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6c, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: mean, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6c.delta_p.mean"}
+    tolerance: 0.005
+  C11_entrant_L6c_bca_lo:
+    claim: C11
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6c, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: bca_lo, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6c.delta_p.bca_lo"}
+    tolerance: 0.02
+  C11_entrant_L6c_bca_hi:
+    claim: C11
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6c, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: bca_hi, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6c.delta_p.bca_hi"}
+    tolerance: 0.02
+  C3c_mqc_L1:
+    claim: C3c
+    metric: mqc_pp
+    runs: "{camp}/SC-1/*"
+    params: {arm: sham, label: MQC-L1, treatment_runs: "{camp}/SC-1/*", treatment_arm: L1, treatment_label: MQC-L1, window: branch, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "mqc.levers.L1.mean"}
+    tolerance: 0.05
+  C3c_mqc_L3:
+    claim: C3c
+    metric: mqc_pp
+    runs: "{camp}/SC-1/*"
+    params: {arm: sham, label: MQC-L3, treatment_runs: "{camp}/SC-1/*", treatment_arm: L3, treatment_label: MQC-L3, window: branch, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "mqc.levers.L3.mean"}
+    tolerance: 0.05
+  C3c_mqc_L4a:
+    claim: C3c
+    metric: mqc_pp
+    runs: "{camp}/SC-1/*"
+    params: {arm: sham, label: MQC-L4a, treatment_runs: "{camp}/SC-1/*", treatment_arm: L4a, treatment_label: MQC-L4a, window: branch, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "mqc.levers.L4a.mean"}
+    tolerance: 0.05
+  C3c_mqc_L6:
+    claim: C3c
+    metric: mqc_pp
+    runs: "{camp}/SC-1/*"
+    params: {arm: sham, label: MQC-L6, treatment_runs: "{camp}/SC-1/*", treatment_arm: L6, treatment_label: MQC-L6, window: branch, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "mqc.levers.L6.mean"}
+    tolerance: 0.05
+  C12_raw_L1_mean:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L1, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: mean, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L1.delta_p_raw.mean"}
+    tolerance: 0.005
+  C12_raw_L1_bca_lo:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L1, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_lo, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L1.delta_p_raw.bca_lo"}
+    tolerance: 0.02
+  C12_raw_L1_bca_hi:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L1, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_hi, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L1.delta_p_raw.bca_hi"}
+    tolerance: 0.02
+  C12_raw_L1_tost_p:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L1, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: tost_p, B: 10000, margin: 0.20}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L1.delta_p_raw.tost.p"}
+    tolerance: 0.001
+  C12_signs_L1_zero:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L1, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_zero}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L1.delta_p.signs.zero"}
+    tolerance: 0.0
+  C12_signs_L1_negative:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L1, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_negative}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L1.delta_p.signs.negative"}
+    tolerance: 0.0
+  C12_signs_L1_positive:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L1, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_positive}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L1.delta_p.signs.positive"}
+    tolerance: 0.0
+  C12_raw_L2_mean:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: mean, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L2.delta_p_raw.mean"}
+    tolerance: 0.005
+  C12_raw_L2_bca_lo:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_lo, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L2.delta_p_raw.bca_lo"}
+    tolerance: 0.02
+  C12_raw_L2_bca_hi:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_hi, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L2.delta_p_raw.bca_hi"}
+    tolerance: 0.02
+  C12_raw_L2_tost_p:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: tost_p, B: 10000, margin: 0.20}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L2.delta_p_raw.tost.p"}
+    tolerance: 0.001
+  C12_signs_L2_zero:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_zero}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L2.delta_p.signs.zero"}
+    tolerance: 0.0
+  C12_signs_L2_negative:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_negative}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L2.delta_p.signs.negative"}
+    tolerance: 0.0
+  C12_signs_L2_positive:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_positive}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L2.delta_p.signs.positive"}
+    tolerance: 0.0
+  C12_raw_L3_mean:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L3, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: mean, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L3.delta_p_raw.mean"}
+    tolerance: 0.005
+  C12_raw_L3_bca_lo:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L3, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_lo, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L3.delta_p_raw.bca_lo"}
+    tolerance: 0.02
+  C12_raw_L3_bca_hi:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L3, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_hi, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L3.delta_p_raw.bca_hi"}
+    tolerance: 0.02
+  C12_raw_L3_tost_p:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L3, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: tost_p, B: 10000, margin: 0.20}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L3.delta_p_raw.tost.p"}
+    tolerance: 0.001
+  C12_signs_L3_zero:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L3, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_zero}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L3.delta_p.signs.zero"}
+    tolerance: 0.0
+  C12_signs_L3_negative:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L3, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_negative}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L3.delta_p.signs.negative"}
+    tolerance: 0.0
+  C12_signs_L3_positive:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L3, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_positive}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L3.delta_p.signs.positive"}
+    tolerance: 0.0
+  C12_raw_L4a_mean:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L4a, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: mean, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L4a.delta_p_raw.mean"}
+    tolerance: 0.005
+  C12_raw_L4a_bca_lo:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L4a, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_lo, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L4a.delta_p_raw.bca_lo"}
+    tolerance: 0.02
+  C12_raw_L4a_bca_hi:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L4a, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_hi, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L4a.delta_p_raw.bca_hi"}
+    tolerance: 0.02
+  C12_raw_L4a_tost_p:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L4a, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: tost_p, B: 10000, margin: 0.20}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L4a.delta_p_raw.tost.p"}
+    tolerance: 0.001
+  C12_signs_L4a_zero:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L4a, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_zero}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L4a.delta_p.signs.zero"}
+    tolerance: 0.0
+  C12_signs_L4a_negative:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L4a, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_negative}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L4a.delta_p.signs.negative"}
+    tolerance: 0.0
+  C12_signs_L4a_positive:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L4a, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_positive}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L4a.delta_p.signs.positive"}
+    tolerance: 0.0
+  C12_raw_L5_mean:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L5, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: mean, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L5.delta_p_raw.mean"}
+    tolerance: 0.005
+  C12_raw_L5_bca_lo:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L5, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_lo, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L5.delta_p_raw.bca_lo"}
+    tolerance: 0.02
+  C12_raw_L5_bca_hi:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L5, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_hi, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L5.delta_p_raw.bca_hi"}
+    tolerance: 0.02
+  C12_raw_L5_tost_p:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L5, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: tost_p, B: 10000, margin: 0.20}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L5.delta_p_raw.tost.p"}
+    tolerance: 0.001
+  C12_signs_L5_zero:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L5, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_zero}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L5.delta_p.signs.zero"}
+    tolerance: 0.0
+  C12_signs_L5_negative:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L5, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_negative}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L5.delta_p.signs.negative"}
+    tolerance: 0.0
+  C12_signs_L5_positive:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L5, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_positive}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L5.delta_p.signs.positive"}
+    tolerance: 0.0
+  C12_raw_L6_mean:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: mean, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6.delta_p_raw.mean"}
+    tolerance: 0.005
+  C12_raw_L6_bca_lo:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_lo, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6.delta_p_raw.bca_lo"}
+    tolerance: 0.02
+  C12_raw_L6_bca_hi:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_hi, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6.delta_p_raw.bca_hi"}
+    tolerance: 0.02
+  C12_raw_L6_tost_p:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: tost_p, B: 10000, margin: 0.20}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6.delta_p_raw.tost.p"}
+    tolerance: 0.001
+  C12_signs_L6_zero:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_zero}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6.delta_p.signs.zero"}
+    tolerance: 0.0
+  C12_signs_L6_negative:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_negative}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6.delta_p.signs.negative"}
+    tolerance: 0.0
+  C12_signs_L6_positive:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_positive}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6.delta_p.signs.positive"}
+    tolerance: 0.0
+  C12_raw_L7_mean:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L7, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: mean, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L7.delta_p_raw.mean"}
+    tolerance: 0.005
+  C12_raw_L7_bca_lo:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L7, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_lo, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L7.delta_p_raw.bca_lo"}
+    tolerance: 0.02
+  C12_raw_L7_bca_hi:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L7, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_hi, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L7.delta_p_raw.bca_hi"}
+    tolerance: 0.02
+  C12_raw_L7_tost_p:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L7, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: tost_p, B: 10000, margin: 0.20}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L7.delta_p_raw.tost.p"}
+    tolerance: 0.001
+  C12_signs_L7_zero:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L7, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_zero}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L7.delta_p.signs.zero"}
+    tolerance: 0.0
+  C12_signs_L7_negative:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L7, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_negative}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L7.delta_p.signs.negative"}
+    tolerance: 0.0
+  C12_signs_L7_positive:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L7, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_positive}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L7.delta_p.signs.positive"}
+    tolerance: 0.0
+  C12_raw_L6b_mean:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6b, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: mean, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6b.delta_p_raw.mean"}
+    tolerance: 0.005
+  C12_raw_L6b_bca_lo:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6b, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_lo, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6b.delta_p_raw.bca_lo"}
+    tolerance: 0.02
+  C12_raw_L6b_bca_hi:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6b, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_hi, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6b.delta_p_raw.bca_hi"}
+    tolerance: 0.02
+  C12_raw_L6b_tost_p:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6b, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: tost_p, B: 10000, margin: 0.20}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6b.delta_p_raw.tost.p"}
+    tolerance: 0.001
+  C12_signs_L6b_zero:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6b, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_zero}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6b.delta_p.signs.zero"}
+    tolerance: 0.0
+  C12_signs_L6b_negative:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6b, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_negative}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6b.delta_p.signs.negative"}
+    tolerance: 0.0
+  C12_signs_L6b_positive:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6b, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_positive}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6b.delta_p.signs.positive"}
+    tolerance: 0.0
+  C12_raw_L6c_mean:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6c, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: mean, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6c.delta_p_raw.mean"}
+    tolerance: 0.005
+  C12_raw_L6c_bca_lo:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6c, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_lo, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6c.delta_p_raw.bca_lo"}
+    tolerance: 0.02
+  C12_raw_L6c_bca_hi:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6c, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: bca_hi, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6c.delta_p_raw.bca_hi"}
+    tolerance: 0.02
+  C12_raw_L6c_tost_p:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6c, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: tost_p, B: 10000, margin: 0.20}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6c.delta_p_raw.tost.p"}
+    tolerance: 0.001
+  C12_signs_L6c_zero:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6c, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_zero}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6c.delta_p.signs.zero"}
+    tolerance: 0.0
+  C12_signs_L6c_negative:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6c, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_negative}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6c.delta_p.signs.negative"}
+    tolerance: 0.0
+  C12_signs_L6c_positive:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6c, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, cap: 1.0, stat: n_positive}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6c.delta_p.signs.positive"}
+    tolerance: 0.0
+  C12_share_above_pm_L1:
+    claim: C12
+    metric: share_above_pm
+    runs: "{camp}/TR-H/*"
+    params: {arm: L1, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", agg: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L1.share_quotes_above_pm.arm"}
+  C12_share_above_pm_L2:
+    claim: C12
+    metric: share_above_pm
+    runs: "{camp}/TR-H/*"
+    params: {arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", agg: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L2.share_quotes_above_pm.arm"}
+  C12_share_above_pm_L3:
+    claim: C12
+    metric: share_above_pm
+    runs: "{camp}/TR-H/*"
+    params: {arm: L3, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", agg: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L3.share_quotes_above_pm.arm"}
+  C12_share_above_pm_L4a:
+    claim: C12
+    metric: share_above_pm
+    runs: "{camp}/TR-H/*"
+    params: {arm: L4a, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", agg: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L4a.share_quotes_above_pm.arm"}
+  C12_share_above_pm_L5:
+    claim: C12
+    metric: share_above_pm
+    runs: "{camp}/TR-H/*"
+    params: {arm: L5, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", agg: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L5.share_quotes_above_pm.arm"}
+  C12_share_above_pm_L6:
+    claim: C12
+    metric: share_above_pm
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", agg: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6.share_quotes_above_pm.arm"}
+  C12_share_above_pm_L7:
+    claim: C12
+    metric: share_above_pm
+    runs: "{camp}/TR-H/*"
+    params: {arm: L7, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", agg: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L7.share_quotes_above_pm.arm"}
+  C12_share_above_pm_L6b:
+    claim: C12
+    metric: share_above_pm
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6b, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", agg: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6b.share_quotes_above_pm.arm"}
+  C12_share_above_pm_L6c:
+    claim: C12
+    metric: share_above_pm
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6c, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", agg: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6c.share_quotes_above_pm.arm"}
+  C12_raw_sham_sham2_sd:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: sham2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: sd}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.sham2.delta_p_raw.sd"}
+  C13_r1_first_slope:
+    claim: C13
+    metric: r1_regression
+    runs: "{camp}/TR-H/*"
+    params: {arm: R1, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", y: first, stat: slope, t0: 100, window: [111, 150], sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "a_replacement.first_ask.slope"}
+    tolerance: 0.01
+  C13_r1_first_r2:
+    claim: C13
+    metric: r1_regression
+    runs: "{camp}/TR-H/*"
+    params: {arm: R1, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", y: first, stat: r2, t0: 100, window: [111, 150], sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "a_replacement.first_ask.r2"}
+    tolerance: 0.01
+  C13_r1_window_slope:
+    claim: C13
+    metric: r1_regression
+    runs: "{camp}/TR-H/*"
+    params: {arm: R1, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", y: window, stat: slope, t0: 100, window: [111, 150], sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "a_replacement.window_mean.slope"}
+    tolerance: 0.01
+  C13_r1_window_r2:
+    claim: C13
+    metric: r1_regression
+    runs: "{camp}/TR-H/*"
+    params: {arm: R1, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", y: window, stat: r2, t0: 100, window: [111, 150], sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "a_replacement.window_mean.r2"}
+    tolerance: 0.01
+  C13_entry_gap_L6_mean:
+    claim: C13
+    metric: entry_br_gap
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", window: [111, 150], stat: mean, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "b_entry_best_response_gap.arms.L6.mean_gap_index"}
+    tolerance: 0.01
+  C13_entry_gap_L6_ci_lo:
+    claim: C13
+    metric: entry_br_gap
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", window: [111, 150], stat: ci_lo, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "b_entry_best_response_gap.arms.L6.ci95.0"}
+    tolerance: 0.01
+  C13_entry_gap_L6_ci_hi:
+    claim: C13
+    metric: entry_br_gap
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", window: [111, 150], stat: ci_hi, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "b_entry_best_response_gap.arms.L6.ci95.1"}
+    tolerance: 0.01
+  C13_entry_gap_L6b_mean:
+    claim: C13
+    metric: entry_br_gap
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6b, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", window: [111, 150], stat: mean, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "b_entry_best_response_gap.arms.L6b.mean_gap_index"}
+    tolerance: 0.01
+  C13_entry_gap_L6b_ci_lo:
+    claim: C13
+    metric: entry_br_gap
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6b, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", window: [111, 150], stat: ci_lo, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "b_entry_best_response_gap.arms.L6b.ci95.0"}
+    tolerance: 0.01
+  C13_entry_gap_L6b_ci_hi:
+    claim: C13
+    metric: entry_br_gap
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6b, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", window: [111, 150], stat: ci_hi, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "b_entry_best_response_gap.arms.L6b.ci95.1"}
+    tolerance: 0.01
+  C13_entry_gap_L6c_mean:
+    claim: C13
+    metric: entry_br_gap
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6c, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", window: [111, 150], stat: mean, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "b_entry_best_response_gap.arms.L6c.mean_gap_index"}
+    tolerance: 0.01
+  C13_entry_gap_L6c_ci_lo:
+    claim: C13
+    metric: entry_br_gap
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6c, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", window: [111, 150], stat: ci_lo, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "b_entry_best_response_gap.arms.L6c.ci95.0"}
+    tolerance: 0.01
+  C13_entry_gap_L6c_ci_hi:
+    claim: C13
+    metric: entry_br_gap
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6c, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", window: [111, 150], stat: ci_hi, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "b_entry_best_response_gap.arms.L6c.ci95.1"}
+    tolerance: 0.01
+  C13_probe_rivals_response:
+    claim: C13
+    metric: probe_response
+    runs: "{camp}/TR-H/*"
+    params: {arm: S2, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", sham_runs: "{camp}/TR-H/*", stat: rivals_response, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "c_forced_undercut.summary.rivals_response_mean"}
+    tolerance: 0.01
+  C13_probe_static_br:
+    claim: C13
+    metric: probe_response
+    runs: "{camp}/TR-H/*"
+    params: {arm: S2, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", sham_runs: "{camp}/TR-H/*", stat: static_br, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "c_forced_undercut.summary.static_br_mean"}
+    tolerance: 0.01
+  C13_probe_deviator_gain:
+    claim: C13
+    metric: probe_response
+    runs: "{camp}/TR-H/*"
+    params: {arm: S2, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", sham_runs: "{camp}/TR-H/*", stat: deviator_gain, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "c_forced_undercut.summary.deviator_gain_mean"}
+    tolerance: 0.01
+  C13_probe_n_deviator_gain_positive:
+    claim: C13
+    metric: probe_response
+    runs: "{camp}/TR-H/*"
+    params: {arm: S2, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", sham_runs: "{camp}/TR-H/*", stat: n_deviator_gain_positive, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "c_forced_undercut.summary.n_deviator_gain_positive"}
+    tolerance: 0.0
+  C13_sign_p_raw_L1:
+    claim: C13
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L1, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: sign_p}
+    source: {file: "{out}/a024_exploratory.json", path: "d_levers.L1.qualified.raw.sign_test_p_one_sided"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+  C13_sign_p_raw_L2:
+    claim: C13
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: sign_p}
+    source: {file: "{out}/a024_exploratory.json", path: "d_levers.L2.qualified.raw.sign_test_p_one_sided"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+  C13_sign_p_raw_L3:
+    claim: C13
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L3, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: sign_p}
+    source: {file: "{out}/a024_exploratory.json", path: "d_levers.L3.qualified.raw.sign_test_p_one_sided"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+  C13_sign_p_raw_L4a:
+    claim: C13
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L4a, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: sign_p}
+    source: {file: "{out}/a024_exploratory.json", path: "d_levers.L4a.qualified.raw.sign_test_p_one_sided"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+  C13_sign_p_raw_L5:
+    claim: C13
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L5, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: sign_p}
+    source: {file: "{out}/a024_exploratory.json", path: "d_levers.L5.qualified.raw.sign_test_p_one_sided"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+  C13_sign_p_raw_L6:
+    claim: C13
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: sign_p}
+    source: {file: "{out}/a024_exploratory.json", path: "d_levers.L6.qualified.raw.sign_test_p_one_sided"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+  C13_sign_p_raw_L7:
+    claim: C13
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L7, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: sign_p}
+    source: {file: "{out}/a024_exploratory.json", path: "d_levers.L7.qualified.raw.sign_test_p_one_sided"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+  C13_sign_p_raw_L6b:
+    claim: C13
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6b, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: sign_p}
+    source: {file: "{out}/a024_exploratory.json", path: "d_levers.L6b.qualified.raw.sign_test_p_one_sided"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+  C13_sign_p_raw_L6c:
+    claim: C13
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6c, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: sign_p}
+    source: {file: "{out}/a024_exploratory.json", path: "d_levers.L6c.qualified.raw.sign_test_p_one_sided"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+  C13_regret_slot0:
+    claim: C13
+    metric: regret
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", window: [111, 150], slot: 0, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "e_regret.dealers.slot0.regret_fixed_share_mean"}
+    tolerance: 0.01
+  C13_regret_slot1:
+    claim: C13
+    metric: regret
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", window: [111, 150], slot: 1, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "e_regret.dealers.slot1.regret_fixed_share_mean"}
+    tolerance: 0.01
+  C13_regret_slot2:
+    claim: C13
+    metric: regret
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", window: [111, 150], slot: 2, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "e_regret.dealers.slot2.regret_fixed_share_mean"}
+    tolerance: 0.01
+  C13_regret_slot3:
+    claim: C13
+    metric: regret
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", window: [111, 150], slot: 3, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "e_regret.dealers.slot3.regret_fixed_share_mean"}
+    tolerance: 0.01
+  C1b_delta_p_bca_lo:
+    claim: C1b
+    metric: delta_price
+    runs: "{camp}/PC-H-dealer/*"
+    params: {window: fish, members: [0, 1], bench: run_closed_form, agg: bca_lo, strata: alpha, B: 10000}
+    source: {file: "{out}/gates/gates.json", path: "gates.Gate 1b (PC-H-dealer).delta_p.lo"}
+    tolerance: 0.02
+  C1b_delta_p_bca_hi:
+    claim: C1b
+    metric: delta_price
+    runs: "{camp}/PC-H-dealer/*"
+    params: {window: fish, members: [0, 1], bench: run_closed_form, agg: bca_hi, strata: alpha, B: 10000}
+    source: {file: "{out}/gates/gates.json", path: "gates.Gate 1b (PC-H-dealer).delta_p.hi"}
+    tolerance: 0.02
+  C3b_split_sample_ci_lo:
+    claim: C3b
+    metric: split_sample_best
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", family: [L1, L2, L3, L4a, L5, L6, L7, L8], qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: ci_lo, eligible_from: "{out}/TR-H/stats.json", B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "h1r.best_lever_split_sample.estimate.bca_lo"}
+    tolerance: 0.03
+  C3b_split_sample_ci_hi:
+    claim: C3b
+    metric: split_sample_best
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", family: [L1, L2, L3, L4a, L5, L6, L7, L8], qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: ci_hi, eligible_from: "{out}/TR-H/stats.json", B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "h1r.best_lever_split_sample.estimate.bca_hi"}
+    tolerance: 0.03
+  C3c_sc1_mean_ask_sham:
+    claim: C3c
+    metric: mean_price
+    runs: "{camp}/SC-1/*"
+    params: {arm: sham, label: MQC-L2, window: branch, agg: mean, sap_filter: false}
+    source: {file: "{out}/SC-1/mqc.json", path: "levers.L2.price_reference_mean"}
+    tolerance: 0.001
+  C3c_sc1_mean_ask_L2:
+    claim: C3c
+    metric: mean_price
+    runs: "{camp}/SC-1/*"
+    params: {arm: L2, label: MQC-L2, window: branch, agg: mean, sap_filter: false}
+    source: {file: "{out}/SC-1/mqc.json", path: "levers.L2.price_treated_mean"}
+    tolerance: 0.001
+  C6_holm_p_H7same:
+    claim: C6
+    metric: holm_from_source
+    runs: "{camp}/TR-H/*"
+    params: {file: "{out}/family_s/family_s.json", paths: ["hypotheses.H2.p", "hypotheses.H4.p", "hypotheses.H5.p", "hypotheses.H6-carrier.p", "hypotheses.H7-same.p", "hypotheses.H7-other.p", "hypotheses.H8.p", "hypotheses.H10.p"], names: ['H2', 'H4', 'H5', 'H6-carrier', 'H7-same', 'H7-other', 'H8', 'H10'], target: H7-same, sap_filter: false}
+    source: {file: "{out}/family_s/family_s.json", path: "hypotheses.H7-same.p_holm"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+  C11_replacement_R2_mean:
+    claim: C11
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: R2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: mean, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.R2.delta_p.mean"}
+    tolerance: 0.005
+  C11_replacement_R2_bca_lo:
+    claim: C11
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: R2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: bca_lo, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.R2.delta_p.bca_lo"}
+    tolerance: 0.02
+  C11_replacement_R2_bca_hi:
+    claim: C11
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: R2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: bca_hi, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.R2.delta_p.bca_hi"}
+    tolerance: 0.02
+  C11_replacement_R4_mean:
+    claim: C11
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: R4, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: mean, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.R4.delta_p.mean"}
+    tolerance: 0.005
+  C11_replacement_R4_bca_lo:
+    claim: C11
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: R4, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: bca_lo, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.R4.delta_p.bca_lo"}
+    tolerance: 0.02
+  C11_replacement_R4_bca_hi:
+    claim: C11
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: R4, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: bca_hi, B: 10000}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.R4.delta_p.bca_hi"}
+    tolerance: 0.02
+  C13_cache_hits_period1_trunks:
+    claim: C13
+    metric: cache_hits
+    runs: "{camp}/TR-H/*"
+    params: {arm: trunk, period: 1, sap_filter: false}
+    source: {file: "{out}/a024_exploratory.json", path: "f_cache_hits_period1_trunks.hits"}
+    tolerance: 0.0
+  C3c_mqc_L5:
+    claim: C3c
+    metric: mqc_pp
+    runs: "{camp}/SC-1/*"
+    params: {arm: sham, label: MQC-L5, treatment_runs: "{camp}/SC-1/*", treatment_arm: L5, treatment_label: MQC-L5, window: branch, stat: mean}
+    source: {file: "{out}/SC-1/mqc.json", path: "levers.L5.mean"}
+    tolerance: 1.0e-6
+  C3c_mqc_L7:
+    claim: C3c
+    metric: mqc_pp
+    runs: "{camp}/SC-1/*"
+    params: {arm: sham, label: MQC-L7, treatment_runs: "{camp}/SC-1/*", treatment_arm: L7, treatment_label: MQC-L7, window: branch, stat: mean}
+    source: {file: "{out}/SC-1/mqc.json", path: "levers.L7.mean"}
+    tolerance: 1.0e-6
+  C13_cache_reuse_L1:
+    claim: C13
+    metric: cache_reuse
+    runs: "{camp}/TR-H/*"
+    params: {arm: L1, reference_runs: "{camp}/TR-H/*", reference_arm: sham, qualified_from: "{out}/TR-H/stats.json", window: [101, 150], members: [0, 1, 2, 3], stat: share, sap_filter: false}
+    source: {file: "{out}/redteam_additive.json", path: "cache_reuse.arms.L1.share_from_sham"}
+    tolerance: 1.0e-9
+  C13_cache_reuse_L2:
+    claim: C13
+    metric: cache_reuse
+    runs: "{camp}/TR-H/*"
+    params: {arm: L2, reference_runs: "{camp}/TR-H/*", reference_arm: sham, qualified_from: "{out}/TR-H/stats.json", window: [101, 150], members: [0, 1, 2, 3], stat: share, sap_filter: false}
+    source: {file: "{out}/redteam_additive.json", path: "cache_reuse.arms.L2.share_from_sham"}
+    tolerance: 1.0e-9
+  C13_cache_reuse_L3:
+    claim: C13
+    metric: cache_reuse
+    runs: "{camp}/TR-H/*"
+    params: {arm: L3, reference_runs: "{camp}/TR-H/*", reference_arm: sham, qualified_from: "{out}/TR-H/stats.json", window: [101, 150], members: [0, 1, 2, 3], stat: share, sap_filter: false}
+    source: {file: "{out}/redteam_additive.json", path: "cache_reuse.arms.L3.share_from_sham"}
+    tolerance: 1.0e-9
+  C13_cache_reuse_L4a:
+    claim: C13
+    metric: cache_reuse
+    runs: "{camp}/TR-H/*"
+    params: {arm: L4a, reference_runs: "{camp}/TR-H/*", reference_arm: sham, qualified_from: "{out}/TR-H/stats.json", window: [101, 150], members: [0, 1, 2, 3], stat: share, sap_filter: false}
+    source: {file: "{out}/redteam_additive.json", path: "cache_reuse.arms.L4a.share_from_sham"}
+    tolerance: 1.0e-9
+  C13_cache_reuse_L5:
+    claim: C13
+    metric: cache_reuse
+    runs: "{camp}/TR-H/*"
+    params: {arm: L5, reference_runs: "{camp}/TR-H/*", reference_arm: sham, qualified_from: "{out}/TR-H/stats.json", window: [101, 150], members: [0, 1, 2, 3], stat: share, sap_filter: false}
+    source: {file: "{out}/redteam_additive.json", path: "cache_reuse.arms.L5.share_from_sham"}
+    tolerance: 1.0e-9
+  C13_cache_reuse_L6:
+    claim: C13
+    metric: cache_reuse
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6, reference_runs: "{camp}/TR-H/*", reference_arm: sham, qualified_from: "{out}/TR-H/stats.json", window: [101, 150], members: [0, 1, 2, 3], stat: share, sap_filter: false}
+    source: {file: "{out}/redteam_additive.json", path: "cache_reuse.arms.L6.share_from_sham"}
+    tolerance: 1.0e-9
+  C13_cache_reuse_L7:
+    claim: C13
+    metric: cache_reuse
+    runs: "{camp}/TR-H/*"
+    params: {arm: L7, reference_runs: "{camp}/TR-H/*", reference_arm: sham, qualified_from: "{out}/TR-H/stats.json", window: [101, 150], members: [0, 1, 2, 3], stat: share, sap_filter: false}
+    source: {file: "{out}/redteam_additive.json", path: "cache_reuse.arms.L7.share_from_sham"}
+    tolerance: 1.0e-9
+  C13_cache_reuse_L6b:
+    claim: C13
+    metric: cache_reuse
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6b, reference_runs: "{camp}/TR-H/*", reference_arm: sham, qualified_from: "{out}/TR-H/stats.json", window: [101, 150], members: [0, 1, 2, 3], stat: share, sap_filter: false}
+    source: {file: "{out}/redteam_additive.json", path: "cache_reuse.arms.L6b.share_from_sham"}
+    tolerance: 1.0e-9
+  C13_cache_reuse_L6c:
+    claim: C13
+    metric: cache_reuse
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6c, reference_runs: "{camp}/TR-H/*", reference_arm: sham, qualified_from: "{out}/TR-H/stats.json", window: [101, 150], members: [0, 1, 2, 3], stat: share, sap_filter: false}
+    source: {file: "{out}/redteam_additive.json", path: "cache_reuse.arms.L6c.share_from_sham"}
+    tolerance: 1.0e-9
+  C13_cache_reuse_R1:
+    claim: C13
+    metric: cache_reuse
+    runs: "{camp}/TR-H/*"
+    params: {arm: R1, reference_runs: "{camp}/TR-H/*", reference_arm: sham, qualified_from: "{out}/TR-H/stats.json", window: [101, 150], members: [0, 1, 2, 3], stat: share, sap_filter: false}
+    source: {file: "{out}/redteam_additive.json", path: "cache_reuse.arms.R1.share_from_sham"}
+    tolerance: 1.0e-9
+  C13_cache_hits_share_L5:
+    claim: C13
+    metric: cache_reuse
+    runs: "{camp}/TR-H/*"
+    params: {arm: L5, reference_runs: "{camp}/TR-H/*", reference_arm: sham, qualified_from: "{out}/TR-H/stats.json", window: [101, 150], members: [0, 1, 2, 3], stat: share_hits, sap_filter: false}
+    source: {file: "{out}/redteam_additive.json", path: "cache_reuse.arms.L5.share_cache_hits"}
+    tolerance: 1.0e-9
+  C13_cache_reuse_positive_control_S1c_from_S2:
+    claim: C13
+    metric: cache_reuse
+    runs: "{camp}/TR-H/*"
+    params: {arm: S1c, label: S1c-LLM-TR-H, reference_runs: "{camp}/TR-H/*", reference_arm: S2, window: [101, 150], members: [0, 1, 2, 3], stat: share, sap_filter: false}
+    source: {file: "{out}/redteam_additive.json", path: "cache_reuse.positive_control.share_from_sham"}
+    tolerance: 1.0e-9
+  C7_s1c_tr_cache_replay:
+    claim: C7
+    metric: cache_reuse
+    runs: "{camp}/TR-H/*"
+    params: {arm: S1c, label: S1c-LLM-TR-H, reference_runs: "{camp}/TR-H/*", reference_arm: S2, window: [101, 150], members: [0, 1, 2, 3], stat: share_hits, sap_filter: false}
+    source: {file: "{out}/redteam_additive.json", path: "cache_reuse.arms.S1c_LLM_TR.all_trunks.share_cache_hits"}
+    tolerance: 1.0e-9
+  C7_s1c_tr_cache_replay_n:
+    claim: C7
+    metric: cache_reuse
+    runs: "{camp}/TR-H/*"
+    params: {arm: S1c, label: S1c-LLM-TR-H, reference_runs: "{camp}/TR-H/*", reference_arm: S2, window: [101, 150], members: [0, 1, 2, 3], stat: n, sap_filter: false}
+    source: {file: "{out}/redteam_additive.json", path: "cache_reuse.arms.S1c_LLM_TR.all_trunks.n_decisions"}
+    tolerance: 0.0
+  C1_pc_s_delta_p_mean:
+    claim: C1
+    metric: delta_price
+    runs: "{camp}/PC-S/*"
+    params: {window: fish, members: [0, 1], bench: run_closed_form, agg: mean, strata: alpha, B: 10000}
+    source: {file: "{out}/gates_S/gates.json", path: "gates.Gate 1 (PC-S).delta_p.mean"}
+  C1_pc_s_delta_p_ci_lo:
+    claim: C1
+    metric: delta_price
+    runs: "{camp}/PC-S/*"
+    params: {window: fish, members: [0, 1], bench: run_closed_form, agg: bca_lo, strata: alpha, B: 10000}
+    source: {file: "{out}/gates_S/gates.json", path: "gates.Gate 1 (PC-S).delta_p.lo"}
+    tolerance: 0.02
+  C1_pc_s_delta_p_ci_hi:
+    claim: C1
+    metric: delta_price
+    runs: "{camp}/PC-S/*"
+    params: {window: fish, members: [0, 1], bench: run_closed_form, agg: bca_hi, strata: alpha, B: 10000}
+    source: {file: "{out}/gates_S/gates.json", path: "gates.Gate 1 (PC-S).delta_p.hi"}
+    tolerance: 0.02
+  C13_l6c_minus_l6_mean:
+    claim: C13
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6c, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: mean, B: 10000}
+    source: {file: "{out}/redteam_additive.json", path: "l6c_minus_l6.mean"}
+    tolerance: 0.005
+  C13_l6c_minus_l6_bca_lo:
+    claim: C13
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6c, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: bca_lo, B: 10000}
+    source: {file: "{out}/redteam_additive.json", path: "l6c_minus_l6.bca_lo"}
+    tolerance: 0.02
+  C13_l6c_minus_l6_bca_hi:
+    claim: C13
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: L6, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6c, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: bca_hi, B: 10000}
+    source: {file: "{out}/redteam_additive.json", path: "l6c_minus_l6.bca_hi"}
+    tolerance: 0.02
+  C12_pM_own_L1:
+    claim: C12
+    metric: logit_closed_form
+    runs: "{camp}/TR-H/*"
+    params: {market_file: "configs/analysis/benchmarks/TR-H.json", market: L1, key: p_mono, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L1.benchmark_shift.own.p_mono"}
+    tolerance: 1.0e-6
+  C12_pM_trunk:
+    claim: C12
+    metric: logit_closed_form
+    runs: "{camp}/TR-H/*"
+    params: {market_file: "configs/analysis/benchmarks/TR-H.json", market: trunk, key: p_mono, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L1.benchmark_shift.trunk.p_mono"}
+    tolerance: 1.0e-6
+  C3m_n_qualified:
+    claim: C3m
+    metric: established
+    runs: "{camp}/TR-M/*"
+    params: {arm: trunk, label: TR-M, window: trunk, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", thresholds: {delta_price: 0.30, delta: 0.30}, agg: count}
+    source: {file: "{out}/TR-M/stats.json", path: "inference.qualification.by_lane.M.n_qualified"}
+    tolerance: 0.0
+  C7_punished_share:
+    claim: C7
+    metric: corpus_count
+    runs: "{camp}/TR-H/*"
+    params: {file: "{out}/detection/corpus.parquet", kinds: [llm_punished], other_kinds: [llm_unpunished], lane: H, stat: share, sap_filter: false}
+    source: {file: "{out}/family_s/family_s.json", path: "hypotheses.H8.punished_share"}
+    tolerance: 0.001
+  C8_heldout_n_pos:
+    claim: C8
+    metric: corpus_count
+    runs: "{camp}/TR-H/*"
+    params: {file: "{out}/detection/eval.parquet", kinds: [llm_punished], lane: H, stat: count, sap_filter: false}
+    source: {file: "{out}/detection/report.json", path: "decision.llm_only.n_pos"}
+    tolerance: 0.0
+  C8_heldout_n_neg:
+    claim: C8
+    metric: corpus_count
+    runs: "{camp}/TR-H/*"
+    params: {file: "{out}/detection/eval.parquet", kinds: [ghost, instruction], lane: H, stat: count, sap_filter: false}
+    source: {file: "{out}/detection/report.json", path: "decision.llm_only.n_neg"}
+    tolerance: 0.0
+  C3b_own_holm_p_L6:
+    claim: C3b
+    metric: holm_from_source
+    runs: "{camp}/TR-H/*"
+    params: {file: "{out}/TR-H/stats.json", paths: ["h1r.levers.L1.own_scoring.p", "h1r.levers.L2.own_scoring.p", "h1r.levers.L3.own_scoring.p", "h1r.levers.L4a.own_scoring.p", "h1r.levers.L5.own_scoring.p", "h1r.levers.L6.own_scoring.p", "h1r.levers.L7.own_scoring.p", "h1r.levers.L8.own_scoring.p"], names: [L1, L2, L3, L4a, L5, L6, L7, L8], target: L6, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "h1r.levers.L6.own_scoring.p_holm"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+  C3b_own_p_L6:
+    claim: C3b
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L6}", cap: 1.0, run_metric: delta_price, stat: p_t_one_sided}
+    source: {file: "{out}/TR-H/stats.json", path: "h1r.levers.L6.own_scoring.p"}
+    tolerance_rel: 1.0e-6
+    tolerance_abs: 1.0e-9
+  C8_judge_kappa:
+    claim: C8
+    metric: judge_agreement
+    runs: "{camp}/TR-H/*"
+    params: {sheet: "results/analysis/corpus_v1/labelling_sheet.csv", key: "../finswarm-sealed/corpus_v1_key_SEALED.csv", scores: "../finswarm-sealed/d9_scores.csv", sap_filter: false, stat: kappa}
+    source: {file: "{out}/corpus_v1/kappa.json", path: "decision.kappa_qw"}
+    tolerance: 0.001
+  C8_judge_spearman:
+    claim: C8
+    metric: judge_agreement
+    runs: "{camp}/TR-H/*"
+    params: {sheet: "results/analysis/corpus_v1/labelling_sheet.csv", key: "../finswarm-sealed/corpus_v1_key_SEALED.csv", scores: "../finswarm-sealed/d9_scores.csv", sap_filter: false, stat: spearman}
+    source: {file: "{out}/corpus_v1/kappa.json", path: "decision.spearman_rho"}
+    tolerance: 0.001
+  C8_judge_n:
+    claim: C8
+    metric: judge_agreement
+    runs: "{camp}/TR-H/*"
+    params: {sheet: "results/analysis/corpus_v1/labelling_sheet.csv", key: "../finswarm-sealed/corpus_v1_key_SEALED.csv", scores: "../finswarm-sealed/d9_scores.csv", sap_filter: false, stat: n}
+    source: {file: "{out}/corpus_v1/kappa.json", path: "decision.n"}
+    tolerance: 0.0
+  C10_delta_c_pi_window_L1:
+    claim: C10
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L1, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L1}", run_metric: delta, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L1.delta_pi_window.mean"}
+  C10_mechanical_pi_window_L1:
+    claim: C10
+    metric: mechanical_pi
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L1, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L1}", window: [111, 150], scoring: window, sap_filter: false, market_file: "configs/analysis/benchmarks/TR-H.json", sham_market: trunk, lever_market: L1}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L1.mechanical.delta_pi_window.mean"}
+    tolerance: 0.01
+  C10_benchmark_shift_L1_p_nash:
+    claim: C10
+    metric: bench_shift
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L1}", key: p_nash, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L1.benchmark_shift.d_p_nash"}
+    tolerance: 1.0e-6
+  C10_benchmark_shift_L1_p_mono:
+    claim: C10
+    metric: bench_shift
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L1}", key: p_mono, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L1.benchmark_shift.d_p_mono"}
+    tolerance: 1.0e-6
+  C10_delta_c_pi_window_L2:
+    claim: C10
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L2}", run_metric: delta, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L2.delta_pi_window.mean"}
+  C10_mechanical_pi_window_L2:
+    claim: C10
+    metric: mechanical_pi
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L2, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L2}", window: [111, 150], scoring: window, sap_filter: false, market_file: "configs/analysis/benchmarks/TR-H.json", sham_market: trunk, lever_market: L2}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L2.mechanical.delta_pi_window.mean"}
+    tolerance: 0.01
+  C10_benchmark_shift_L2_p_nash:
+    claim: C10
+    metric: bench_shift
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L2}", key: p_nash, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L2.benchmark_shift.d_p_nash"}
+    tolerance: 1.0e-6
+  C10_benchmark_shift_L2_p_mono:
+    claim: C10
+    metric: bench_shift
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L2}", key: p_mono, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L2.benchmark_shift.d_p_mono"}
+    tolerance: 1.0e-6
+  C10_delta_c_pi_window_L3:
+    claim: C10
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L3, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L3}", run_metric: delta, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L3.delta_pi_window.mean"}
+  C10_mechanical_pi_window_L3:
+    claim: C10
+    metric: mechanical_pi
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L3, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L3}", window: [111, 150], scoring: window, sap_filter: false, market_file: "configs/analysis/benchmarks/TR-H.json", sham_market: trunk, lever_market: L3}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L3.mechanical.delta_pi_window.mean"}
+    tolerance: 0.01
+  C10_benchmark_shift_L3_p_nash:
+    claim: C10
+    metric: bench_shift
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L3}", key: p_nash, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L3.benchmark_shift.d_p_nash"}
+    tolerance: 1.0e-6
+  C10_benchmark_shift_L3_p_mono:
+    claim: C10
+    metric: bench_shift
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L3}", key: p_mono, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L3.benchmark_shift.d_p_mono"}
+    tolerance: 1.0e-6
+  C10_delta_c_pi_window_L4a:
+    claim: C10
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L4a, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L4a}", run_metric: delta, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L4a.delta_pi_window.mean"}
+  C10_mechanical_pi_window_L4a:
+    claim: C10
+    metric: mechanical_pi
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L4a, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L4a}", window: [111, 150], scoring: window, sap_filter: false, market_file: "configs/analysis/benchmarks/TR-H.json", sham_market: trunk, lever_market: L4a}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L4a.mechanical.delta_pi_window.mean"}
+    tolerance: 0.01
+  C10_benchmark_shift_L4a_p_nash:
+    claim: C10
+    metric: bench_shift
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L4a}", key: p_nash, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L4a.benchmark_shift.d_p_nash"}
+    tolerance: 1.0e-6
+  C10_benchmark_shift_L4a_p_mono:
+    claim: C10
+    metric: bench_shift
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L4a}", key: p_mono, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L4a.benchmark_shift.d_p_mono"}
+    tolerance: 1.0e-6
+  C10_delta_c_pi_window_L5:
+    claim: C10
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L5, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L5}", run_metric: delta, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L5.delta_pi_window.mean"}
+  C10_mechanical_pi_window_L5:
+    claim: C10
+    metric: mechanical_pi
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L5, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L5}", window: [111, 150], scoring: window, sap_filter: false, market_file: "configs/analysis/benchmarks/TR-H.json", sham_market: trunk, lever_market: L5}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L5.mechanical.delta_pi_window.mean"}
+    tolerance: 0.01
+  C10_benchmark_shift_L5_p_nash:
+    claim: C10
+    metric: bench_shift
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L5}", key: p_nash, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L5.benchmark_shift.d_p_nash"}
+    tolerance: 1.0e-6
+  C10_benchmark_shift_L5_p_mono:
+    claim: C10
+    metric: bench_shift
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L5}", key: p_mono, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L5.benchmark_shift.d_p_mono"}
+    tolerance: 1.0e-6
+  C10_delta_c_pi_window_L6:
+    claim: C10
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L6}", run_metric: delta, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6.delta_pi_window.mean"}
+  C10_mechanical_pi_window_L6:
+    claim: C10
+    metric: mechanical_pi
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L6, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L6}", window: [111, 150], scoring: window, sap_filter: false, market_file: "configs/analysis/benchmarks/TR-H.json", sham_market: trunk, lever_market: L6}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6.mechanical.delta_pi_window.mean"}
+    tolerance: 0.01
+  C10_benchmark_shift_L6_p_nash:
+    claim: C10
+    metric: bench_shift
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L6}", key: p_nash, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6.benchmark_shift.d_p_nash"}
+    tolerance: 1.0e-6
+  C10_benchmark_shift_L6_p_mono:
+    claim: C10
+    metric: bench_shift
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L6}", key: p_mono, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L6.benchmark_shift.d_p_mono"}
+    tolerance: 1.0e-6
+  C10_delta_c_pi_window_L7:
+    claim: C10
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L7, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L7}", run_metric: delta, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L7.delta_pi_window.mean"}
+  C10_mechanical_pi_window_L7:
+    claim: C10
+    metric: mechanical_pi
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L7, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L7}", window: [111, 150], scoring: window, sap_filter: false, market_file: "configs/analysis/benchmarks/TR-H.json", sham_market: trunk, lever_market: L7}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L7.mechanical.delta_pi_window.mean"}
+    tolerance: 0.01
+  C10_benchmark_shift_L7_p_nash:
+    claim: C10
+    metric: bench_shift
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L7}", key: p_nash, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L7.benchmark_shift.d_p_nash"}
+    tolerance: 1.0e-6
+  C10_benchmark_shift_L7_p_mono:
+    claim: C10
+    metric: bench_shift
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L7}", key: p_mono, sap_filter: false}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L7.benchmark_shift.d_p_mono"}
+    tolerance: 1.0e-6
+  C12_raw_mde80_n11:
+    claim: C12
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: sham2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", run_metric: delta_price, stat: mde80}
+    source: {file: "{out}/a6_coherence.json", path: "raw_mde.mde80"}
+    tolerance: 0.001
+  C3b_split_sample_estimate:
+    claim: C3b
+    metric: split_sample_best
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", family: [L1, L2, L3, L4a, L5, L6, L7, L8], qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: estimate, eligible_from: "{out}/TR-H/stats.json"}
+    source: {file: "{out}/TR-H/stats.json", path: "h1r.best_lever_split_sample.estimate.mean"}
+  # ---------------------------------------------------------------- C3m, C-S (lanes M, S)
+  C3m_delta_c_p_M:
+    claim: C3m
+    metric: paired_contrast
+    runs: "{camp}/TR-M/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-M/*", treatment_arm: L2, qualified_from: "{out}/TR-M/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: mean}
+    source: {file: "{out}/TR-M/stats.json", path: "h1_by_lane.M.mean"}
+  C3m_p_M:
+    claim: C3m
+    metric: paired_contrast
+    runs: "{camp}/TR-M/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-M/*", treatment_arm: L2, qualified_from: "{out}/TR-M/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: p_t_one_sided}
+    source: {file: "{out}/TR-M/stats.json", path: "h1_by_lane.M.p_one_sided"}
+    tolerance: 0.001
+  CS_delta_c_p_S:
+    claim: C-S
+    metric: paired_contrast
+    runs: "{camp}/TR-S/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-S/*", treatment_arm: L2, qualified_from: "{out}/TR-S/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: mean}
+    source: {file: "{out}/TR-S/stats.json", path: "h1_by_lane.S.mean"}
+  CS_p_S:
+    claim: C-S
+    metric: paired_contrast
+    runs: "{camp}/TR-S/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-S/*", treatment_arm: L2, qualified_from: "{out}/TR-S/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: p_t_one_sided}
+    source: {file: "{out}/TR-S/stats.json", path: "h1_by_lane.S.p_one_sided"}
+    tolerance: 0.001
+  # ---------------------------------------------------------------- C4 nulls (TOST)
+  C4_tost_p_L9:
+    claim: C4
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L9, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: tost_p, margin: 0.20}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L9.delta_p.tost.p"}
+    tolerance: 0.001
+  # ---------------------------------------------------------------- C5 carrier (H6)
+  C5_delta_c_p_L4a:
+    claim: C5
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L4a, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L4a.delta_p.mean"}
+  C5_p_vs_mei:
+    claim: C5
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L4a, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: p_t_one_sided, mei: 0.15}
+    source: {file: "{out}/family_s/family_s.json", path: "hypotheses.H6-carrier.test.p"}
+    tolerance: 0.001
+  # ---------------------------------------------------------------- C6 replacement (H7)
+  C6_tost_p_R1:
+    claim: C6
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: R1, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: tost_p, margin: 0.15}
+    source: {file: "{out}/family_s/family_s.json", path: "hypotheses.H7-same.test.p"}
+    tolerance: 0.001
+  C6_p_R3_vs_mei:
+    claim: C6
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: R3, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: p_t_one_sided, mei: 0.15}
+    source: {file: "{out}/family_s/family_s.json", path: "hypotheses.H7-other.test.p"}
+    tolerance: 0.001
+  # ---------------------------------------------------------------- C7 sting (H8)
+  C7_follow_rate_collusive:
+    claim: C7
+    metric: follow_rate
+    runs: "{camp}/TR-H/*"
+    params: {arm: S1, qualified_from: "{out}/TR-H/stats.json", sting_slot: 4, stat: p}
+    source: {file: "{out}/family_s/family_s.json", path: "hypotheses.H8.test.collusive.p"}
+  C7_follow_rate_competitive:
+    claim: C7
+    metric: follow_rate
+    runs: "{camp}/CA-H/*"
+    params: {arm: S1c, sting_slot: 4, stat: p}
+    source: {file: "{out}/family_s/family_s.json", path: "hypotheses.H8.test.competitive.p"}
+  C7_difference_p:
+    claim: C7
+    metric: proportion_diff
+    runs: "{camp}/TR-H/*"
+    params: {arm: S1, qualified_from: "{out}/TR-H/stats.json", treatment_runs: "{camp}/CA-H/*", sting_slot: 4, mei: 0.30, stat: p}
+    source: {file: "{out}/family_s/family_s.json", path: "hypotheses.H8.test.p"}
+    tolerance: 0.001
+  # ---------------------------------------------------------------- C8 detection (H9)
+  C8_llm_only_auc:
+    claim: C8
+    metric: detection_auc
+    runs: "{camp}/TR-H/*"
+    params: {corpus: "{out}/detection/eval.parquet", rules: configs/detection/frozen_rules.json, positives: [llm_punished], negatives: [ghost, instruction], lane: H, stat: auc}
+    source: {file: "{out}/detection/report.json", path: "decision.llm_only.composite.auc"}
+    tolerance: 0.001
+  C8_fpr_ghost:
+    claim: C8
+    metric: detection_auc
+    runs: "{camp}/TR-H/*"
+    params: {corpus: "{out}/detection/eval.parquet", rules: configs/detection/frozen_rules.json, positives: [llm_punished], negatives: [ghost, instruction], lane: H, stat: "fpr:ghost"}
+    source: {file: "{out}/detection/report.json", path: "decision.llm_only.composite.fpr_by_type.ghost"}
+    tolerance: 0.001
+  C8_d1_recomputed:
+    claim: C8
+    metric: corpus_feature_check
+    runs: "{camp}/TR-H/*"
+    params: {corpus: "{out}/detection/corpus.parquet", feature: D1, kinds: [llm_punished, llm_unpunished], window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0}
+    expected: 0.0
+    tolerance: 0.001
+  # ---------------------------------------------------------------- C9 notice (H10)
+  C9_tost_p_L9_mei:
+    claim: C9
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L9, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", cap: 1.0, run_metric: delta_price, stat: tost_p, margin: 0.15}
+    source: {file: "{out}/family_s/family_s.json", path: "hypotheses.H10.test.p"}
+    tolerance: 0.001
+  # ---------------------------------------------------------------- C10 decomposition
+  C10_delta_c_pi_window_L2:
+    claim: C10
+    metric: paired_contrast
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, treatment_runs: "{camp}/TR-H/*", treatment_arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", treatment_bench: "{bench:TR-H:L2}", run_metric: delta, stat: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L2.delta_pi_window.mean"}
+  C10_share_above_pm_sham:
+    claim: C10
+    metric: share_above_pm
+    runs: "{camp}/TR-H/*"
+    params: {arm: sham, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], bench: "{bench:TR-H:trunk}", agg: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L2.share_quotes_above_pm.reference"}
+  C10_trade_weighted_price_L2:
+    claim: C10
+    metric: trade_weighted_price
+    runs: "{camp}/TR-H/*"
+    params: {arm: L2, qualified_from: "{out}/TR-H/stats.json", window: branch, members: [0, 1, 2, 3], agg: mean}
+    source: {file: "{out}/TR-H/stats.json", path: "contrasts.L2.trade_weighted_price.arm"}

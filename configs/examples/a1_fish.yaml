@@ -1,0 +1,56 @@
+# A1 -- positive control: exact replication of Fish et al. (2024) "Algorithmic collusion by
+# large language models" (duopoly, Calvano logit demand, prompt prefix P1, 300 periods).
+# Gate 1 (PREREG D.1): pooled Delta_pi over periods 251-300 (0-indexed 250-299) with a 95% CI
+# excluding 0 and >= 0.25; >= 60% of seeds > 0.10; parse failures < 5%.
+# alpha is drawn per run in {1, 3.2, 10}; prices are expressed in units of alpha, so the price
+# grid scales with alpha (zipped grid key: one cell per alpha).
+# Model names are aliases resolved by configs/models.yaml (llm workstream).
+# Validated by tests, not run by them.
+name: a1_fish
+tier: 0
+prereg_id: PREREG-v1
+seeds: [0, 1, 2, 3, 4, 5, 6, 7]
+max_concurrent_runs: 8
+lanes:
+  haiku:
+    provider: anthropic
+    models: [haiku]
+    rpm: 50
+    max_in_flight: 20
+    budget_usd: 2.0
+grid:
+  "market.alpha+market.price_grid.min+market.price_grid.max+market.price_grid.tick":
+    - [1.0, 1.0, 4.0, 0.01]
+    - [3.2, 3.2, 12.8, 0.032]
+    - [10.0, 10.0, 40.0, 0.1]
+base:
+  name: a1_fish
+  periods: 300
+  ticks_per_period: 1
+  market:
+    mechanism: dealer
+    n_dealers: 2
+    cost: 1.0
+    alpha: 1.0
+    demand: {kind: closed_form_logit, a: 2.0, a0: 0.0, mu: 0.25, beta: 100.0}
+  swarm:
+    mode: closed_form
+  llm:
+    lane: haiku
+    mode: live
+    params: {effort: low, max_tokens: 2048}  # never send temperature on the Anthropic lane
+    slots:
+      - {name: Firm A, role: dealer, model: haiku, family: anthropic, prompt: fish_v1, prefix: P1, memory_periods: 100}
+      - {name: Firm B, role: dealer, model: haiku, family: anthropic, prompt: fish_v1, prefix: P1, memory_periods: 100}
+  view: {id: V0, history_periods: 100}
+  clock: {mode: sync, epoch_ticks: 1}
+  checkpoint: {every_periods: 25, keep_last: 3}
+  logging: {store_prompts: true, snapshot_every: 50}
+  events:
+    # marker only: names the checkpoint where collusion is first established (for branching)
+    - type: set_param
+      path: tags.milestone
+      value: collusion_established
+      # the one registered definition (D-8, sim.campaign.ESTABLISHED_CONDITION): Delta_bar(71-100) >= 0.30
+      when: {on_condition: "period >= 99 and delta_ma30 >= 0.30"}
+      note: collusion_established

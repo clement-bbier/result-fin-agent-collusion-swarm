@@ -1,0 +1,50 @@
+# PC-H -- Gate 1 positive control on lane H (Haiku 5.5): A1 Fish exact (closed-form demand, 2 dealers, 300 periods, prompt fish_v1_json, prefix P1).
+# PREREG section 1 Gate 1; docs/03_preregistration/campaign_table.md.
+# Expected LLM calls: 3 alphas x 8 seeds x 2 dealers x 300 = 14,400 (table: 4,800 = 8 runs with alpha drawn per run; discrepancy D1 in docs/04_runbooks/campaigns.md)
+# alpha is zipped with the price grid (prices in units of alpha): one cell per alpha in {1, 3.2, 10}.
+# Grid x seeds is a product, so the 'alpha drawn per run' of the PREREG becomes 3 x 8 = 24 runs. For exactly 4,800 calls drop the grid and keep alpha = 1.
+name: PC-H
+tier: 0
+prereg_id: PREREG-v1
+seeds: [0, 1, 2, 3, 4, 5, 6, 7]
+max_concurrent_runs: 8
+lanes:
+  anthropic_haiku: {provider: anthropic, models: [claude-haiku-5-5], max_in_flight: 48, budget_usd: 12.0}
+grid:
+  market.alpha+market.price_grid.min+market.price_grid.max+market.price_grid.tick:
+  - [1.0, 1.0, 4.0, 0.01]
+  - [3.2, 3.2, 12.8, 0.032]
+  - [10.0, 10.0, 40.0, 0.1]
+base:
+  name: PC-H
+  periods: 300
+  ticks_per_period: 1
+  market:
+    mechanism: dealer
+    n_dealers: 2
+    cost: 1.0
+    alpha: 1.0
+    price_grid: {min: 1.0, max: 4.0, tick: 0.01}
+    routing: {tau: null, outside_utility: 0.0}
+    demand: {kind: closed_form_logit, a: 2.0, a0: 0.0, mu: 0.25, beta: 100.0}
+    fringe: {share: 0.0, horizon_ticks: 50}
+  swarm:
+    mode: closed_form
+    n_agents: 10000
+  llm:
+    memory_step: 25
+    lane: anthropic_haiku
+    mode: live
+    allow_mixed_families: false
+    params: {effort: low, max_tokens: 2048}
+    slots:
+    - {name: Firm A, role: dealer, model: claude-haiku-5-5, family: anthropic, prompt: fish_v1_json, prefix: P1, memory_periods: 100}
+    - {name: Firm B, role: dealer, model: claude-haiku-5-5, family: anthropic, prompt: fish_v1_json, prefix: P1, memory_periods: 100}
+  view: {id: V0, history_periods: 100}
+  clock: {mode: sync, epoch_ticks: 1}
+  checkpoint: {every_periods: 25, keep_last: 3}
+  logging: {store_prompts: true, snapshot_every: 50}
+  events: []
+  tags:
+    arm: fish_exact
+    label: PC-H

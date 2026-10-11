@@ -1,0 +1,47 @@
+# PC-H-dealer -- Gate 1b instrument-validity control: the Fish duopoly of PC-H (closed-form demand, alpha = 1, 300 periods)
+# played with the dealer template the levers use (dealer_v1, prefix P1) instead of fish_v1_json.
+# PREREG section 1 Gate 1 (review R6: Gate 1b); docs/03_preregistration/campaign_table.md.
+# Expected LLM calls: 8 seeds x 2 dealers x 300 = 4,800 (Haiku, about 1.44 USD at 0.0003 USD/call)
+# Purpose: the lever branches use dealer_v1, not the Fish prompt; this run shows that the dealer template itself reproduces
+# (or not) Fish-level collusion in the exact Fish market, so a lever effect cannot be an artefact of the template.
+# One-sided market (two_sided false): dealer_v1 shows no inventory or cash; prices in units of alpha = 1.
+name: PC-H-dealer
+tier: 0
+prereg_id: PREREG-v1
+seeds: [0, 1, 2, 3, 4, 5, 6, 7]
+max_concurrent_runs: 8
+lanes:
+  anthropic_haiku: {provider: anthropic, models: [claude-haiku-5-5], max_in_flight: 48, budget_usd: 4.0}
+base:
+  name: PC-H-dealer
+  periods: 300
+  ticks_per_period: 1
+  market:
+    mechanism: dealer
+    n_dealers: 2
+    cost: 1.0
+    alpha: 1.0
+    price_grid: {min: 1.0, max: 4.0, tick: 0.01}
+    routing: {tau: null, outside_utility: 0.0}
+    demand: {kind: closed_form_logit, a: 2.0, a0: 0.0, mu: 0.25, beta: 100.0}
+    fringe: {share: 0.0, horizon_ticks: 50}
+  swarm:
+    mode: closed_form
+    n_agents: 10000
+  llm:
+    memory_step: 25
+    lane: anthropic_haiku
+    mode: live
+    allow_mixed_families: false
+    params: {effort: low, max_tokens: 2048}
+    slots:
+    - {name: Dealer A, role: dealer, model: claude-haiku-5-5, family: anthropic, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer B, role: dealer, model: claude-haiku-5-5, family: anthropic, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+  view: {id: V0, history_periods: 100}
+  clock: {mode: sync, epoch_ticks: 1}
+  checkpoint: {every_periods: 25, keep_last: 3}
+  logging: {store_prompts: true, snapshot_every: 50}
+  events: []
+  tags:
+    arm: dealer_template
+    label: PC-H-dealer

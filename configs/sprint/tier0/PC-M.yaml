@@ -1,0 +1,50 @@
+# DROPPED (A-004 / A-005 instrument failure; Gate 1 M lane NOT RUN): ministral-8b-latest and ministral-14b-latest failed as dealer_v1 instruments on 2026-10-10; content unchanged below.
+# PC-M -- Gate 1 positive control on lane M (free Mistral lane, ministral family: ministral-8b-latest): A1 Fish exact.
+# PREREG section 1 Gate 1; docs/03_preregistration/campaign_table.md.
+# Expected LLM calls: 14,400 on the free lane M (table: 4,800, discrepancy D1)
+# Mistral: max_tokens 2048 (A-004; was 600 until 2026-10-10 10:50Z), temperature 1.0 (default sampling), no thinking effort.
+name: PC-M
+tier: 0
+prereg_id: PREREG-v1
+seeds: [0, 1, 2, 3, 4, 5, 6, 7]
+max_concurrent_runs: 8
+lanes:
+  mistral_free: {provider: mistral, models: [ministral-8b-latest], rps: 1.0, max_in_flight: 2, free: true}
+grid:
+  market.alpha+market.price_grid.min+market.price_grid.max+market.price_grid.tick:
+  - [1.0, 1.0, 4.0, 0.01]
+  - [3.2, 3.2, 12.8, 0.032]
+  - [10.0, 10.0, 40.0, 0.1]
+base:
+  name: PC-M
+  periods: 300
+  ticks_per_period: 1
+  market:
+    mechanism: dealer
+    n_dealers: 2
+    cost: 1.0
+    alpha: 1.0
+    price_grid: {min: 1.0, max: 4.0, tick: 0.01}
+    routing: {tau: null, outside_utility: 0.0}
+    demand: {kind: closed_form_logit, a: 2.0, a0: 0.0, mu: 0.25, beta: 100.0}
+    fringe: {share: 0.0, horizon_ticks: 50}
+  swarm:
+    mode: closed_form
+    n_agents: 10000
+  llm:
+    memory_step: 25
+    lane: mistral_free
+    mode: live
+    allow_mixed_families: false
+    params: {effort: null, max_tokens: 2048, temperature: 1.0}
+    slots:
+    - {name: Firm A, role: dealer, model: ministral-8b-latest, family: mistral, prompt: fish_v1_json, prefix: P1, memory_periods: 100}
+    - {name: Firm B, role: dealer, model: ministral-8b-latest, family: mistral, prompt: fish_v1_json, prefix: P1, memory_periods: 100}
+  view: {id: V0, history_periods: 100}
+  clock: {mode: sync, epoch_ticks: 1}
+  checkpoint: {every_periods: 25, keep_last: 3}
+  logging: {store_prompts: true, snapshot_every: 50}
+  events: []
+  tags:
+    arm: fish_exact
+    label: PC-M

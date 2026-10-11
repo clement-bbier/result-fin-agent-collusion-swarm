@@ -1,0 +1,444 @@
+{
+  "family": [
+    "H2",
+    "H4",
+    "H5",
+    "H6-carrier",
+    "H7-same",
+    "H7-other",
+    "H8",
+    "H10"
+  ],
+  "m": 8,
+  "alpha": 0.05,
+  "rule": "Holm over the fixed family of 8; not testable -> p = 1; joint rules enter with the larger component p (intersection-union); supported = Holm reject and every point co-condition met (one not evaluable is not met)",
+  "mei": {
+    "H2": 0.3,
+    "H4": 0.15,
+    "H5": 0.15,
+    "H6-carrier": 0.15,
+    "H7-same": 0.15,
+    "H7-other": 0.15,
+    "H8": 0.3,
+    "H10": 0.15
+  },
+  "windows": {
+    "primary": [
+      111,
+      150
+    ],
+    "sensitivity_30": [
+      121,
+      150
+    ],
+    "sensitivity_50": [
+      101,
+      150
+    ]
+  },
+  "window_info": {
+    "source": "registered defaults",
+    "requested_shift": 0,
+    "shift": 0,
+    "gate2": null
+  },
+  "r1_replacement_period_default": 101,
+  "hypotheses": {
+    "H2": {
+      "status": "tested",
+      "spearman": {
+        "n": 16,
+        "rho": -0.7448086552168323,
+        "p_perm": 0.0010998900109989002,
+        "p_asymptotic": 0.0004661907320832614,
+        "n_perm": 10000,
+        "groups": [
+          "3001",
+          "3002",
+          "3003",
+          "3004"
+        ],
+        "incomplete_groups": {},
+        "n_dropped_nonfinite": 0,
+        "dropped_groups": [],
+        "h0": "rho >= 0 (one-sided: Delta_p decreases with routing sensitivity)"
+      },
+      "welch_s1_minus_s4": {
+        "n_a": 16,
+        "n_b": 4,
+        "diff": 0.17446119312368358,
+        "se": 0.04597719954410201,
+        "df": 3.1914882636926514,
+        "t": -2.73045788175719,
+        "p": 0.966417963464216,
+        "mei": 0.3,
+        "h0": "mean(s1) - mean(s4) <= 0.3"
+      },
+      "p": 0.966417963464216,
+      "rule": "intersection-union: Holm p = max(p_perm, p_welch); p = 1 when a component cannot be computed",
+      "mei": 0.3,
+      "n_gradient_runs": 16,
+      "n_pooled_s1": 16,
+      "excluded": [],
+      "co_conditions": {},
+      "p_holm": 1.0,
+      "reject": false,
+      "placeholder": false,
+      "supported": false
+    },
+    "H4": {
+      "status": "tested",
+      "test": {
+        "n": 11,
+        "mean": 0.0009824009831180007,
+        "se": 0.0009824009831180004,
+        "t": -151.68714361820102,
+        "p": 1.0,
+        "lo": -0.0012065248155967282,
+        "hi": 0.0031713267818327296,
+        "mei": 0.15,
+        "h0": "mean <= 0.15"
+      },
+      "p": 1.0,
+      "lever": "L3",
+      "estimate": {
+        "mean": 0.0009824009831180007,
+        "bca_lo": 0.0,
+        "bca_hi": 0.003929603932472003,
+        "n": 11
+      },
+      "mei": 0.15,
+      "co_conditions": {},
+      "p_holm": 1.0,
+      "reject": false,
+      "placeholder": false,
+      "supported": false
+    },
+    "H5": {
+      "status": "tested",
+      "test": {
+        "n": 11,
+        "mean": -0.0002750722752730341,
+        "se": 0.00027507227527303414,
+        "p_gt": 1.0,
+        "p_lt": 1.0,
+        "p": 1.0,
+        "alpha_each": 0.025,
+        "mei": 0.15,
+        "h0": "|mean| <= 0.15"
+      },
+      "p": 1.0,
+      "lever": "L5",
+      "estimate": {
+        "mean": -0.0002750722752730341,
+        "bca_lo": -0.0012409575727727652,
+        "bca_hi": 0.0,
+        "n": 11
+      },
+      "mei": 0.15,
+      "co_conditions": {},
+      "p_holm": 1.0,
+      "reject": false,
+      "placeholder": false,
+      "supported": false
+    },
+    "H6-carrier": {
+      "status": "not testable: no dependence to remove in the sham",
+      "test": {
+        "n": 11,
+        "mean": 0.0,
+        "se": 0.0,
+        "t": null,
+        "p": 1.0,
+        "lo": 0.0,
+        "hi": 0.0,
+        "mei": 0.15
+      },
+      "p": 1.0,
+      "lever": "L4a",
+      "estimate": {
+        "mean": 0.0,
+        "bca_lo": 0.0,
+        "bca_hi": 0.0,
+        "n": 11
+      },
+      "mei": 0.15,
+      "dependence_guard": {
+        "sham_d5net": -0.0006921476310580135,
+        "n_sham_runs": 11,
+        "quantile": 0.95,
+        "null_q": 0.0007812119255667532,
+        "n_null_draws": 152,
+        "passed": false,
+        "rule": "sham D5-net > the 0.95 quantile of its ghost cyclic-shift null",
+        "null_source": "null draws",
+        "reason": "sham D5-net not above its ghost null quantile: no dependence to remove"
+      },
+      "d5net_change": 0.9117236670388106,
+      "alternative_price_level_suffices": {
+        "tost_equivalent": true,
+        "dependence_within_25pct": false
+      },
+      "co_condition_dependence_fall_ge_50pct": null,
+      "note": "no decision on the carrier (enters Holm at p = 1); the Delta-C_p test is reported under 'test' and the carrier claim rests on it only",
+      "co_conditions": {
+        "sham_d5net_above_ghost_null_q95": false,
+        "dependence_fall_ge_50pct": null
+      },
+      "p_holm": 1.0,
+      "reject": false,
+      "placeholder": true,
+      "supported": false
+    },
+    "H7-same": {
+      "status": "tested",
+      "test": {
+        "mean": 0.0,
+        "p_lower": 0.0,
+        "p_upper": 0.0,
+        "p": 0.0,
+        "equivalent": true,
+        "lo": 0.0,
+        "hi": 0.0,
+        "n": 11,
+        "mei": 0.15,
+        "h0": "|mean| >= 0.15 (equivalence claimed when p < alpha)"
+      },
+      "p": 0.00048828125,
+      "lever": "R1",
+      "estimate": {
+        "mean": 0.0,
+        "bca_lo": 0.0,
+        "bca_hi": 0.0,
+        "n": 11
+      },
+      "mei": 0.15,
+      "p_tost": 0.0,
+      "recovery_source": "r1_series",
+      "recovery_definition": "baseline = mean Delta_p over the 20 periods before the replacement period (replacement_period - 20 .. replacement_period - 1); recovery = the first period t >= replacement_period with |Delta_p(t) - baseline| <= 0.10; recovery_periods = t - replacement_period (0 = never left the band); no such period = right-censored (counted as a failure of 'recovery <= 20'); sign test: successes = runs with recovery_periods <= 20, one-sided H0 P(success) <= 0.5",
+      "recovery_periods": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "n_censored": 0,
+      "recovery_sign_test": {
+        "successes": 11,
+        "n": 11,
+        "p": 0.00048828125,
+        "p0": 0.5,
+        "threshold_periods": 20,
+        "h0": "P(recovery_periods <= 20) <= 0.5"
+      },
+      "recovery_runs": [
+        {
+          "run": "TR-H--R1__s0__e5cde8220f6b",
+          "replacement_period": 101,
+          "baseline": 1.5817671126291548,
+          "recovery_periods": 0.0,
+          "censored": false,
+          "horizon": 49
+        },
+        {
+          "run": "TR-H--R1__s10__cb9adbe89b6d",
+          "replacement_period": 101,
+          "baseline": 1.478025568811892,
+          "recovery_periods": 0.0,
+          "censored": false,
+          "horizon": 49
+        },
+        {
+          "run": "TR-H--R1__s11__977a276839b6",
+          "replacement_period": 101,
+          "baseline": 1.1322204227543486,
+          "recovery_periods": 0.0,
+          "censored": false,
+          "horizon": 49
+        },
+        {
+          "run": "TR-H--R1__s1__fcc3a6c1833f",
+          "replacement_period": 101,
+          "baseline": 1.6085670114486141,
+          "recovery_periods": 0.0,
+          "censored": false,
+          "horizon": 49
+        },
+        {
+          "run": "TR-H--R1__s2__75d415d58d7a",
+          "replacement_period": 101,
+          "baseline": 1.4806191074073234,
+          "recovery_periods": 0.0,
+          "censored": false,
+          "horizon": 49
+        },
+        {
+          "run": "TR-H--R1__s3__6d250f15f49e",
+          "replacement_period": 101,
+          "baseline": 1.616347627234909,
+          "recovery_periods": 0.0,
+          "censored": false,
+          "horizon": 49
+        },
+        {
+          "run": "TR-H--R1__s4__1db215e03f68",
+          "replacement_period": 101,
+          "baseline": 0.8720020503460472,
+          "recovery_periods": 0.0,
+          "censored": false,
+          "horizon": 49
+        },
+        {
+          "run": "TR-H--R1__s5__4394a4509b8d",
+          "replacement_period": 101,
+          "baseline": 1.650928141840663,
+          "recovery_periods": 0.0,
+          "censored": false,
+          "horizon": 49
+        },
+        {
+          "run": "TR-H--R1__s6__ac049b380c44",
+          "replacement_period": 101,
+          "baseline": 1.497909364710201,
+          "recovery_periods": 0.0,
+          "censored": false,
+          "horizon": 49
+        },
+        {
+          "run": "TR-H--R1__s7__1a1f624ba5d4",
+          "replacement_period": 101,
+          "baseline": 0.9938983643313305,
+          "recovery_periods": 0.0,
+          "censored": false,
+          "horizon": 49
+        },
+        {
+          "run": "TR-H--R1__s9__6619a3c4f2b0",
+          "replacement_period": 101,
+          "baseline": 1.5471865980234007,
+          "recovery_periods": 0.0,
+          "censored": false,
+          "horizon": 49
+        }
+      ],
+      "p_sign": 0.00048828125,
+      "rule": "intersection-union: Holm p = max(p_TOST, p_sign), sign test on recovery <= 20 periods",
+      "co_conditions": {
+        "recovery_sign_test_computed": true
+      },
+      "p_holm": 0.00341796875,
+      "reject": true,
+      "placeholder": false,
+      "supported": true
+    },
+    "H7-other": {
+      "status": "not testable: no paired contrast for R3 (lever not run or < 2 pairs)",
+      "p": 1.0,
+      "mei": 0.15,
+      "co_conditions": {},
+      "p_holm": 1.0,
+      "reject": false,
+      "placeholder": true,
+      "supported": false
+    },
+    "H10": {
+      "status": "tested",
+      "test": {
+        "mean": 3.9296039324722045e-05,
+        "p_lower": 1.8685591150256144e-32,
+        "p_upper": 1.8783750648110795e-32,
+        "p": 1.8783750648110795e-32,
+        "equivalent": true,
+        "lo": -3.1926504231815426e-05,
+        "hi": 0.00011051858288125952,
+        "n": 11,
+        "mei": 0.15,
+        "h0": "|mean| >= 0.15 (equivalence claimed when p < alpha)"
+      },
+      "p": 1.8783750648110795e-32,
+      "lever": "L9",
+      "estimate": {
+        "mean": 3.9296039324722045e-05,
+        "bca_lo": 0.0,
+        "bca_hi": 0.00015718415729888818,
+        "n": 11
+      },
+      "mei": 0.15,
+      "d5net_change": null,
+      "co_condition_dependence_within_25pct": null,
+      "co_conditions": {
+        "dependence_within_25pct": null
+      },
+      "p_holm": 1.5027000518488636e-31,
+      "reject": true,
+      "placeholder": false,
+      "supported": false
+    },
+    "H8": {
+      "status": "tested",
+      "test": {
+        "diff": 0.0,
+        "se": 0.0,
+        "df": 5,
+        "p": 1.0,
+        "collusive": {
+          "p": 0.0,
+          "lo": 0.0,
+          "hi": 0.0,
+          "se": 0.0,
+          "clusters": 6.0
+        },
+        "competitive": {
+          "p": 0.0,
+          "lo": 0.0,
+          "hi": 0.0,
+          "se": 0.0,
+          "clusters": 24.0
+        },
+        "mei": 0.3,
+        "h0": "follow(collusive) - follow(competitive) <= 0.3"
+      },
+      "p": 1.0,
+      "mei": 0.3,
+      "punished_share": 0.8333333333333334,
+      "co_condition_punished_share_ge_50pct": true,
+      "co_conditions": {
+        "punished_share_ge_50pct": true
+      },
+      "p_holm": 1.0,
+      "reject": false,
+      "placeholder": false,
+      "supported": false
+    }
+  },
+  "n_rejected": 2,
+  "n_supported": 1,
+  "summary": "1 of 8 supported (Holm reject and co-conditions met); 2 rejected by Holm",
+  "inputs": {
+    "trunk_stats": "results\\analysis\\TR-H\\stats.json",
+    "gradient_stats": "results\\analysis\\GR-H\\stats.json",
+    "corpus": "results\\analysis\\detection\\corpus.parquet",
+    "ghost_null": "given",
+    "r1_series": "R1 run directories",
+    "r1_excluded": [],
+    "gates": null,
+    "stats_branch_window": [
+      111,
+      150
+    ],
+    "sting_campaigns": [
+      "..\\..\\..\\results\\campaigns\\TR-H",
+      "..\\..\\..\\results\\campaigns\\CA-H",
+      "..\\..\\..\\results\\campaigns\\SC-1"
+    ],
+    "n_qualified": 11,
+    "fallback": false
+  }
+}

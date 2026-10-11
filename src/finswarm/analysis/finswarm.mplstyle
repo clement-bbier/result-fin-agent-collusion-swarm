@@ -1,0 +1,42 @@
+# finswarm paper style: colour-blind-safe categorical order (validated: worst adjacent
+# CVD dE 9.1, normal-vision dE 22.9 on white), hairline recessive grid, no titles.
+axes.prop_cycle: cycler('color', ['2a78d6', 'eb6834', '1baf7a', 'eda100', 'e87ba4', '008300', '4a3aa7', 'e34948'])
+figure.facecolor: ffffff
+figure.figsize: 5.5, 3.4
+figure.dpi: 100
+figure.constrained_layout.use: True
+savefig.dpi: 200
+savefig.facecolor: ffffff
+font.family: sans-serif
+font.sans-serif: DejaVu Sans, Arial, Helvetica, sans-serif
+font.size: 9
+axes.titlesize: 9
+axes.labelsize: 9
+axes.labelcolor: 52514e
+axes.edgecolor: c3c2b7
+axes.linewidth: 0.6
+axes.facecolor: ffffff
+axes.grid: True
+axes.grid.axis: y
+axes.axisbelow: True
+axes.spines.top: False
+axes.spines.right: False
+grid.color: e1e0d9
+grid.linestyle: -
+grid.linewidth: 0.5
+xtick.color: 898781
+ytick.color: 898781
+xtick.labelcolor: 52514e
+ytick.labelcolor: 52514e
+xtick.labelsize: 8
+ytick.labelsize: 8
+xtick.major.width: 0.6
+ytick.major.width: 0.6
+lines.linewidth: 1.5
+lines.markersize: 5
+patch.linewidth: 0
+legend.frameon: False
+legend.fontsize: 8
+legend.labelcolor: 0b0b0b
+text.color: 0b0b0b
+pdf.fonttype: 42

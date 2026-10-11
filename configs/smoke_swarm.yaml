@@ -1,0 +1,50 @@
+# Smoke run (RunConfig) in agents mode, mock provider only, cost 0 USD.
+#   uv run python -m finswarm.cli run configs/smoke_swarm.yaml --provider mock
+# Two mock dealers on the dealer market (mechanism A) facing 2,000 background swarm agents
+# routed by logit utility; 20 periods of 10 ticks, one decision epoch per period.
+# lam_mean = beta / (N * ticks_per_period) = 100 / (2000 * 10) = 0.005 gives Calvano's
+# beta = 100 expected arrivals per period. Slot A is a scripted tit-for-tat; slot B is a real
+# LLMAgent (dealer_v1 prompt, JSON output) answered by MockLLM("undercutter"), so prompt
+# rendering, parsing and llm_decisions logging run end to end. At period 10 the routing
+# temperature softens from 0.25 to 0.5 (live set_param).
+name: smoke_swarm
+periods: 20
+ticks_per_period: 10
+seed: 0
+market:
+  mechanism: dealer
+  n_dealers: 2
+  cost: 1.0
+  alpha: 1.0
+  price_grid: {min: 1.0, max: 4.0, tick: 0.01}
+  demand: {kind: swarm, a: 2.0, a0: 0.0, mu: 0.25, beta: 100.0}
+swarm:
+  mode: agents
+  n_agents: 2000
+  arrivals: {lam_mean: 0.005, lam_sd_log: 0.5}
+  type_weights: {ZI_BUYER: 0.75, INFORMED: 0.10, NOISE: 0.10, TREND: 0.05}
+llm:
+  lane: mock
+  mode: mock
+  slots:
+    - name: Dealer A
+      role: dealer
+      model: scripted
+      family: mock
+      policy: "tit_for_tat(target=1.9, trigger=0.01, punish=3)"
+    - name: Dealer B
+      role: dealer
+      model: mock-v1
+      family: mock
+      prompt: dealer_v1
+      policy: undercutter
+view: {id: V0, show_rival_quotes: true, show_trades: true, history_periods: 20}
+clock: {mode: sync, epoch_ticks: 10}
+checkpoint: {every_periods: 5, keep_last: 3}
+logging: {snapshot_every: 5, snapshot_levels: 5, store_prompts: true}
+events:
+  - type: set_param
+    path: market.routing.tau
+    value: 0.5
+    when: {at_period: 10}
+    note: routing_softening

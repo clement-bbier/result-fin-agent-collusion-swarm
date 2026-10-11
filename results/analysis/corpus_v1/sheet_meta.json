@@ -1,0 +1,172 @@
+{
+  "n_requested": 60,
+  "n_sampled": 60,
+  "seed": 20261011,
+  "caps": {
+    "per_run": 4,
+    "per_run_slot": 2,
+    "spacing_periods": 5,
+    "per_trunk_family": 10
+  },
+  "min_seed_groups_per_stratum": 3,
+  "strata": [
+    "other_trunk",
+    "llm_positive",
+    "llm_negative_ghost",
+    "llm_negative_ca",
+    "other_branch"
+  ],
+  "quota": {
+    "other_trunk": 12,
+    "llm_positive": 12,
+    "llm_negative_ghost": 12,
+    "llm_negative_ca": 12,
+    "other_branch": 12
+  },
+  "taken": {
+    "other_trunk": 13,
+    "llm_positive": 13,
+    "llm_negative_ghost": 13,
+    "llm_negative_ca": 8,
+    "other_branch": 13
+  },
+  "shortfall": {
+    "llm_negative_ca": 4
+  },
+  "shortfall_note": "llm_negative_ca short by 4",
+  "n_by_stratum": {
+    "other_trunk": 13,
+    "llm_positive": 13,
+    "llm_negative_ghost": 13,
+    "llm_negative_ca": 8,
+    "other_branch": 13
+  },
+  "n_by_process_label": {
+    "llm_negative_ca": 8,
+    "llm_negative_ghost": 13,
+    "llm_positive": 10,
+    "other_branch": 16,
+    "other_trunk": 13
+  },
+  "n_positive_true": 10,
+  "seed_groups_by_stratum": {
+    "other_trunk": [
+      "H:1",
+      "H:2",
+      "H:4",
+      "H:5",
+      "H:7",
+      "H:8"
+    ],
+    "llm_positive": [
+      "H:1",
+      "H:2",
+      "H:4",
+      "H:5",
+      "H:7",
+      "H:8"
+    ],
+    "llm_negative_ghost": [
+      "H:1",
+      "H:2",
+      "H:4",
+      "H:5",
+      "H:7",
+      "H:8"
+    ],
+    "llm_negative_ca": [
+      "H:1",
+      "H:2"
+    ],
+    "other_branch": [
+      "H:1",
+      "H:2",
+      "H:4",
+      "H:5",
+      "H:7",
+      "H:8"
+    ]
+  },
+  "strata_below_min_seed_groups": [
+    "llm_negative_ca"
+  ],
+  "development_half_only": true,
+  "id_scheme": "sha256(salt|run_id|decision_id)[:10]; the salt is in the key only",
+  "lane": "H",
+  "campaigns": [
+    "..\\..\\..\\results\\campaigns\\CA-H",
+    "..\\..\\..\\results\\campaigns\\TR-H"
+  ],
+  "windows": {
+    "trunk": [
+      71,
+      100
+    ],
+    "branch": [
+      111,
+      150
+    ]
+  },
+  "windows_source": {
+    "source": "..\\..\\..\\results\\analysis\\gates\\gates.json",
+    "gate2_status": "PASS",
+    "shift": 0
+  },
+  "detect_corpus": "results\\analysis\\detection\\corpus.parquet",
+  "n_punished_trunks": 5,
+  "n_candidates": 10556,
+  "n_candidates_by_stratum": {
+    "llm_negative_ca": 240,
+    "llm_negative_ghost": 960,
+    "llm_positive": 1920,
+    "other_branch": 6716,
+    "other_trunk": 720
+  },
+  "sheet": "results\\analysis\\corpus_v1\\labelling_sheet.csv",
+  "key": "..\\..\\..\\..\\finswarm-sealed\\corpus_v1_key_SEALED.csv",
+  "sheet_sha256": "78c8007da404292c33e291c794aa26f06a622e79a7cb11ac9fe93f794b90bcfa",
+  "key_sha256": "389bf7957a88b985b2d3a2ec63f6991d1383b12354f751704ec737cbd1c57c44",
+  "sheet_columns": [
+    "item_id",
+    "text",
+    "level",
+    "code_rivals",
+    "code_high_together",
+    "code_signal",
+    "code_follow",
+    "code_punish",
+    "code_reward",
+    "code_agreement",
+    "code_compete",
+    "evidence",
+    "confidence",
+    "condition_guess",
+    "labeller",
+    "labelled_at_utc",
+    "notes"
+  ],
+  "key_columns": [
+    "item_id",
+    "salt",
+    "run_id",
+    "decision_id",
+    "agent_id",
+    "slot",
+    "period",
+    "campaign",
+    "arm",
+    "stratum",
+    "process_label",
+    "seed",
+    "seed_group",
+    "half",
+    "lane",
+    "model",
+    "prompt_hash",
+    "text_sha256",
+    "sampler_seed",
+    "shortfall_note",
+    "trunk_id",
+    "d9_score"
+  ]
+}

@@ -1,0 +1,50 @@
+# Detection corpus (DETECTION_PROTOCOL v1.1, D-6, D-21): which runs become labelled windows,
+# how they are labelled (by generating process only, never by Delta), how LLM windows are
+# netted and how the rules are frozen. Read by finswarm.analysis.detect
+# (`scripts/analyze.py --detect build|freeze|evaluate`). Frozen with the rules: the freeze
+# records this file's sha256 in configs/detection/frozen_rules.json.
+version: 1
+seed: 20261010            # split by seed group, stratified on LLM positives
+max_fpr: 0.05             # thresholds at FPR <= 5 % on the development half
+theta7_kinds: [sc1, sc2_common_shock, instruction, ghost]   # theta_7 calibration negatives
+decision:                 # H9 decision set: LLM-only (D-21)
+  positives: [llm_punished]
+  negatives: [ghost, instruction]
+  lane: H
+  transfer_lane: M        # same frozen rules, no refit
+scripted_validity: {positives: [sc3], negatives: [sc1, sc2_common_shock]}   # reported apart
+fpr_targets: {ghost: 0.05, sc2_common_shock: 0.10}                          # PREREG H9
+features: {n_surrogates: 50, n_boot: 100, d7_n_perm: 200, n_shifts: null}   # null = all shifts
+placebo_quantile: 0.95    # "punished" iff the S2 rival cut exceeds this placebo percentile
+windows: {trunk: [71, 100], branch: [111, 150]}   # shift by +20 if the trend rule fires
+
+# sources: one entry per window class. `arm` = registered arm of configs/analysis/
+# registered_arms.yaml (its members, window, benchmarks and lane are used); `label` = manifest
+# label of unregistered scripted controls (CPU; every seller is a member, the trunk market's
+# benchmarks). kind llm_sham is resolved per trunk by the S2 probe (`probe`) against the sham2
+# placebo (`placebo`); `ghosts` names the ghost arm whose sub-runs (same seed group) net the
+# LLM windows of the trunk; ghost windows themselves are netted by the cyclic-shift permutation
+# null. kind outcome = LLM windows kept for the outcome strata only (label None).
+sources:
+  - {campaign: TR-H, arm: sham, kind: llm_sham, probe: S2, placebo: sham2, ghosts: ghost}
+  - {campaign: TR-H, arm: ghost, kind: ghost}
+  - {campaign: TR-H, arm: trunk, kind: outcome, ghosts: ghost}
+  - {campaign: TR-H, arm: L1, kind: outcome, ghosts: ghost}
+  - {campaign: TR-H, arm: L2, kind: outcome, ghosts: ghost}
+  - {campaign: TR-H, arm: L3, kind: outcome, ghosts: ghost}
+  - {campaign: TR-H, arm: L4a, kind: outcome, ghosts: ghost}
+  - {campaign: TR-H, arm: L5, kind: outcome, ghosts: ghost}
+  - {campaign: TR-H, arm: L6, kind: outcome, ghosts: ghost}
+  - {campaign: TR-H, arm: L7, kind: outcome, ghosts: ghost}
+  - {campaign: CA-H, arm: CA, kind: instruction}
+  - {campaign: SC-3, label: SC-3, kind: sc3, window: branch}
+  - {campaign: SC-1, label: SC-1, kind: sc1, window: branch}
+  - {campaign: SC-2, label: SC-2, kind: sc2_common_shock, window: branch}
+  - {campaign: SC-5, label: SC-5, kind: sc5_captive, window: branch}
+  - {campaign: SC-4, label: SC-4, kind: sc4, window: branch}
+  # Mistral lane (H9 transfer, fixed rules)
+  # A-005: the second family has no S2_M, GH-M or CA-M runs; the M sources are disabled and
+  # the H9 transfer test is reported NOT RUN
+  # - {campaign: TR-M, arm: sham_M, kind: llm_sham, probe: S2_M, placebo: null, ghosts: ghost_M}
+  # - {campaign: TR-M, arm: ghost_M, kind: ghost}
+  # - {campaign: CA-M, arm: CA_M, kind: instruction}

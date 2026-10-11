@@ -1,0 +1,1742 @@
+{
+  "campaign": "PC-H-dealer",
+  "registry": {
+    "path": "configs\\analysis\\registered_arms.yaml",
+    "sha256": "f149e6e50788debedfaef26566a1735e2e89bcf18759a76914094efe41d745d5",
+    "prereg_id": "PREREG-v1"
+  },
+  "windows": {
+    "branch": [
+      111,
+      150
+    ],
+    "trunk": [
+      71,
+      100
+    ],
+    "fish": [
+      251,
+      300
+    ]
+  },
+  "estimands": {
+    "primary": "delta_p: incumbents' CAPPED price index min(Delta_p, 1) with the pre-lever (trunk) benchmarks (D-16; raw index reported as delta_p_raw)",
+    "own_scoring": "delta_p_own: capped Delta_p of the sham on the trunk benchmarks minus capped Delta_p of the lever on its own market's pinned benchmarks (= the delta_p_window contrast), the D-17 co-condition for 'collusion reduction'",
+    "secondary": "delta_pi_window: incumbents' profit-based Delta, per-window benchmarks",
+    "robustness": [
+      "delta_pi",
+      "delta_p_vw",
+      "delta_p_raw",
+      "delta_p_window_raw"
+    ],
+    "reported": [
+      "share_quotes_above_pm",
+      "trade_weighted_price",
+      "benchmark_shift"
+    ]
+  },
+  "benchmarks": {
+    "trunk": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "sham": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "sham2": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L1": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L1",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.0833333303685697,
+        "p_mono": 1.922763860100165,
+        "pi_nash": 2.083333036859556,
+        "pi_mono": 21.50659650250399
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L2": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L2",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3375,
+        "p_mono": 2.05,
+        "pi_nash": 5.331832500000002,
+        "pi_mono": 10.864875000000001
+      },
+      "window_method": "sweep:market.sweep.profit_fn"
+    },
+    "L3": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L3",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L4a": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L4a",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L5": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L5",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L6": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L6",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3115206237619361,
+        "p_mono": 2.097231279047717,
+        "pi_nash": 6.152062376194926,
+        "pi_mono": 16.94462558095314
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L7": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L7",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L8": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "ghost_sham": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "ghost": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "S1": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "S2": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "S1c_LLM": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "NI": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "R1": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "R3": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L9": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "CA": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "CA",
+      "window_market": "CA",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "GR-s1": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "GR-s2": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "GR-s2",
+      "window_market": "GR-s2",
+      "primary": {
+        "p_nash": 1.1666490011878616,
+        "p_mono": 1.9390701886601764,
+        "pi_nash": 4.164900118783665,
+        "pi_mono": 20.351754716505244
+      },
+      "window": {
+        "p_nash": 1.1666490011878616,
+        "p_mono": 1.9390701886601764,
+        "pi_nash": 4.164900118783665,
+        "pi_mono": 20.351754716505244
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "GR-s3": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "GR-s3",
+      "window_market": "GR-s3",
+      "primary": {
+        "p_nash": 1.0833333303685697,
+        "p_mono": 1.922763860100165,
+        "pi_nash": 2.083333036859556,
+        "pi_mono": 21.50659650250399
+      },
+      "window": {
+        "p_nash": 1.0833333303685697,
+        "p_mono": 1.922763860100165,
+        "pi_nash": 2.083333036859556,
+        "pi_mono": 21.50659650250399
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "GR-s4": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "GR-s4",
+      "window_market": "GR-s4",
+      "primary": {
+        "p_nash": 1.0266666666667073,
+        "p_mono": 1.9509171275167851,
+        "pi_nash": 0.6666666666676813,
+        "pi_mono": 23.27292818792065
+      },
+      "window": {
+        "p_nash": 1.0266666666667073,
+        "p_mono": 1.9509171275167851,
+        "pi_nash": 0.6666666666676813,
+        "pi_mono": 23.27292818792065
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "AC-H": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "trunk_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "sham_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L2_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L2",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3375,
+        "p_mono": 2.05,
+        "pi_nash": 5.331832500000002,
+        "pi_mono": 10.864875000000001
+      },
+      "window_method": "sweep:market.sweep.profit_fn"
+    },
+    "L1_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L1",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.0833333303685697,
+        "p_mono": 1.922763860100165,
+        "pi_nash": 2.083333036859556,
+        "pi_mono": 21.50659650250399
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L3_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L3",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L4a_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L4a",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L6_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L6",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3115206237619361,
+        "p_mono": 2.097231279047717,
+        "pi_nash": 6.152062376194926,
+        "pi_mono": 16.94462558095314
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "CA_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "CA",
+      "window_market": "CA",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "ghost_sham_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "ghost_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "S2_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "trunk_S": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "sham_S": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "sham2_S": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L2_S": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L2",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3375,
+        "p_mono": 2.05,
+        "pi_nash": 5.331832500000002,
+        "pi_mono": 10.864875000000001
+      },
+      "window_method": "sweep:market.sweep.profit_fn"
+    },
+    "L1_S": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L1",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.0833333303685697,
+        "p_mono": 1.922763860100165,
+        "pi_nash": 2.083333036859556,
+        "pi_mono": 21.50659650250399
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L4a_S": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L4a",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "ghost_S": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    }
+  },
+  "stale_benchmarks": [],
+  "provisional_benchmarks": [],
+  "inference": {
+    "sidedness": "one-sided (alternative='greater'): H1 is Delta(sham) - Delta(arm) > 0, a reduction of collusion; BCa intervals are two-sided 95 %; TOST is two one-sided tests by construction",
+    "alternative": "greater",
+    "alpha": 0.05,
+    "h1_rule": "D-3'/D-16/D-17/D-19: one pre-specified lever, capped index, one-sided paired t-tests on all qualified trunks under the trunk and the own scoring, no multiplicity; 'collusion reduction' iff p < alpha under both and the MQC point estimate <= 5 pp (trunk-only: 'price reduction consistent with competitive adjustment'); practically significant iff the one-sided 95 % paired-t lower bound > 0.1 (inconclusive when the 90 % interval straddles 0.10-0.20; BCa 90 % alongside)",
+    "primary_lever": "L2",
+    "h1r_family": [
+      "L1",
+      "L2",
+      "L3",
+      "L4a",
+      "L5",
+      "L6",
+      "L7",
+      "L8"
+    ],
+    "m": 8,
+    "missing_levers_at_p1": [
+      "L1",
+      "L2",
+      "L3",
+      "L4a",
+      "L5",
+      "L6",
+      "L7",
+      "L8"
+    ],
+    "split_sample": "descriptive only: best eligible lever (MQC point <= 5 pp, upper bound <= 7 pp) selected on odd-seed trunks, estimated on even-seed trunks; off with fewer than 3 trunks per half (D-22)",
+    "qualification": {
+      "rule": {
+        "arm": "trunk",
+        "measure": "delta_p",
+        "threshold": 0.3,
+        "co_measure": "delta_pi",
+        "co_threshold": 0.3
+      },
+      "definition": "delta_p(71-100) >= 0.3 AND delta_pi(71-100) >= 0.3",
+      "gate2": {
+        "branch_all_min": 8,
+        "reduced_power_min": 5,
+        "fallback": "F1 (s0.5, relaunch 12 trunks) then F2 (2 dealers)",
+        "split_estimate_min_qualified": 8,
+        "split_estimate_min_per_half": 3
+      },
+      "by_lane": {
+        "H": {
+          "available": false,
+          "trunk_arm": "trunk"
+        },
+        "M": {
+          "available": false,
+          "trunk_arm": "trunk_M"
+        },
+        "S": {
+          "available": false,
+          "trunk_arm": "trunk_S"
+        }
+      },
+      "available": false,
+      "qualified": null,
+      "note": "no trunk runs of any lane in this campaign: every paired trunk is used"
+    },
+    "sigma_d": {
+      "estimate": null,
+      "df": 0,
+      "source": "pooled SD of realised lever-minus-sham differences across trunks",
+      "by_lever": {},
+      "sham_vs_sham_sd_descriptive": null
+    },
+    "power": {
+      "mei": 0.25,
+      "h1": null,
+      "h1r_holm_worst_case": {
+        "L1": null,
+        "L2": null,
+        "L3": null,
+        "L4a": null,
+        "L5": null,
+        "L6": null,
+        "L7": null,
+        "L8": null
+      }
+    },
+    "B": 10000,
+    "seed": 20261010
+  },
+  "n_runs": 8,
+  "n_excluded": 0,
+  "n_ignored": 0,
+  "runs": [
+    {
+      "run_id": "PC-H-dealer__s0__75c2ff937020",
+      "arm": "dealer_template",
+      "label": "PC-H-dealer",
+      "trunk_id": "PC-H-dealer__s0__75c2ff937020",
+      "seed": 0,
+      "lane": "H",
+      "alpha": 1.0,
+      "branch_period": null,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "registered_arm": "PC-H-dealer",
+      "path": "C:\\Users\\perso\\Documents\\projets-perso\\fin-agent-collution-swarm\\results\\campaigns\\PC-H-dealer\\PC-H-dealer__s0__75c2ff937020",
+      "role": "instrument",
+      "members": [
+        0,
+        1
+      ],
+      "window": [
+        251,
+        300
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 49,
+      "slots_seen": [
+        0,
+        1
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 0.7014054920748379,
+      "delta_p": 0.7014054920748379,
+      "delta_p_window_raw": 0.7014054920748379,
+      "delta_p_window": 0.7014054920748379,
+      "delta_p_vw_raw": 0.7014054920748379,
+      "delta_p_vw": 0.7014054920748379,
+      "delta_pi": 0.8898756495388368,
+      "delta_pi_window": 0.8898756495388368,
+      "mean_price": 1.7899999999999994,
+      "trade_weighted_price": 1.7900000000000003,
+      "share_quotes_above_pm": 0.0,
+      "share_quotes_above_pm_own": 0.0,
+      "undercut_rate": 0.0,
+      "d7": {
+        "d7": 0.3993285249840755,
+        "d7_cartel": 0.5824213848757901,
+        "ratio": 0.6856350665579324,
+        "z_perm": 3.373076999988426,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 96,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "PC-H-dealer__s1__30ec6d87fbbe",
+      "arm": "dealer_template",
+      "label": "PC-H-dealer",
+      "trunk_id": "PC-H-dealer__s1__30ec6d87fbbe",
+      "seed": 1,
+      "lane": "H",
+      "alpha": 1.0,
+      "branch_period": null,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "registered_arm": "PC-H-dealer",
+      "path": "C:\\Users\\perso\\Documents\\projets-perso\\fin-agent-collution-swarm\\results\\campaigns\\PC-H-dealer\\PC-H-dealer__s1__30ec6d87fbbe",
+      "role": "instrument",
+      "members": [
+        0,
+        1
+      ],
+      "window": [
+        251,
+        300
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 49,
+      "slots_seen": [
+        0,
+        1
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 0.7129175650819873,
+      "delta_p": 0.7129175650819873,
+      "delta_p_window_raw": 0.7129175650819873,
+      "delta_p_window": 0.7129175650819873,
+      "delta_p_vw_raw": 0.7126603139665714,
+      "delta_p_vw": 0.7126603139665714,
+      "delta_pi": 0.8976303605317439,
+      "delta_pi_window": 0.8976303605317439,
+      "mean_price": 1.7952040816326529,
+      "trade_weighted_price": 1.7950864997189515,
+      "share_quotes_above_pm": 0.0,
+      "share_quotes_above_pm_own": 0.0,
+      "undercut_rate": 0.5,
+      "d7": {
+        "d7": 0.40612358350277294,
+        "d7_cartel": 0.5824213848757901,
+        "ratio": 0.6973019776555505,
+        "z_perm": 3.373762736392037,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 96,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "PC-H-dealer__s2__162fb23bc43a",
+      "arm": "dealer_template",
+      "label": "PC-H-dealer",
+      "trunk_id": "PC-H-dealer__s2__162fb23bc43a",
+      "seed": 2,
+      "lane": "H",
+      "alpha": 1.0,
+      "branch_period": null,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "registered_arm": "PC-H-dealer",
+      "path": "C:\\Users\\perso\\Documents\\projets-perso\\fin-agent-collution-swarm\\results\\campaigns\\PC-H-dealer\\PC-H-dealer__s2__162fb23bc43a",
+      "role": "instrument",
+      "members": [
+        0,
+        1
+      ],
+      "window": [
+        251,
+        300
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 49,
+      "slots_seen": [
+        0,
+        1
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 0.16033806073879725,
+      "delta_p": 0.16033806073879725,
+      "delta_p_window_raw": 0.16033806073879725,
+      "delta_p_window": 0.16033806073879725,
+      "delta_p_vw_raw": 0.16005374043880177,
+      "delta_p_vw": 0.16005374043880177,
+      "delta_pi": 0.2553493055244597,
+      "delta_pi_window": 0.2553493055244597,
+      "mean_price": 1.5454081632653063,
+      "trade_weighted_price": 1.545278203251247,
+      "share_quotes_above_pm": 0.0,
+      "share_quotes_above_pm_own": 0.0,
+      "undercut_rate": 0.5,
+      "d7": {
+        "d7": 0.09168249215290385,
+        "d7_cartel": 0.5824213848757901,
+        "ratio": 0.15741608143810942,
+        "z_perm": 3.3639776060948834,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 96,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "PC-H-dealer__s3__6ea69bbbb3af",
+      "arm": "dealer_template",
+      "label": "PC-H-dealer",
+      "trunk_id": "PC-H-dealer__s3__6ea69bbbb3af",
+      "seed": 3,
+      "lane": "H",
+      "alpha": 1.0,
+      "branch_period": null,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "registered_arm": "PC-H-dealer",
+      "path": "C:\\Users\\perso\\Documents\\projets-perso\\fin-agent-collution-swarm\\results\\campaigns\\PC-H-dealer\\PC-H-dealer__s3__6ea69bbbb3af",
+      "role": "instrument",
+      "members": [
+        0,
+        1
+      ],
+      "window": [
+        251,
+        300
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 49,
+      "slots_seen": [
+        0,
+        1
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 0.8783753986945524,
+      "delta_p": 0.8783753986945524,
+      "delta_p_window_raw": 0.8783753986945524,
+      "delta_p_window": 0.8783753986945524,
+      "delta_p_vw_raw": 0.6559279928262504,
+      "delta_p_vw": 0.6559279928262504,
+      "delta_pi": 0.763003896315684,
+      "delta_pi_window": 0.763003896315684,
+      "mean_price": 1.8699999999999992,
+      "trade_weighted_price": 1.769441702776592,
+      "share_quotes_above_pm": 0.5,
+      "share_quotes_above_pm_own": 0.5,
+      "undercut_rate": 0.5,
+      "d7": {
+        "d7": 0.5190514448800032,
+        "d7_cartel": 0.5824213848757901,
+        "ratio": 0.8911957190423194,
+        "z_perm": 3.373076999988426,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 96,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "PC-H-dealer__s4__794822854c07",
+      "arm": "dealer_template",
+      "label": "PC-H-dealer",
+      "trunk_id": "PC-H-dealer__s4__794822854c07",
+      "seed": 4,
+      "lane": "H",
+      "alpha": 1.0,
+      "branch_period": null,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "registered_arm": "PC-H-dealer",
+      "path": "C:\\Users\\perso\\Documents\\projets-perso\\fin-agent-collution-swarm\\results\\campaigns\\PC-H-dealer\\PC-H-dealer__s4__794822854c07",
+      "role": "instrument",
+      "members": [
+        0,
+        1
+      ],
+      "window": [
+        251,
+        300
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 49,
+      "slots_seen": [
+        0,
+        1
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 0.6682236345836411,
+      "delta_p": 0.6682236345836411,
+      "delta_p_window_raw": 0.6682236345836411,
+      "delta_p_window": 0.6682236345836411,
+      "delta_p_vw_raw": 0.668002451690633,
+      "delta_p_vw": 0.668002451690633,
+      "delta_pi": 0.864826518832362,
+      "delta_pi_window": 0.864826518832362,
+      "mean_price": 1.7750000000000001,
+      "trade_weighted_price": 1.7749000133312003,
+      "share_quotes_above_pm": 0.0,
+      "share_quotes_above_pm_own": 0.0,
+      "undercut_rate": 0.5,
+      "d7": {
+        "d7": 0.3798975252871088,
+        "d7_cartel": 0.5824213848757901,
+        "ratio": 0.6522726245158864,
+        "z_perm": 3.373076999988427,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 96,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "PC-H-dealer__s5__cca8d442c97e",
+      "arm": "dealer_template",
+      "label": "PC-H-dealer",
+      "trunk_id": "PC-H-dealer__s5__cca8d442c97e",
+      "seed": 5,
+      "lane": "H",
+      "alpha": 1.0,
+      "branch_period": null,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "registered_arm": "PC-H-dealer",
+      "path": "C:\\Users\\perso\\Documents\\projets-perso\\fin-agent-collution-swarm\\results\\campaigns\\PC-H-dealer\\PC-H-dealer__s5__cca8d442c97e",
+      "role": "instrument",
+      "members": [
+        0,
+        1
+      ],
+      "window": [
+        251,
+        300
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 49,
+      "slots_seen": [
+        0,
+        1
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 0.9447391136769455,
+      "delta_p": 0.9447391136769455,
+      "delta_p_window_raw": 0.9447391136769455,
+      "delta_p_window": 0.9447391136769455,
+      "delta_p_vw_raw": 0.943854735761765,
+      "delta_p_vw": 0.943854735761765,
+      "delta_pi": 0.9953362238166604,
+      "delta_pi_window": 0.9953362238166604,
+      "mean_price": 1.9000000000000001,
+      "trade_weighted_price": 1.899600213196889,
+      "share_quotes_above_pm": 0.0,
+      "share_quotes_above_pm_own": 0.0,
+      "undercut_rate": 0.5,
+      "d7": {
+        "d7": 0.547295800552038,
+        "d7_cartel": 0.5824213848757901,
+        "ratio": 0.939690428209048,
+        "z_perm": 3.3730769999884274,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 96,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "PC-H-dealer__s6__390294e720f5",
+      "arm": "dealer_template",
+      "label": "PC-H-dealer",
+      "trunk_id": "PC-H-dealer__s6__390294e720f5",
+      "seed": 6,
+      "lane": "H",
+      "alpha": 1.0,
+      "branch_period": null,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "registered_arm": "PC-H-dealer",
+      "path": "C:\\Users\\perso\\Documents\\projets-perso\\fin-agent-collution-swarm\\results\\campaigns\\PC-H-dealer\\PC-H-dealer__s6__390294e720f5",
+      "role": "instrument",
+      "members": [
+        0,
+        1
+      ],
+      "window": [
+        251,
+        300
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 49,
+      "slots_seen": [
+        0,
+        1
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 0.8562541603670876,
+      "delta_p": 0.8562541603670876,
+      "delta_p_window_raw": 0.8562541603670876,
+      "delta_p_window": 0.8562541603670876,
+      "delta_p_vw_raw": 0.8562541603670873,
+      "delta_p_vw": 0.8562541603670873,
+      "delta_pi": 0.973661286500212,
+      "delta_pi_window": 0.973661286500212,
+      "mean_price": 1.86,
+      "trade_weighted_price": 1.859999999999999,
+      "share_quotes_above_pm": 0.0,
+      "share_quotes_above_pm_own": 0.0,
+      "undercut_rate": 0.0,
+      "d7": {
+        "d7": 0.49223128856947446,
+        "d7_cartel": 0.5824213848757901,
+        "ratio": 0.8451463173428119,
+        "z_perm": 3.373076999988426,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 96,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "PC-H-dealer__s7__df07da403d06",
+      "arm": "dealer_template",
+      "label": "PC-H-dealer",
+      "trunk_id": "PC-H-dealer__s7__df07da403d06",
+      "seed": 7,
+      "lane": "H",
+      "alpha": 1.0,
+      "branch_period": null,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "registered_arm": "PC-H-dealer",
+      "path": "C:\\Users\\perso\\Documents\\projets-perso\\fin-agent-collution-swarm\\results\\campaigns\\PC-H-dealer\\PC-H-dealer__s7__df07da403d06",
+      "role": "instrument",
+      "members": [
+        0,
+        1
+      ],
+      "window": [
+        251,
+        300
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 49,
+      "slots_seen": [
+        0,
+        1
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 0.27026707161099245,
+      "delta_p": 0.27026707161099245,
+      "delta_p_window_raw": 0.27026707161099245,
+      "delta_p_window": 0.27026707161099245,
+      "delta_p_vw_raw": 0.2700504026545749,
+      "delta_p_vw": 0.2700504026545749,
+      "delta_pi": 0.417086160821804,
+      "delta_pi_window": 0.417086160821804,
+      "mean_price": 1.5951020408163266,
+      "trade_weighted_price": 1.5950039077362264,
+      "share_quotes_above_pm": 0.0,
+      "share_quotes_above_pm_own": 0.0,
+      "undercut_rate": 0.4895833333333333,
+      "d7": {
+        "d7": 0.15378279065756398,
+        "d7_cartel": 0.5824213848757901,
+        "ratio": 0.2640404261432818,
+        "z_perm": 3.3732143485543387,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 96,
+        "n_perm": 200
+      }
+    }
+  ],
+  "ignored_runs": [],
+  "arms": {
+    "PC-H-dealer": {
+      "n": 8,
+      "delta_p": {
+        "mean": 0.6490650621036052,
+        "lo": 0.42243523270795036,
+        "hi": 0.8010639280092816
+      },
+      "delta_p_window": {
+        "mean": 0.6490650621036052,
+        "lo": 0.42243523270795036,
+        "hi": 0.8010639280092816
+      },
+      "delta_p_vw": {
+        "mean": 0.6210261612225653,
+        "lo": 0.41243195247524944,
+        "hi": 0.7672520032788562
+      },
+      "delta_pi": {
+        "mean": 0.7570961752352203,
+        "lo": 0.5279233596477118,
+        "hi": 0.8959653982967898
+      },
+      "delta_pi_window": {
+        "mean": 0.7570961752352203,
+        "lo": 0.5279233596477118,
+        "hi": 0.8959653982967898
+      },
+      "mean": 0.6490650621036052,
+      "lo": 0.42243523270795036,
+      "hi": 0.8010639280092816
+    }
+  },
+  "contrasts": {},
+  "h1": {
+    "lever": "L2",
+    "lane": "H",
+    "hypothesis": "H1",
+    "estimand": "delta_p",
+    "own_estimand": "delta_p_own",
+    "trunks": [],
+    "benchmark_shift": null,
+    "sc1_price_response": null,
+    "n": 0,
+    "mean": null,
+    "bca_lo": null,
+    "bca_hi": null,
+    "p_one_sided": null,
+    "t": {
+      "mean": null,
+      "t": null,
+      "df": -1.0,
+      "p": null,
+      "lo": null,
+      "hi": null,
+      "alternative": "greater"
+    },
+    "wilcoxon_sensitivity": {
+      "statistic": 0.0,
+      "p": 1.0,
+      "n": 0.0,
+      "alternative": "greater"
+    },
+    "lower_bound_one_sided_95": null,
+    "own_scoring": {
+      "available": false
+    },
+    "dual_benchmark_label": "no significant reduction",
+    "practical_significance": {
+      "verdict": "not applicable",
+      "lower_bound_one_sided_95": null,
+      "t_interval_90": [
+        null,
+        null
+      ],
+      "bca_90": [
+        null,
+        null
+      ],
+      "band": [
+        0.1,
+        0.2
+      ],
+      "lower_bound_gt": 0.1
+    },
+    "mqc": null,
+    "checks": {
+      "p_lt_alpha": false,
+      "p_own_lt_alpha": null,
+      "mqc_ok": false,
+      "lower_bound_gt": false
+    },
+    "h1_supported": false,
+    "h1_practically_significant": false,
+    "tost": {
+      "mean": null,
+      "p_lower": null,
+      "p_upper": null,
+      "p": null,
+      "equivalent": false,
+      "lo": null,
+      "hi": null
+    },
+    "rule": {
+      "alpha": 0.05,
+      "mqc_max_pp": 5.0,
+      "practical_lower_bound_gt": 0.1,
+      "inconclusive_band": [
+        0.1,
+        0.2
+      ],
+      "tost_margin": 0.2,
+      "multiplicity": "none (single pre-specified lever)",
+      "index": "capped min(Delta_p, 1) (D-16)",
+      "scorings": "trunk (primary) and own benchmarks; collusion reduction needs both (D-17)"
+    },
+    "gate2": null,
+    "status": "not tested: no paired contrast"
+  },
+  "h1_by_lane": {},
+  "h1r": {
+    "family": [
+      "L1",
+      "L2",
+      "L3",
+      "L4a",
+      "L5",
+      "L6",
+      "L7",
+      "L8"
+    ],
+    "m": 8,
+    "levers": {
+      "L1": {
+        "n": 0,
+        "mean": null,
+        "bca_lo": null,
+        "bca_hi": null,
+        "mqc": null,
+        "p": 1.0,
+        "p_holm": 1.0,
+        "reject": false,
+        "placeholder": true,
+        "own_scoring": {
+          "mean": null,
+          "bca_lo": null,
+          "bca_hi": null,
+          "p": 1.0,
+          "p_holm": 1.0,
+          "reject": false,
+          "placeholder": true
+        },
+        "dual_benchmark_label": "no significant reduction",
+        "benchmark_shift": null,
+        "sc1_price_response": null
+      },
+      "L2": {
+        "n": 0,
+        "mean": null,
+        "bca_lo": null,
+        "bca_hi": null,
+        "mqc": null,
+        "p": 1.0,
+        "p_holm": 1.0,
+        "reject": false,
+        "placeholder": true,
+        "own_scoring": {
+          "mean": null,
+          "bca_lo": null,
+          "bca_hi": null,
+          "p": 1.0,
+          "p_holm": 1.0,
+          "reject": false,
+          "placeholder": true
+        },
+        "dual_benchmark_label": "no significant reduction",
+        "benchmark_shift": null,
+        "sc1_price_response": null
+      },
+      "L3": {
+        "n": 0,
+        "mean": null,
+        "bca_lo": null,
+        "bca_hi": null,
+        "mqc": null,
+        "p": 1.0,
+        "p_holm": 1.0,
+        "reject": false,
+        "placeholder": true,
+        "own_scoring": {
+          "mean": null,
+          "bca_lo": null,
+          "bca_hi": null,
+          "p": 1.0,
+          "p_holm": 1.0,
+          "reject": false,
+          "placeholder": true
+        },
+        "dual_benchmark_label": "no significant reduction",
+        "benchmark_shift": null,
+        "sc1_price_response": null
+      },
+      "L4a": {
+        "n": 0,
+        "mean": null,
+        "bca_lo": null,
+        "bca_hi": null,
+        "mqc": null,
+        "p": 1.0,
+        "p_holm": 1.0,
+        "reject": false,
+        "placeholder": true,
+        "own_scoring": {
+          "mean": null,
+          "bca_lo": null,
+          "bca_hi": null,
+          "p": 1.0,
+          "p_holm": 1.0,
+          "reject": false,
+          "placeholder": true
+        },
+        "dual_benchmark_label": "no significant reduction",
+        "benchmark_shift": null,
+        "sc1_price_response": null
+      },
+      "L5": {
+        "n": 0,
+        "mean": null,
+        "bca_lo": null,
+        "bca_hi": null,
+        "mqc": null,
+        "p": 1.0,
+        "p_holm": 1.0,
+        "reject": false,
+        "placeholder": true,
+        "own_scoring": {
+          "mean": null,
+          "bca_lo": null,
+          "bca_hi": null,
+          "p": 1.0,
+          "p_holm": 1.0,
+          "reject": false,
+          "placeholder": true
+        },
+        "dual_benchmark_label": "no significant reduction",
+        "benchmark_shift": null,
+        "sc1_price_response": null
+      },
+      "L6": {
+        "n": 0,
+        "mean": null,
+        "bca_lo": null,
+        "bca_hi": null,
+        "mqc": null,
+        "p": 1.0,
+        "p_holm": 1.0,
+        "reject": false,
+        "placeholder": true,
+        "own_scoring": {
+          "mean": null,
+          "bca_lo": null,
+          "bca_hi": null,
+          "p": 1.0,
+          "p_holm": 1.0,
+          "reject": false,
+          "placeholder": true
+        },
+        "dual_benchmark_label": "no significant reduction",
+        "benchmark_shift": null,
+        "sc1_price_response": null
+      },
+      "L7": {
+        "n": 0,
+        "mean": null,
+        "bca_lo": null,
+        "bca_hi": null,
+        "mqc": null,
+        "p": 1.0,
+        "p_holm": 1.0,
+        "reject": false,
+        "placeholder": true,
+        "own_scoring": {
+          "mean": null,
+          "bca_lo": null,
+          "bca_hi": null,
+          "p": 1.0,
+          "p_holm": 1.0,
+          "reject": false,
+          "placeholder": true
+        },
+        "dual_benchmark_label": "no significant reduction",
+        "benchmark_shift": null,
+        "sc1_price_response": null
+      },
+      "L8": {
+        "n": 0,
+        "mean": null,
+        "bca_lo": null,
+        "bca_hi": null,
+        "mqc": null,
+        "p": 1.0,
+        "p_holm": 1.0,
+        "reject": false,
+        "placeholder": true,
+        "own_scoring": {
+          "mean": null,
+          "bca_lo": null,
+          "bca_hi": null,
+          "p": 1.0,
+          "p_holm": 1.0,
+          "reject": false,
+          "placeholder": true
+        },
+        "dual_benchmark_label": "no significant reduction",
+        "benchmark_shift": null,
+        "sc1_price_response": null
+      }
+    },
+    "best_lever_split_sample": {
+      "label": "descriptive (no decision; selection on odd-seed, estimation on even-seed trunks)",
+      "selection_trunks": [],
+      "estimation_trunks": [],
+      "min_per_half": 3,
+      "selection_effects": {},
+      "best_lever": null,
+      "estimate": {},
+      "status": "off: 0 selection and 0 estimation trunks, fewer than 3 per half (D-22)"
+    },
+    "n_rejected_trunk": 0,
+    "n_rejected_own": 0
+  },
+  "mqc": null
+}

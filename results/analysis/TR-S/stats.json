@@ -1,0 +1,3633 @@
+{
+  "campaign": "TR-S",
+  "registry": {
+    "path": "configs\\analysis\\registered_arms.yaml",
+    "sha256": "0bc079093891ef9ba97a4054e81c8990d47bf2b1b33960143133d6d13d6b04a8",
+    "prereg_id": "PREREG-v1"
+  },
+  "windows": {
+    "branch": [
+      111,
+      150
+    ],
+    "trunk": [
+      71,
+      100
+    ],
+    "fish": [
+      251,
+      300
+    ],
+    "sens_late": [
+      121,
+      150
+    ],
+    "sens_full": [
+      101,
+      150
+    ]
+  },
+  "window_shift": {
+    "shift": 0,
+    "gates_json": null,
+    "gate2_status": null,
+    "required_shift": 0,
+    "windows": {
+      "branch": [
+        111,
+        150
+      ],
+      "trunk": [
+        71,
+        100
+      ],
+      "fish": [
+        251,
+        300
+      ],
+      "sens_late": [
+        121,
+        150
+      ],
+      "sens_full": [
+        101,
+        150
+      ]
+    }
+  },
+  "warnings": [],
+  "estimands": {
+    "primary": "delta_p: incumbents' CAPPED price index min(Delta_p, 1) with the pre-lever (trunk) benchmarks (D-16; raw index reported as delta_p_raw)",
+    "own_scoring": "delta_p_own: capped Delta_p of the sham on the trunk benchmarks minus capped Delta_p of the lever on its own market's pinned benchmarks (= the delta_p_window contrast), the D-17 co-condition for 'collusion reduction'",
+    "secondary": "delta_pi_window: incumbents' profit-based Delta, per-window benchmarks",
+    "robustness": [
+      "delta_pi",
+      "delta_p_vw",
+      "delta_p_raw",
+      "delta_p_window_raw"
+    ],
+    "reported": [
+      "share_quotes_above_pm",
+      "trade_weighted_price",
+      "benchmark_shift"
+    ]
+  },
+  "benchmarks": {
+    "trunk": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "sham": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "sham2": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L1": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L1",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.0833333303685697,
+        "p_mono": 1.922763860100165,
+        "pi_nash": 2.083333036859556,
+        "pi_mono": 21.50659650250399
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L2": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L2",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3375,
+        "p_mono": 2.05,
+        "pi_nash": 5.331832500000002,
+        "pi_mono": 10.864875000000001
+      },
+      "window_method": "sweep:market.sweep.profit_fn"
+    },
+    "L3": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L3",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L4a": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L4a",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L5": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L5",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L6": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L6",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3115206237619361,
+        "p_mono": 2.097231279047717,
+        "pi_nash": 6.152062376194926,
+        "pi_mono": 16.94462558095314
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L7": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L7",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L8": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "ghost_sham": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "ghost": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "S1": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "S2": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "S1c_LLM": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "NI": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "R1": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "R3": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L9": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "CA": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "CA",
+      "window_market": "CA",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "GR-s1": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "GR-s2": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "GR-s2",
+      "window_market": "GR-s2",
+      "primary": {
+        "p_nash": 1.1666490011878616,
+        "p_mono": 1.9390701886601764,
+        "pi_nash": 4.164900118783665,
+        "pi_mono": 20.351754716505244
+      },
+      "window": {
+        "p_nash": 1.1666490011878616,
+        "p_mono": 1.9390701886601764,
+        "pi_nash": 4.164900118783665,
+        "pi_mono": 20.351754716505244
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "GR-s3": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "GR-s3",
+      "window_market": "GR-s3",
+      "primary": {
+        "p_nash": 1.0833333303685697,
+        "p_mono": 1.922763860100165,
+        "pi_nash": 2.083333036859556,
+        "pi_mono": 21.50659650250399
+      },
+      "window": {
+        "p_nash": 1.0833333303685697,
+        "p_mono": 1.922763860100165,
+        "pi_nash": 2.083333036859556,
+        "pi_mono": 21.50659650250399
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "GR-s4": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "GR-s4",
+      "window_market": "GR-s4",
+      "primary": {
+        "p_nash": 1.0266666666667073,
+        "p_mono": 1.9509171275167851,
+        "pi_nash": 0.6666666666676813,
+        "pi_mono": 23.27292818792065
+      },
+      "window": {
+        "p_nash": 1.0266666666667073,
+        "p_mono": 1.9509171275167851,
+        "pi_nash": 0.6666666666676813,
+        "pi_mono": 23.27292818792065
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "AC-H": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "trunk_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "sham_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L2_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L2",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3375,
+        "p_mono": 2.05,
+        "pi_nash": 5.331832500000002,
+        "pi_mono": 10.864875000000001
+      },
+      "window_method": "sweep:market.sweep.profit_fn"
+    },
+    "L1_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L1",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.0833333303685697,
+        "p_mono": 1.922763860100165,
+        "pi_nash": 2.083333036859556,
+        "pi_mono": 21.50659650250399
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L3_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L3",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L4a_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L4a",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L6_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L6",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3115206237619361,
+        "p_mono": 2.097231279047717,
+        "pi_nash": 6.152062376194926,
+        "pi_mono": 16.94462558095314
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "CA_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "CA",
+      "window_market": "CA",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "ghost_sham_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "ghost_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "S2_M": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "trunk_S": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "sham_S": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "sham2_S": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L2_S": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L2",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3375,
+        "p_mono": 2.05,
+        "pi_nash": 5.331832500000002,
+        "pi_mono": 10.864875000000001
+      },
+      "window_method": "sweep:market.sweep.profit_fn"
+    },
+    "L1_S": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L1",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.0833333303685697,
+        "p_mono": 1.922763860100165,
+        "pi_nash": 2.083333036859556,
+        "pi_mono": 21.50659650250399
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "L4a_S": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "L4a",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    },
+    "ghost_S": {
+      "file": "configs/analysis/benchmarks/TR-H.json",
+      "sha256": "4544b05f9e712b7037bf09e11f0c500749492b67d8f730467a4b1573820c606c",
+      "primary_market": "trunk",
+      "window_market": "trunk",
+      "primary": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window": {
+        "p_nash": 1.3314606898837602,
+        "p_mono": 2.054411180500227,
+        "pi_nash": 8.146068988378701,
+        "pi_mono": 20.110279512503435
+      },
+      "window_method": "closed_form:routed_logit"
+    }
+  },
+  "stale_benchmarks": [],
+  "provisional_benchmarks": [],
+  "inference": {
+    "sidedness": "one-sided (alternative='greater'): H1 is Delta(sham) - Delta(arm) > 0, a reduction of collusion; BCa intervals are two-sided 95 %; TOST is two one-sided tests by construction",
+    "alternative": "greater",
+    "alpha": 0.05,
+    "h1_rule": "D-3'/D-16/D-17/D-19: one pre-specified lever, capped index, one-sided paired t-tests on all qualified trunks under the trunk and the own scoring, no multiplicity; 'collusion reduction' iff p < alpha under both and the MQC point estimate <= 5 pp (trunk-only: 'price reduction consistent with competitive adjustment'); practically significant iff the one-sided 95 % paired-t lower bound > 0.1 (inconclusive when the 90 % interval straddles 0.10-0.20; BCa 90 % alongside)",
+    "primary_lever": "L2",
+    "h1r_family": [
+      "L1",
+      "L2",
+      "L3",
+      "L4a",
+      "L5",
+      "L6",
+      "L7",
+      "L8"
+    ],
+    "m": 8,
+    "missing_levers_at_p1": [
+      "L1",
+      "L2",
+      "L3",
+      "L4a",
+      "L5",
+      "L6",
+      "L7",
+      "L8"
+    ],
+    "split_sample": "descriptive only: best eligible lever (MQC point <= 5 pp, upper bound <= 7 pp) selected on odd-seed trunks, estimated on even-seed trunks; off with fewer than 3 trunks per half (D-22)",
+    "qualification": {
+      "rule": {
+        "arm": "trunk",
+        "measure": "delta_p",
+        "threshold": 0.3,
+        "co_measure": "delta_pi",
+        "co_threshold": 0.3
+      },
+      "definition": "delta_p(71-100) >= 0.3 AND delta_pi(71-100) >= 0.3",
+      "gate2": {
+        "branch_all_min": 8,
+        "reduced_power_min": 5,
+        "fallback": "F1 (s0.5, relaunch 12 trunks) then F2 (2 dealers)",
+        "split_estimate_min_qualified": 8,
+        "split_estimate_min_per_half": 3
+      },
+      "by_lane": {
+        "H": {
+          "available": false,
+          "trunk_arm": "trunk"
+        },
+        "M": {
+          "available": false,
+          "trunk_arm": "trunk_M"
+        },
+        "S": {
+          "available": true,
+          "trunk_arm": "trunk_S",
+          "qualified": [
+            "TR-S__s0__4e900386a99c",
+            "TR-S__s1__97f4bde85b96",
+            "TR-S__s2__3f4bbf30eb01",
+            "TR-S__s3__6081ccb9b07a",
+            "TR-S__s4__c8676424d019",
+            "TR-S__s5__5f7ea71b0bdb",
+            "TR-S__s6__4e7c02a65cc6",
+            "TR-S__s7__503e0501b5df"
+          ],
+          "not_qualified": [],
+          "values": {
+            "TR-S__s0__4e900386a99c": 1.0,
+            "TR-S__s1__97f4bde85b96": 1.0,
+            "TR-S__s2__3f4bbf30eb01": 1.0,
+            "TR-S__s3__6081ccb9b07a": 0.912057813097712,
+            "TR-S__s4__c8676424d019": 1.0,
+            "TR-S__s5__5f7ea71b0bdb": 1.0,
+            "TR-S__s6__4e7c02a65cc6": 1.0,
+            "TR-S__s7__503e0501b5df": 1.0
+          },
+          "co_values": {
+            "TR-S__s0__4e900386a99c": 0.6501137423655449,
+            "TR-S__s1__97f4bde85b96": 0.49040129585849673,
+            "TR-S__s2__3f4bbf30eb01": 0.6372280892457002,
+            "TR-S__s3__6081ccb9b07a": 0.9192149360332202,
+            "TR-S__s4__c8676424d019": 0.7873285350471341,
+            "TR-S__s5__5f7ea71b0bdb": 0.8516523223778184,
+            "TR-S__s6__4e7c02a65cc6": 1.0128622907339295,
+            "TR-S__s7__503e0501b5df": 0.5333418642281413
+          },
+          "n_qualified": 8,
+          "outcome": {
+            "n_qualified": 8,
+            "status": "PASS",
+            "decision": "branch every qualified trunk",
+            "h1_tested": true,
+            "reduced_power": false,
+            "split_estimate": "on"
+          }
+        }
+      },
+      "available": true,
+      "qualified": [
+        "TR-S__s0__4e900386a99c",
+        "TR-S__s1__97f4bde85b96",
+        "TR-S__s2__3f4bbf30eb01",
+        "TR-S__s3__6081ccb9b07a",
+        "TR-S__s4__c8676424d019",
+        "TR-S__s5__5f7ea71b0bdb",
+        "TR-S__s6__4e7c02a65cc6",
+        "TR-S__s7__503e0501b5df"
+      ],
+      "not_qualified": [],
+      "values": {
+        "TR-S__s0__4e900386a99c": 1.0,
+        "TR-S__s1__97f4bde85b96": 1.0,
+        "TR-S__s2__3f4bbf30eb01": 1.0,
+        "TR-S__s3__6081ccb9b07a": 0.912057813097712,
+        "TR-S__s4__c8676424d019": 1.0,
+        "TR-S__s5__5f7ea71b0bdb": 1.0,
+        "TR-S__s6__4e7c02a65cc6": 1.0,
+        "TR-S__s7__503e0501b5df": 1.0
+      },
+      "co_values": {
+        "TR-S__s0__4e900386a99c": 0.6501137423655449,
+        "TR-S__s1__97f4bde85b96": 0.49040129585849673,
+        "TR-S__s2__3f4bbf30eb01": 0.6372280892457002,
+        "TR-S__s3__6081ccb9b07a": 0.9192149360332202,
+        "TR-S__s4__c8676424d019": 0.7873285350471341,
+        "TR-S__s5__5f7ea71b0bdb": 0.8516523223778184,
+        "TR-S__s6__4e7c02a65cc6": 1.0128622907339295,
+        "TR-S__s7__503e0501b5df": 0.5333418642281413
+      }
+    },
+    "sigma_d": {
+      "estimate": null,
+      "df": 0,
+      "source": "pooled SD of realised lever-minus-sham differences across trunks",
+      "by_lever": {},
+      "sham_vs_sham_sd_descriptive": null
+    },
+    "power": {
+      "mei": 0.25,
+      "h1": null,
+      "h1r_holm_worst_case": {
+        "L1": null,
+        "L2": null,
+        "L3": null,
+        "L4a": null,
+        "L5": null,
+        "L6": null,
+        "L7": null,
+        "L8": null
+      }
+    },
+    "B": 10000,
+    "seed": 20261010
+  },
+  "n_runs": 22,
+  "n_excluded": 0,
+  "n_ignored": 6,
+  "runs": [
+    {
+      "run_id": "TR-S--LT_1__s0__899572e0ce7e",
+      "arm": "L2",
+      "label": "LT-S",
+      "trunk_id": "TR-S__s0__4e900386a99c",
+      "seed": 0,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": 100,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "L2_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S--LT_1__s0__899572e0ce7e",
+      "role": "secondary",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        111,
+        150
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 40,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.3984903852186565,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.410526315789474,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.3902652930746708,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.108620289571206,
+      "delta_pi_window": 0.743495554209099,
+      "mean_price": 2.3425000000000002,
+      "delta_p_sens": {
+        "121-150": 1.0,
+        "101-150": 1.0
+      },
+      "trade_weighted_price": 2.331541850220264,
+      "share_quotes_above_pm": 1.0,
+      "share_quotes_above_pm_own": 1.0,
+      "undercut_rate": 0.14102564102564102,
+      "d7": {
+        "d7": 0.8894049989419952,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.4315381845835082,
+        "z_perm": 2.823923684326169,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 156,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S--LT_1__s1__e18320684450",
+      "arm": "L2",
+      "label": "LT-S",
+      "trunk_id": "TR-S__s1__97f4bde85b96",
+      "seed": 1,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": 100,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "L2_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S--LT_1__s1__e18320684450",
+      "role": "secondary",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        111,
+        150
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 40,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.2528199674419167,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.2627192982456144,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.2337923691366104,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.14910561863017763,
+      "delta_pi_window": 0.8310378060533603,
+      "mean_price": 2.2371875,
+      "delta_p_sens": {
+        "121-150": 1.0,
+        "101-150": 1.0
+      },
+      "trade_weighted_price": 2.2082129277566542,
+      "share_quotes_above_pm": 1.0,
+      "share_quotes_above_pm_own": 1.0,
+      "undercut_rate": 0.23717948717948717,
+      "d7": {
+        "d7": 0.7875776654218041,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.267642415679717,
+        "z_perm": 2.812117125309864,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 156,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S--LT_1__s2__9273fee2da5a",
+      "arm": "L2",
+      "label": "LT-S",
+      "trunk_id": "TR-S__s2__3f4bbf30eb01",
+      "seed": 2,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": 100,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "L2_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S--LT_1__s2__9273fee2da5a",
+      "role": "secondary",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        111,
+        150
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 40,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.416212898954106,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.428508771929825,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.4132762682640385,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.074899928400153,
+      "delta_pi_window": 0.6705813302536533,
+      "mean_price": 2.3553125,
+      "delta_p_sens": {
+        "121-150": 1.0,
+        "101-150": 1.0
+      },
+      "trade_weighted_price": 2.3533676333021516,
+      "share_quotes_above_pm": 1.0,
+      "share_quotes_above_pm_own": 1.0,
+      "undercut_rate": 0.05128205128205128,
+      "d7": {
+        "d7": 0.9060843271958928,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.458384329272441,
+        "z_perm": 2.819918050168338,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 156,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S--LT_1__s3__364515080266",
+      "arm": "L2",
+      "label": "LT-S",
+      "trunk_id": "TR-S__s3__6081ccb9b07a",
+      "seed": 3,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": 100,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "L2_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S--LT_1__s3__364515080266",
+      "role": "secondary",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        111,
+        150
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 40,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 0.8689762553180435,
+      "delta_p": 0.8689762553180435,
+      "delta_p_window_raw": 0.873245614035088,
+      "delta_p_window": 0.873245614035088,
+      "delta_p_vw_raw": 0.8510795659928956,
+      "delta_p_vw": 0.8510795659928956,
+      "delta_pi": 0.16940052229393293,
+      "delta_pi_window": 0.8749218897198059,
+      "mean_price": 1.9596874999999998,
+      "delta_p_sens": {
+        "121-150": 0.8549999639982176,
+        "101-150": 0.8777078352559964
+      },
+      "trade_weighted_price": 1.9457582800697266,
+      "share_quotes_above_pm": 0.01875,
+      "share_quotes_above_pm_own": 0.01875,
+      "undercut_rate": 0.23076923076923078,
+      "d7": {
+        "d7": 0.5563559417650097,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 0.8954804344521928,
+        "z_perm": 2.8360301604502234,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 156,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S--LT_1__s4__cddb17a6133f",
+      "arm": "L2",
+      "label": "LT-S",
+      "trunk_id": "TR-S__s4__c8676424d019",
+      "seed": 4,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": 100,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "L2_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S--LT_1__s4__cddb17a6133f",
+      "role": "secondary",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        111,
+        150
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 40,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.34100027968659,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.3521929824561405,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.340386102357216,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.09973963674536697,
+      "delta_pi_window": 0.7242927376755188,
+      "mean_price": 2.3009375000000007,
+      "delta_p_sens": {
+        "121-150": 1.0,
+        "101-150": 1.0
+      },
+      "trade_weighted_price": 2.300522193211488,
+      "share_quotes_above_pm": 1.0,
+      "share_quotes_above_pm_own": 1.0,
+      "undercut_rate": 0.00641025641025641,
+      "d7": {
+        "d7": 0.8501957959315565,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.368429171970245,
+        "z_perm": 2.833604191710863,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 156,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S--LT_1__s5__e85c6377dcad",
+      "arm": "L2",
+      "label": "LT-S",
+      "trunk_id": "TR-S__s5__5f7ea71b0bdb",
+      "seed": 5,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": 100,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "L2_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S--LT_1__s5__e85c6377dcad",
+      "role": "secondary",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        111,
+        150
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 40,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 0.9757435941633098,
+      "delta_p": 0.9757435941633098,
+      "delta_p_window_raw": 0.9815789473684212,
+      "delta_p_window": 0.9815789473684212,
+      "delta_p_vw_raw": 0.9743843111436465,
+      "delta_p_vw": 0.9743843111436465,
+      "delta_pi": 0.24692339755007958,
+      "delta_pi_window": 1.042551182283526,
+      "mean_price": 2.036875,
+      "delta_p_sens": {
+        "121-150": 0.9668102945568234,
+        "101-150": 1.0
+      },
+      "trade_weighted_price": 2.034391380314502,
+      "share_quotes_above_pm": 0.05,
+      "share_quotes_above_pm_own": 0.05,
+      "undercut_rate": 0.00641025641025641,
+      "d7": {
+        "d7": 0.6146683891539906,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 0.9893369960558984,
+        "z_perm": 2.824077347203145,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 156,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S--sham__s0__1abfd0b78860",
+      "arm": "sham",
+      "label": "SH-S",
+      "trunk_id": "TR-S__s0__4e900386a99c",
+      "seed": 0,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": 100,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "sham_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S--sham__s0__1abfd0b78860",
+      "role": "control",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        111,
+        150
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 40,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.5169286477433654,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.5169286477433654,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.5117281325824397,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.5660783883704494,
+      "delta_pi_window": 0.5660783883704494,
+      "mean_price": 2.4281249999999996,
+      "delta_p_sens": {
+        "121-150": 1.0,
+        "101-150": 1.0
+      },
+      "trade_weighted_price": 2.4242243436754176,
+      "share_quotes_above_pm": 1.0,
+      "share_quotes_above_pm_own": 1.0,
+      "undercut_rate": 0.25,
+      "d7": {
+        "d7": 0.9671736270129532,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.5567103623638017,
+        "z_perm": 2.8297557599878624,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 156,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S--sham__s1__a24961b44847",
+      "arm": "sham",
+      "label": "SH-S",
+      "trunk_id": "TR-S__s1__97f4bde85b96",
+      "seed": 1,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": 100,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "sham_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S--sham__s1__a24961b44847",
+      "role": "control",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        111,
+        150
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 40,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.4953158261147692,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.4953158261147692,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.4861055765906463,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.6348250890692967,
+      "delta_pi_window": 0.6348250890692967,
+      "mean_price": 2.4125,
+      "delta_p_sens": {
+        "121-150": 1.0,
+        "101-150": 1.0
+      },
+      "trade_weighted_price": 2.4054687500000003,
+      "share_quotes_above_pm": 1.0,
+      "share_quotes_above_pm_own": 1.0,
+      "undercut_rate": 0.25,
+      "d7": {
+        "d7": 0.9509738044451554,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.5306360040940967,
+        "z_perm": 2.8340091236435234,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 156,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S--sham__s2__032914195b59",
+      "arm": "sham",
+      "label": "SH-S",
+      "trunk_id": "TR-S__s2__3f4bbf30eb01",
+      "seed": 2,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": 100,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "sham_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S--sham__s2__032914195b59",
+      "role": "control",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        111,
+        150
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 40,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.2882649949128149,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.2882649949128149,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.2856829102791985,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.820247896159386,
+      "delta_pi_window": 0.820247896159386,
+      "mean_price": 2.2628125,
+      "delta_p_sens": {
+        "121-150": 1.0,
+        "101-150": 1.0
+      },
+      "trade_weighted_price": 2.258121716287215,
+      "share_quotes_above_pm": 1.0,
+      "share_quotes_above_pm_own": 1.0,
+      "undercut_rate": 0.02564102564102564,
+      "d7": {
+        "d7": 0.798135183538096,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.2846352258571756,
+        "z_perm": 2.838840677298888,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 156,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S--sham__s3__a64d3ccee052",
+      "arm": "sham",
+      "label": "SH-S",
+      "trunk_id": "TR-S__s3__6081ccb9b07a",
+      "seed": 3,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": 100,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "sham_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S--sham__s3__a64d3ccee052",
+      "role": "control",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        111,
+        150
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 40,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 0.9074470778169449,
+      "delta_p": 0.9074470778169449,
+      "delta_p_window_raw": 0.9074470778169449,
+      "delta_p_window": 0.9074470778169449,
+      "delta_p_vw_raw": 0.8222502441958884,
+      "delta_p_vw": 0.8222502441958884,
+      "delta_pi": 0.824453146468092,
+      "delta_pi_window": 0.824453146468092,
+      "mean_price": 1.9875000000000003,
+      "delta_p_sens": {
+        "121-150": 0.9074470778169447,
+        "101-150": 0.9060638572327149
+      },
+      "trade_weighted_price": 1.9259640102827764,
+      "share_quotes_above_pm": 0.0,
+      "share_quotes_above_pm_own": 0.0,
+      "undercut_rate": 0.25,
+      "d7": {
+        "d7": 0.5815734732060748,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 0.936069209219327,
+        "z_perm": 2.8313361577093907,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 156,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S--sham__s4__bdbbbcd0d265",
+      "arm": "sham",
+      "label": "SH-S",
+      "trunk_id": "TR-S__s4__c8676424d019",
+      "seed": 4,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": 100,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "sham_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S--sham__s4__bdbbbcd0d265",
+      "role": "control",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        111,
+        150
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 40,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.2925875592385339,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.2925875592385339,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.276878092148855,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.7732587948838442,
+      "delta_pi_window": 0.7732587948838442,
+      "mean_price": 2.2659375,
+      "delta_p_sens": {
+        "121-150": 1.0,
+        "101-150": 1.0
+      },
+      "trade_weighted_price": 2.2527452745274528,
+      "share_quotes_above_pm": 1.0,
+      "share_quotes_above_pm_own": 1.0,
+      "undercut_rate": 0.25,
+      "d7": {
+        "d7": 0.8056367714507293,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.2967093760527775,
+        "z_perm": 2.8203601412988513,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 156,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S--sham__s5__7419d5b092fe",
+      "arm": "sham",
+      "label": "SH-S",
+      "trunk_id": "TR-S__s5__5f7ea71b0bdb",
+      "seed": 5,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": 100,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "sham_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S--sham__s5__7419d5b092fe",
+      "role": "control",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        111,
+        150
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 40,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.238123248734471,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.238123248734471,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.2361310407092077,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.8924423797200296,
+      "delta_pi_window": 0.8924423797200296,
+      "mean_price": 2.2265624999999996,
+      "delta_p_sens": {
+        "121-150": 1.0,
+        "101-150": 1.0
+      },
+      "trade_weighted_price": 2.2242886178861787,
+      "share_quotes_above_pm": 1.0,
+      "share_quotes_above_pm_own": 1.0,
+      "undercut_rate": 0.1346153846153846,
+      "d7": {
+        "d7": 0.7680060107590199,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.2361409388288043,
+        "z_perm": 2.8252843680600663,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 156,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S--sham__s6__09f5a93b7a29",
+      "arm": "sham",
+      "label": "SH-S",
+      "trunk_id": "TR-S__s6__4e7c02a65cc6",
+      "seed": 6,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": 100,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "sham_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S--sham__s6__09f5a93b7a29",
+      "role": "control",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        111,
+        150
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 40,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.0777561122502852,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.0777561122502852,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.0745488068289955,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.9807265166357224,
+      "delta_pi_window": 0.9807265166357224,
+      "mean_price": 2.110625,
+      "delta_p_sens": {
+        "121-150": 1.0,
+        "101-150": 1.0
+      },
+      "trade_weighted_price": 2.108275261324042,
+      "share_quotes_above_pm": 0.95625,
+      "share_quotes_above_pm_own": 0.95625,
+      "undercut_rate": 0.038461538461538464,
+      "d7": {
+        "d7": 0.6686613431528571,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.0762411347101484,
+        "z_perm": 2.8303890218808085,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 156,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S--sham__s7__514b33ce4756",
+      "arm": "sham",
+      "label": "SH-S",
+      "trunk_id": "TR-S__s7__503e0501b5df",
+      "seed": 7,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": 100,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "sham_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S--sham__s7__514b33ce4756",
+      "role": "control",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        111,
+        150
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 40,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.4858061845981863,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.4858061845981863,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.472696818200328,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.6278772842114344,
+      "delta_pi_window": 0.6278772842114344,
+      "mean_price": 2.4056249999999997,
+      "delta_p_sens": {
+        "121-150": 1.0,
+        "101-150": 1.0
+      },
+      "trade_weighted_price": 2.395710306406686,
+      "share_quotes_above_pm": 1.0,
+      "share_quotes_above_pm_own": 1.0,
+      "undercut_rate": 0.1282051282051282,
+      "d7": {
+        "d7": 0.9448501188191446,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.5207796508979177,
+        "z_perm": 2.83008282760415,
+        "p_perm": 0.004975124378109453,
+        "n_obs": 156,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S__s0__4e900386a99c",
+      "arm": "trunk",
+      "label": "TR-S",
+      "trunk_id": "TR-S__s0__4e900386a99c",
+      "seed": 0,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": null,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "trunk_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S__s0__4e900386a99c",
+      "role": "control",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        71,
+        100
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 30,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.5322017083609076,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.5322017083609076,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.5303561391696776,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.6501137423655449,
+      "delta_pi_window": 0.6501137423655449,
+      "mean_price": 2.4391666666666665,
+      "delta_p_sens": {
+        "121-150": null,
+        "101-150": null
+      },
+      "trade_weighted_price": 2.437848006019564,
+      "share_quotes_above_pm": 1.0,
+      "share_quotes_above_pm_own": 1.0,
+      "undercut_rate": 0.22413793103448276,
+      "d7": {
+        "d7": 0.97829481515989,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.5746104253376056,
+        "z_perm": 2.8223383759788954,
+        "p_perm": 0.014925373134328358,
+        "n_obs": 116,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S__s1__97f4bde85b96",
+      "arm": "trunk",
+      "label": "TR-S",
+      "trunk_id": "TR-S__s1__97f4bde85b96",
+      "seed": 1,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": null,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "trunk_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S__s1__97f4bde85b96",
+      "role": "control",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        71,
+        100
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 30,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.58522516408973,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.58522516408973,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.5533935505986125,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.49040129585849673,
+      "delta_pi_window": 0.49040129585849673,
+      "mean_price": 2.4774999999999996,
+      "delta_p_sens": {
+        "121-150": null,
+        "101-150": null
+      },
+      "trade_weighted_price": 2.4534140017286084,
+      "share_quotes_above_pm": 1.0,
+      "share_quotes_above_pm_own": 1.0,
+      "undercut_rate": 0.2413793103448276,
+      "d7": {
+        "d7": 1.023552720114042,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.647455101467366,
+        "z_perm": 2.8238234536325395,
+        "p_perm": 0.014925373134328358,
+        "n_obs": 116,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S__s2__3f4bbf30eb01",
+      "arm": "trunk",
+      "label": "TR-S",
+      "trunk_id": "TR-S__s2__3f4bbf30eb01",
+      "seed": 2,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": null,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "trunk_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S__s2__3f4bbf30eb01",
+      "role": "control",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        71,
+        100
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 30,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.4780255688118926,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.4780255688118926,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.469284775577867,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.6372280892457002,
+      "delta_pi_window": 0.6372280892457002,
+      "mean_price": 2.4,
+      "delta_p_sens": {
+        "121-150": null,
+        "101-150": null
+      },
+      "trade_weighted_price": 2.393519882179676,
+      "share_quotes_above_pm": 1.0,
+      "share_quotes_above_pm_own": 1.0,
+      "undercut_rate": 0.25,
+      "d7": {
+        "d7": 0.9379748923378869,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.5097136581867365,
+        "z_perm": 2.821617457877659,
+        "p_perm": 0.014925373134328358,
+        "n_obs": 116,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S__s3__6081ccb9b07a",
+      "arm": "trunk",
+      "label": "TR-S",
+      "trunk_id": "TR-S__s3__6081ccb9b07a",
+      "seed": 3,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": null,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "trunk_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S__s3__6081ccb9b07a",
+      "role": "control",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        71,
+        100
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 30,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 0.912057813097712,
+      "delta_p": 0.912057813097712,
+      "delta_p_window_raw": 0.912057813097712,
+      "delta_p_window": 0.912057813097712,
+      "delta_p_vw_raw": 0.8478687902733978,
+      "delta_p_vw": 0.8478687902733978,
+      "delta_pi": 0.9192149360332202,
+      "delta_pi_window": 0.9192149360332202,
+      "mean_price": 1.9908333333333337,
+      "delta_p_sens": {
+        "121-150": null,
+        "101-150": null
+      },
+      "trade_weighted_price": 1.9438167625308134,
+      "share_quotes_above_pm": 0.0,
+      "share_quotes_above_pm_own": 0.0,
+      "undercut_rate": 0.25,
+      "d7": {
+        "d7": 0.5808256018171876,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 0.9348654758789218,
+        "z_perm": 2.8204033568811298,
+        "p_perm": 0.014925373134328358,
+        "n_obs": 116,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S__s4__c8676424d019",
+      "arm": "trunk",
+      "label": "TR-S",
+      "trunk_id": "TR-S__s4__c8676424d019",
+      "seed": 4,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": null,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "trunk_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S__s4__c8676424d019",
+      "role": "control",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        71,
+        100
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 30,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.3569937676917523,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.3569937676917523,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.3547684118122905,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.7873285350471341,
+      "delta_pi_window": 0.7873285350471341,
+      "mean_price": 2.3125,
+      "delta_p_sens": {
+        "121-150": null,
+        "101-150": null
+      },
+      "trade_weighted_price": 2.3108830845771147,
+      "share_quotes_above_pm": 1.0,
+      "share_quotes_above_pm_own": 1.0,
+      "undercut_rate": 0.0,
+      "d7": {
+        "d7": 0.8493751036381818,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.3671082300403516,
+        "z_perm": 2.8216174578776596,
+        "p_perm": 0.014925373134328358,
+        "n_obs": 116,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S__s5__5f7ea71b0bdb",
+      "arm": "trunk",
+      "label": "TR-S",
+      "trunk_id": "TR-S__s5__5f7ea71b0bdb",
+      "seed": 5,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": null,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "trunk_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S__s5__5f7ea71b0bdb",
+      "role": "control",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        71,
+        100
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 30,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.2532522238744883,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.2532522238744883,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.2512741976855941,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.8516523223778184,
+      "delta_pi_window": 0.8516523223778184,
+      "mean_price": 2.2375,
+      "delta_p_sens": {
+        "121-150": null,
+        "101-150": null
+      },
+      "trade_weighted_price": 2.2360955056179774,
+      "share_quotes_above_pm": 1.0,
+      "share_quotes_above_pm_own": 1.0,
+      "undercut_rate": 0.25,
+      "d7": {
+        "d7": 0.7786643184802895,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.253295974503428,
+        "z_perm": 2.821617457877659,
+        "p_perm": 0.014925373134328358,
+        "n_obs": 116,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S__s6__4e7c02a65cc6",
+      "arm": "trunk",
+      "label": "TR-S",
+      "trunk_id": "TR-S__s6__4e7c02a65cc6",
+      "seed": 6,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": null,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "trunk_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S__s6__4e7c02a65cc6",
+      "role": "control",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        71,
+        100
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 30,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.0630593935428398,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.0630593935428398,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.0560345404436613,
+      "delta_p_vw": 1.0,
+      "delta_pi": 1.0128622907339295,
+      "delta_pi_window": 1.0128622907339295,
+      "mean_price": 2.1,
+      "delta_p_sens": {
+        "121-150": null,
+        "101-150": null
+      },
+      "trade_weighted_price": 2.0948671769473215,
+      "share_quotes_above_pm": 0.75,
+      "share_quotes_above_pm_own": 0.75,
+      "undercut_rate": 0.25,
+      "d7": {
+        "d7": 0.6598942824979596,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.0621301480291931,
+        "z_perm": 2.8216174578776596,
+        "p_perm": 0.014925373134328358,
+        "n_obs": 116,
+        "n_perm": 200
+      }
+    },
+    {
+      "run_id": "TR-S__s7__503e0501b5df",
+      "arm": "trunk",
+      "label": "TR-S",
+      "trunk_id": "TR-S__s7__503e0501b5df",
+      "seed": 7,
+      "lane": "S",
+      "alpha": 1.0,
+      "branch_period": null,
+      "ghost_of": null,
+      "ghost_slot": null,
+      "is_ghost": false,
+      "status": "ok",
+      "registered_arm": "trunk_S",
+      "path": "..\\..\\..\\results\\campaigns\\TR-S\\TR-S__s7__503e0501b5df",
+      "role": "control",
+      "members": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "window": [
+        71,
+        100
+      ],
+      "fail_rate": 0.0,
+      "post_branch_cache_hits": 0,
+      "n_periods": 30,
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "slots_excluded": [],
+      "config_checked": true,
+      "delta_p_raw": 1.4941631422945771,
+      "delta_p": 1.0,
+      "delta_p_window_raw": 1.4941631422945771,
+      "delta_p_window": 1.0,
+      "delta_p_vw_raw": 1.4812397492599516,
+      "delta_p_vw": 1.0,
+      "delta_pi": 0.5333418642281413,
+      "delta_pi_window": 0.5333418642281413,
+      "mean_price": 2.4116666666666666,
+      "delta_p_sens": {
+        "121-150": null,
+        "101-150": null
+      },
+      "trade_weighted_price": 2.4024537409493165,
+      "share_quotes_above_pm": 1.0,
+      "share_quotes_above_pm_own": 1.0,
+      "undercut_rate": 0.2413793103448276,
+      "d7": {
+        "d7": 0.9510252257833223,
+        "d7_cartel": 0.6212932414378864,
+        "ratio": 1.5307187690989885,
+        "z_perm": 2.822237271332307,
+        "p_perm": 0.014925373134328358,
+        "n_obs": 116,
+        "n_perm": 200
+      }
+    }
+  ],
+  "ignored_runs": [
+    {
+      "run_id": "TR-S--LT_2__s0__9b8a26fa31f8",
+      "arm": "L6",
+      "label": "LT-S",
+      "ghost": false,
+      "reason": "not a registered arm"
+    },
+    {
+      "run_id": "TR-S--LT_2__s1__dad11c5fdcc5",
+      "arm": "L6",
+      "label": "LT-S",
+      "ghost": false,
+      "reason": "not a registered arm"
+    },
+    {
+      "run_id": "TR-S--LT_2__s2__0a73970d5f6a",
+      "arm": "L6",
+      "label": "LT-S",
+      "ghost": false,
+      "reason": "not a registered arm"
+    },
+    {
+      "run_id": "TR-S--LT_2__s3__4cecdb6ef16c",
+      "arm": "L6",
+      "label": "LT-S",
+      "ghost": false,
+      "reason": "not a registered arm"
+    },
+    {
+      "run_id": "TR-S--LT_2__s4__5565d9a2c9ac",
+      "arm": "L6",
+      "label": "LT-S",
+      "ghost": false,
+      "reason": "not a registered arm"
+    },
+    {
+      "run_id": "TR-S--LT_2__s5__0c8f695b07c8",
+      "arm": "L6",
+      "label": "LT-S",
+      "ghost": false,
+      "reason": "not a registered arm"
+    }
+  ],
+  "arms": {
+    "trunk_S": {
+      "n": 8,
+      "delta_p": {
+        "mean": 0.989007226637214,
+        "lo": 0.956028906548856,
+        "hi": 1.0
+      },
+      "delta_p_window": {
+        "mean": 0.989007226637214,
+        "lo": 0.956028906548856,
+        "hi": 1.0
+      },
+      "delta_p_vw": {
+        "mean": 0.9809835987841747,
+        "lo": 0.923934395136699,
+        "hi": 1.0
+      },
+      "delta_pi": {
+        "mean": 0.7352678844862482,
+        "lo": 0.6201154195112036,
+        "hi": 0.8575166964158868
+      },
+      "delta_pi_window": {
+        "mean": 0.7352678844862482,
+        "lo": 0.6201154195112036,
+        "hi": 0.8575166964158868
+      },
+      "mean": 0.989007226637214,
+      "lo": 0.956028906548856,
+      "hi": 1.0
+    },
+    "sham_S": {
+      "n": 8,
+      "delta_p": {
+        "mean": 0.9884308847271182,
+        "lo": 0.9537235389084724,
+        "hi": 1.0
+      },
+      "delta_p_window": {
+        "mean": 0.9884308847271182,
+        "lo": 0.9537235389084724,
+        "hi": 1.0
+      },
+      "delta_p_vw": {
+        "mean": 0.9777812805244861,
+        "lo": 0.9111251220979442,
+        "hi": 1.0
+      },
+      "delta_pi": {
+        "mean": 0.764988686939782,
+        "lo": 0.671281474897722,
+        "hi": 0.8577751842403392
+      },
+      "delta_pi_window": {
+        "mean": 0.764988686939782,
+        "lo": 0.671281474897722,
+        "hi": 0.8577751842403392
+      },
+      "mean": 0.9884308847271182,
+      "lo": 0.9537235389084724,
+      "hi": 1.0
+    },
+    "L2_S": {
+      "n": 6,
+      "delta_p": {
+        "mean": 0.9741199749135591,
+        "lo": 0.9126508368786955,
+        "hi": 1.0
+      },
+      "delta_p_window": {
+        "mean": 0.9758040935672515,
+        "lo": 0.9124269005847956,
+        "hi": 1.0
+      },
+      "delta_p_vw": {
+        "mean": 0.9709106461894237,
+        "lo": 0.8964504291858715,
+        "hi": 1.0
+      },
+      "delta_pi": {
+        "mean": 0.14144823219848604,
+        "lo": 0.10530745780627293,
+        "hi": 0.20082236155712171
+      },
+      "delta_pi_window": {
+        "mean": 0.8144800833658271,
+        "lo": 0.7346942632978748,
+        "hi": 0.9367944941684431
+      },
+      "mean": 0.9741199749135591,
+      "lo": 0.9126508368786955,
+      "hi": 1.0
+    }
+  },
+  "contrasts": {
+    "L2_S": {
+      "reference": "sham_S",
+      "trunks": [
+        "TR-S__s0__4e900386a99c",
+        "TR-S__s1__97f4bde85b96",
+        "TR-S__s2__3f4bbf30eb01",
+        "TR-S__s3__6081ccb9b07a",
+        "TR-S__s4__c8676424d019",
+        "TR-S__s5__5f7ea71b0bdb"
+      ],
+      "n_pairs": 6,
+      "unqualified_trunks_dropped": [],
+      "delta_p": {
+        "n": 6,
+        "mean": 0.010454538055931939,
+        "bca_lo": 0.0,
+        "bca_hi": 0.027320879861680785,
+        "alternative": "greater",
+        "t": {
+          "mean": 0.010454538055931939,
+          "t": 1.5235507233558845,
+          "df": 5.0,
+          "p": 0.09406190018787633,
+          "lo": -0.00718468144268249,
+          "hi": 0.028093757554546368,
+          "alternative": "greater"
+        },
+        "wilcoxon": {
+          "statistic": 3.0,
+          "p": 0.25,
+          "n": 6.0,
+          "alternative": "greater"
+        },
+        "tost": {
+          "mean": 0.010454538055931939,
+          "p_lower": 3.4577046986010225e-07,
+          "p_upper": 5.81925536206165e-07,
+          "p": 5.81925536206165e-07,
+          "equivalent": true,
+          "lo": -0.0033726352574392406,
+          "hi": 0.02428171136930312
+        },
+        "sd": 0.016808290883243447,
+        "diffs": {
+          "TR-S__s0__4e900386a99c": 0.0,
+          "TR-S__s1__97f4bde85b96": 0.0,
+          "TR-S__s2__3f4bbf30eb01": 0.0,
+          "TR-S__s3__6081ccb9b07a": 0.038470822498901436,
+          "TR-S__s4__c8676424d019": 0.0,
+          "TR-S__s5__5f7ea71b0bdb": 0.024256405836690198
+        }
+      },
+      "delta_p_window": {
+        "n": 6,
+        "mean": 0.008770419402239271,
+        "bca_lo": 0.0,
+        "bca_hi": 0.02324108276812135,
+        "alternative": "greater",
+        "t": {
+          "mean": 0.008770419402239271,
+          "t": 1.4842013695106824,
+          "df": 5.0,
+          "p": 0.09893843459008034,
+          "lo": -0.006419622373386722,
+          "hi": 0.023960461177865267,
+          "alternative": "greater"
+        },
+        "wilcoxon": {
+          "statistic": 3.0,
+          "p": 0.25,
+          "n": 6.0,
+          "alternative": "greater"
+        },
+        "tost": {
+          "mean": 0.008770419402239271,
+          "p_lower": 1.709409148923244e-07,
+          "p_upper": 2.64669102901742e-07,
+          "p": 2.64669102901742e-07,
+          "equivalent": true,
+          "lo": -0.0031368727704913606,
+          "hi": 0.020677711574969903
+        },
+        "sd": 0.014474486284010294,
+        "diffs": {
+          "TR-S__s0__4e900386a99c": 0.0,
+          "TR-S__s1__97f4bde85b96": 0.0,
+          "TR-S__s2__3f4bbf30eb01": 0.0,
+          "TR-S__s3__6081ccb9b07a": 0.034201463781856845,
+          "TR-S__s4__c8676424d019": 0.0,
+          "TR-S__s5__5f7ea71b0bdb": 0.018421052631578783
+        }
+      },
+      "delta_p_vw": {
+        "n": 6,
+        "mean": -0.000535605490108948,
+        "bca_lo": -0.014414660898503573,
+        "bca_hi": 0.012272238938067781,
+        "alternative": "greater",
+        "t": {
+          "mean": -0.000535605490108948,
+          "t": -0.07611299023353628,
+          "df": 5.0,
+          "p": 0.5288595702431521,
+          "lo": -0.018624735081742116,
+          "hi": 0.01755352410152422,
+          "alternative": "greater"
+        },
+        "wilcoxon": {
+          "statistic": 1.0,
+          "p": 0.75,
+          "n": 6.0,
+          "alternative": "greater"
+        },
+        "tost": {
+          "mean": -0.000535605490108948,
+          "p_lower": 5.118044190701642e-07,
+          "p_upper": 4.983504084151961e-07,
+          "p": 5.118044190701642e-07,
+          "equivalent": true,
+          "lo": -0.014715457947367065,
+          "hi": 0.013644246967149169
+        },
+        "sd": 0.017237007115010965,
+        "diffs": {
+          "TR-S__s0__4e900386a99c": 0.0,
+          "TR-S__s1__97f4bde85b96": 0.0,
+          "TR-S__s2__3f4bbf30eb01": 0.0,
+          "TR-S__s3__6081ccb9b07a": -0.028829321797007146,
+          "TR-S__s4__c8676424d019": 0.0,
+          "TR-S__s5__5f7ea71b0bdb": 0.025615688856353458
+        }
+      },
+      "delta_pi": {
+        "n": 6,
+        "mean": 0.610436050246697,
+        "bca_lo": 0.5242806580524921,
+        "bca_hi": 0.6866398873625351,
+        "alternative": "greater",
+        "t": {
+          "mean": 0.610436050246697,
+          "t": 13.179453229374369,
+          "df": 5.0,
+          "p": 2.245766168654894e-05,
+          "lo": 0.4913737647882717,
+          "hi": 0.7294983357051222,
+          "alternative": "greater"
+        },
+        "wilcoxon": {
+          "statistic": 21.0,
+          "p": 0.015625,
+          "n": 6.0,
+          "alternative": "greater"
+        },
+        "tost": {
+          "mean": 0.610436050246697,
+          "p_lower": 5.588748668480059e-06,
+          "p_upper": 0.9998478553913412,
+          "p": 0.9998478553913412,
+          "equivalent": false,
+          "lo": 0.5171045478948476,
+          "hi": 0.7037675525985464
+        },
+        "sd": 0.11345363253550853,
+        "diffs": {
+          "TR-S__s0__4e900386a99c": 0.45745809879924343,
+          "TR-S__s1__97f4bde85b96": 0.48571947043911906,
+          "TR-S__s2__3f4bbf30eb01": 0.745347967759233,
+          "TR-S__s3__6081ccb9b07a": 0.655052624174159,
+          "TR-S__s4__c8676424d019": 0.6735191581384772,
+          "TR-S__s5__5f7ea71b0bdb": 0.6455189821699501
+        }
+      },
+      "delta_pi_window": {
+        "n": 6,
+        "mean": -0.06259580092064425,
+        "bca_lo": -0.15028889950667826,
+        "bca_hi": 0.05866413389785887,
+        "alternative": "greater",
+        "t": {
+          "mean": -0.06259580092064425,
+          "t": -1.104568465133689,
+          "df": 5.0,
+          "p": 0.8401775829365126,
+          "lo": -0.2082704547903253,
+          "hi": 0.08307885294903682,
+          "alternative": "greater"
+        },
+        "wilcoxon": {
+          "statistic": 4.0,
+          "p": 0.921875,
+          "n": 6.0,
+          "alternative": "greater"
+        },
+        "tost": {
+          "mean": -0.06259580092064425,
+          "p_lower": 0.029887131392390083,
+          "p_upper": 0.002832206549278241,
+          "p": 0.029887131392390083,
+          "equivalent": true,
+          "lo": -0.17678842075734735,
+          "hi": 0.05159681891605884
+        },
+        "sd": 0.13881237527259863,
+        "diffs": {
+          "TR-S__s0__4e900386a99c": -0.17741716583864953,
+          "TR-S__s1__97f4bde85b96": -0.19621271698406362,
+          "TR-S__s2__3f4bbf30eb01": 0.14966656590573268,
+          "TR-S__s3__6081ccb9b07a": -0.05046874325171391,
+          "TR-S__s4__c8676424d019": 0.048966057208325364,
+          "TR-S__s5__5f7ea71b0bdb": -0.15010880256349646
+        }
+      },
+      "delta_p_own": {
+        "n": 6,
+        "mean": 0.008770419402239271,
+        "bca_lo": 0.0,
+        "bca_hi": 0.02324108276812135,
+        "alternative": "greater",
+        "t": {
+          "mean": 0.008770419402239271,
+          "t": 1.4842013695106824,
+          "df": 5.0,
+          "p": 0.09893843459008034,
+          "lo": -0.006419622373386722,
+          "hi": 0.023960461177865267,
+          "alternative": "greater"
+        },
+        "wilcoxon": {
+          "statistic": 3.0,
+          "p": 0.25,
+          "n": 6.0,
+          "alternative": "greater"
+        },
+        "tost": {
+          "mean": 0.008770419402239271,
+          "p_lower": 1.709409148923244e-07,
+          "p_upper": 2.64669102901742e-07,
+          "p": 2.64669102901742e-07,
+          "equivalent": true,
+          "lo": -0.0031368727704913606,
+          "hi": 0.020677711574969903
+        },
+        "sd": 0.014474486284010294,
+        "diffs": {
+          "TR-S__s0__4e900386a99c": 0.0,
+          "TR-S__s1__97f4bde85b96": 0.0,
+          "TR-S__s2__3f4bbf30eb01": 0.0,
+          "TR-S__s3__6081ccb9b07a": 0.034201463781856845,
+          "TR-S__s4__c8676424d019": 0.0,
+          "TR-S__s5__5f7ea71b0bdb": 0.018421052631578783
+        },
+        "scoring": "d_own = Delta_p,sham(trunk benchmarks) - Delta_p,lever(lever market's own pinned benchmarks), capped index (D-17 ruling)"
+      },
+      "seeds": {
+        "TR-S__s0__4e900386a99c": 0,
+        "TR-S__s1__97f4bde85b96": 1,
+        "TR-S__s2__3f4bbf30eb01": 2,
+        "TR-S__s3__6081ccb9b07a": 3,
+        "TR-S__s4__c8676424d019": 4,
+        "TR-S__s5__5f7ea71b0bdb": 5
+      },
+      "own_vs_trunk_max_abs_diff": 0.005835353205111415,
+      "own_scoring_informative": true,
+      "ask_fall": {
+        "definition": "mean posted price of the whitelisted incumbents, reference minus arm, over the analysis window",
+        "mean": 0.05848958333333306,
+        "per_trunk": {
+          "TR-S__s0__4e900386a99c": 0.0856249999999994,
+          "TR-S__s1__97f4bde85b96": 0.17531249999999998,
+          "TR-S__s2__3f4bbf30eb01": -0.09250000000000025,
+          "TR-S__s3__6081ccb9b07a": 0.027812500000000462,
+          "TR-S__s4__c8676424d019": -0.035000000000000586,
+          "TR-S__s5__5f7ea71b0bdb": 0.18968749999999934
+        }
+      },
+      "delta_p_sens_sens_late": {
+        "window": "121-150",
+        "mean": 0.014272803210317264,
+        "bca_lo": 0.0,
+        "bca_hi": 0.037286792057089034,
+        "n": 6
+      },
+      "delta_p_sens_sens_full": {
+        "window": "101-150",
+        "mean": 0.0047260036627864155,
+        "bca_lo": 0.0,
+        "bca_hi": 0.018904014651145662,
+        "n": 6
+      },
+      "delta_p_raw": {
+        "mean": 0.08090399562971279,
+        "bca_lo": -0.03386008721813453,
+        "bca_hi": 0.19444335191860632,
+        "n": 6
+      },
+      "share_quotes_above_pm": {
+        "reference": 0.8333333333333334,
+        "arm": 0.678125
+      },
+      "trade_weighted_price": {
+        "reference": 2.2484687854431735,
+        "arm": 2.195632377479131
+      },
+      "benchmark_shift": {
+        "trunk": {
+          "p_nash": 1.3314606898837602,
+          "p_mono": 2.054411180500227
+        },
+        "own": {
+          "p_nash": 1.3375,
+          "p_mono": 2.05
+        },
+        "d_p_nash": 0.0060393101162397045,
+        "d_p_mono": -0.004411180500227374
+      },
+      "dual_benchmark": {
+        "p_trunk": 0.09406190018787633,
+        "p_own": 0.09893843459008034,
+        "label": "no significant reduction",
+        "basis": "raw p (single contrast)"
+      }
+    }
+  },
+  "h1": {
+    "lever": "L2",
+    "lane": "H",
+    "hypothesis": "H1",
+    "estimand": "delta_p",
+    "own_estimand": "delta_p_own",
+    "trunks": [],
+    "benchmark_shift": null,
+    "sc1_price_response": 0.0,
+    "n": 0,
+    "mean": null,
+    "bca_lo": null,
+    "bca_hi": null,
+    "p_one_sided": null,
+    "t": {
+      "mean": null,
+      "t": null,
+      "df": -1.0,
+      "p": null,
+      "lo": null,
+      "hi": null,
+      "alternative": "greater"
+    },
+    "wilcoxon_sensitivity": {
+      "statistic": 0.0,
+      "p": 1.0,
+      "n": 0.0,
+      "alternative": "greater"
+    },
+    "lower_bound_one_sided_95": null,
+    "own_scoring": {
+      "available": false
+    },
+    "own_scoring_available": false,
+    "dual_benchmark_label": "no significant reduction",
+    "practical_significance": {
+      "verdict": "not applicable",
+      "lower_bound_one_sided_95": null,
+      "t_interval_90": [
+        null,
+        null
+      ],
+      "bca_90": [
+        null,
+        null
+      ],
+      "band": [
+        0.1,
+        0.2
+      ],
+      "lower_bound_gt": 0.1
+    },
+    "practical_verdict": "not applicable",
+    "mqc": 26.53171549528505,
+    "checks": {
+      "p_lt_alpha": false,
+      "p_own_lt_alpha": null,
+      "mqc_ok": false,
+      "lower_bound_gt": false
+    },
+    "h1_supported": false,
+    "h1_practically_significant": false,
+    "tost": {
+      "mean": null,
+      "p_lower": null,
+      "p_upper": null,
+      "p": null,
+      "equivalent": false,
+      "lo": null,
+      "hi": null
+    },
+    "rule": {
+      "alpha": 0.05,
+      "mqc_max_pp": 5.0,
+      "practical_lower_bound_gt": 0.1,
+      "inconclusive_band": [
+        0.1,
+        0.2
+      ],
+      "tost_margin": 0.2,
+      "multiplicity": "none (single pre-specified lever)",
+      "index": "capped min(Delta_p, 1) (D-16)",
+      "scorings": "trunk (primary) and own benchmarks; collusion reduction needs both (D-17)"
+    },
+    "gate2": null,
+    "status": "not tested: no paired contrast"
+  },
+  "h1_by_lane": {
+    "S": {
+      "lever": "L2_S",
+      "lane": "S",
+      "hypothesis": "H-S",
+      "model": "claude-sonnet-5-5",
+      "trunks": [
+        "TR-S__s0__4e900386a99c",
+        "TR-S__s1__97f4bde85b96",
+        "TR-S__s2__3f4bbf30eb01",
+        "TR-S__s3__6081ccb9b07a",
+        "TR-S__s4__c8676424d019",
+        "TR-S__s5__5f7ea71b0bdb"
+      ],
+      "benchmark_shift": {
+        "trunk": {
+          "p_nash": 1.3314606898837602,
+          "p_mono": 2.054411180500227
+        },
+        "own": {
+          "p_nash": 1.3375,
+          "p_mono": 2.05
+        },
+        "d_p_nash": 0.0060393101162397045,
+        "d_p_mono": -0.004411180500227374
+      },
+      "note": "capability arm, secondary outside family S",
+      "n": 6,
+      "mean": 0.010454538055931939,
+      "bca_lo": 0.0,
+      "bca_hi": 0.027320879861680785,
+      "p_one_sided": 0.09406190018787633,
+      "t": {
+        "mean": 0.010454538055931939,
+        "t": 1.5235507233558845,
+        "df": 5.0,
+        "p": 0.09406190018787633,
+        "lo": -0.00718468144268249,
+        "hi": 0.028093757554546368,
+        "alternative": "greater"
+      },
+      "wilcoxon_sensitivity": {
+        "statistic": 3.0,
+        "p": 0.25,
+        "n": 6.0,
+        "alternative": "greater"
+      },
+      "lower_bound_one_sided_95": -0.0033726352574392406,
+      "own_scoring": {
+        "available": true,
+        "n": 6,
+        "mean": 0.008770419402239271,
+        "bca_lo": 0.0,
+        "bca_hi": 0.02324108276812135,
+        "p_one_sided": 0.09893843459008034,
+        "t": {
+          "mean": 0.008770419402239271,
+          "t": 1.4842013695106824,
+          "df": 5.0,
+          "p": 0.09893843459008034,
+          "lo": -0.006419622373386722,
+          "hi": 0.023960461177865267,
+          "alternative": "greater"
+        },
+        "wilcoxon_sensitivity": {
+          "statistic": 3.0,
+          "p": 0.25,
+          "n": 6.0,
+          "alternative": "greater"
+        }
+      },
+      "own_scoring_available": true,
+      "dual_benchmark_label": "no significant reduction",
+      "practical_significance": {
+        "verdict": "below practical relevance",
+        "lower_bound_one_sided_95": -0.0033726352574392406,
+        "t_interval_90": [
+          -0.0033726352574392406,
+          0.02428171136930312
+        ],
+        "bca_90": [
+          0.0,
+          0.02327814555556575
+        ],
+        "band": [
+          0.1,
+          0.2
+        ],
+        "lower_bound_gt": 0.1
+      },
+      "practical_verdict": "below practical relevance",
+      "mqc": 26.53171549528505,
+      "checks": {
+        "p_lt_alpha": false,
+        "p_own_lt_alpha": false,
+        "mqc_ok": false,
+        "lower_bound_gt": false,
+        "a003_l2_passes": true
+      },
+      "h1_supported": false,
+      "h1_practically_significant": false,
+      "tost": {
+        "mean": 0.010454538055931939,
+        "p_lower": 3.4577046986010225e-07,
+        "p_upper": 5.81925536206165e-07,
+        "p": 5.81925536206165e-07,
+        "equivalent": true,
+        "lo": -0.0033726352574392406,
+        "hi": 0.02428171136930312
+      },
+      "rule": {
+        "alpha": 0.05,
+        "mqc_max_pp": 5.0,
+        "practical_lower_bound_gt": 0.1,
+        "inconclusive_band": [
+          0.1,
+          0.2
+        ],
+        "tost_margin": 0.2,
+        "multiplicity": "none (single pre-specified lever)",
+        "index": "capped min(Delta_p, 1) (D-16)",
+        "scorings": "trunk (primary) and own benchmarks; collusion reduction needs both (D-17)",
+        "a003": "A-003 (the fringe lever): collusion reduction = trunk-scored significance AND LLM ask fall > 2 x SC1 ask fall; the own-scoring co-condition is uninformative because the lever's own benchmarks coincide with the trunk's (no lever name here: blinding)"
+      },
+      "a003_l2_rule": {
+        "applies": true,
+        "trunk_test_significant": false,
+        "llm_ask_fall": 0.05848958333333306,
+        "sc1_ask_fall": -0.0,
+        "factor": 2.0,
+        "own_vs_trunk_max_abs_diff": 0.005835353205111415,
+        "threshold": -0.0,
+        "passes": true,
+        "status": "ok"
+      },
+      "gate2": {
+        "n_qualified": 8,
+        "status": "PASS",
+        "decision": "branch every qualified trunk",
+        "h1_tested": true,
+        "reduced_power": false,
+        "split_estimate": "on"
+      },
+      "status": "tested (8 qualified trunks)"
+    }
+  },
+  "h1r": {
+    "family": [
+      "L1",
+      "L2",
+      "L3",
+      "L4a",
+      "L5",
+      "L6",
+      "L7",
+      "L8"
+    ],
+    "m": 8,
+    "levers": {
+      "L1": {
+        "n": 0,
+        "mean": null,
+        "bca_lo": null,
+        "bca_hi": null,
+        "mqc": -1.7829837289970356,
+        "p": 1.0,
+        "p_holm": 1.0,
+        "reject": false,
+        "placeholder": true,
+        "own_scoring": {
+          "mean": null,
+          "bca_lo": null,
+          "bca_hi": null,
+          "p": 1.0,
+          "p_holm": 1.0,
+          "reject": false,
+          "placeholder": true
+        },
+        "dual_benchmark_label": "not run (enters Holm at p = 1)",
+        "label_basis": "Holm decisions (H1-R, m = 8) under both scorings (B1)",
+        "own_vs_trunk_max_abs_diff": null,
+        "own_scoring_informative": null,
+        "benchmark_shift": null,
+        "sc1_price_response": -0.25000000000000017,
+        "supported": false
+      },
+      "L2": {
+        "n": 0,
+        "mean": null,
+        "bca_lo": null,
+        "bca_hi": null,
+        "mqc": 26.53171549528505,
+        "p": 1.0,
+        "p_holm": 1.0,
+        "reject": false,
+        "placeholder": true,
+        "own_scoring": {
+          "mean": null,
+          "bca_lo": null,
+          "bca_hi": null,
+          "p": 1.0,
+          "p_holm": 1.0,
+          "reject": false,
+          "placeholder": true
+        },
+        "dual_benchmark_label": "not run (enters Holm at p = 1)",
+        "label_basis": "Holm decisions (H1-R, m = 8) under both scorings (B1)",
+        "own_vs_trunk_max_abs_diff": null,
+        "own_scoring_informative": null,
+        "benchmark_shift": null,
+        "sc1_price_response": 0.0,
+        "supported": false
+      },
+      "L3": {
+        "n": 0,
+        "mean": null,
+        "bca_lo": null,
+        "bca_hi": null,
+        "mqc": -0.11055537831860134,
+        "p": 1.0,
+        "p_holm": 1.0,
+        "reject": false,
+        "placeholder": true,
+        "own_scoring": {
+          "mean": null,
+          "bca_lo": null,
+          "bca_hi": null,
+          "p": 1.0,
+          "p_holm": 1.0,
+          "reject": false,
+          "placeholder": true
+        },
+        "dual_benchmark_label": "not run (enters Holm at p = 1)",
+        "label_basis": "Holm decisions (H1-R, m = 8) under both scorings (B1)",
+        "own_vs_trunk_max_abs_diff": null,
+        "own_scoring_informative": null,
+        "benchmark_shift": null,
+        "sc1_price_response": -0.020000000000002238,
+        "supported": false
+      },
+      "L4a": {
+        "n": 0,
+        "mean": null,
+        "bca_lo": null,
+        "bca_hi": null,
+        "mqc": -1.4246794367667891e-15,
+        "p": 1.0,
+        "p_holm": 1.0,
+        "reject": false,
+        "placeholder": true,
+        "own_scoring": {
+          "mean": null,
+          "bca_lo": null,
+          "bca_hi": null,
+          "p": 1.0,
+          "p_holm": 1.0,
+          "reject": false,
+          "placeholder": true
+        },
+        "dual_benchmark_label": "not run (enters Holm at p = 1)",
+        "label_basis": "Holm decisions (H1-R, m = 8) under both scorings (B1)",
+        "own_vs_trunk_max_abs_diff": null,
+        "own_scoring_informative": null,
+        "benchmark_shift": null,
+        "sc1_price_response": 0.0,
+        "supported": false
+      },
+      "L5": {
+        "n": 0,
+        "mean": null,
+        "bca_lo": null,
+        "bca_hi": null,
+        "mqc": null,
+        "p": 1.0,
+        "p_holm": 1.0,
+        "reject": false,
+        "placeholder": true,
+        "own_scoring": {
+          "mean": null,
+          "bca_lo": null,
+          "bca_hi": null,
+          "p": 1.0,
+          "p_holm": 1.0,
+          "reject": false,
+          "placeholder": true
+        },
+        "dual_benchmark_label": "not run (enters Holm at p = 1)",
+        "label_basis": "Holm decisions (H1-R, m = 8) under both scorings (B1)",
+        "own_vs_trunk_max_abs_diff": null,
+        "own_scoring_informative": null,
+        "benchmark_shift": null,
+        "sc1_price_response": null,
+        "supported": false
+      },
+      "L6": {
+        "n": 0,
+        "mean": null,
+        "bca_lo": null,
+        "bca_hi": null,
+        "mqc": -0.5771922165057201,
+        "p": 1.0,
+        "p_holm": 1.0,
+        "reject": false,
+        "placeholder": true,
+        "own_scoring": {
+          "mean": null,
+          "bca_lo": null,
+          "bca_hi": null,
+          "p": 1.0,
+          "p_holm": 1.0,
+          "reject": false,
+          "placeholder": true
+        },
+        "dual_benchmark_label": "not run (enters Holm at p = 1)",
+        "label_basis": "Holm decisions (H1-R, m = 8) under both scorings (B1)",
+        "own_vs_trunk_max_abs_diff": null,
+        "own_scoring_informative": null,
+        "benchmark_shift": null,
+        "sc1_price_response": 0.01566249999999808,
+        "supported": false
+      },
+      "L7": {
+        "n": 0,
+        "mean": null,
+        "bca_lo": null,
+        "bca_hi": null,
+        "mqc": null,
+        "p": 1.0,
+        "p_holm": 1.0,
+        "reject": false,
+        "placeholder": true,
+        "own_scoring": {
+          "mean": null,
+          "bca_lo": null,
+          "bca_hi": null,
+          "p": 1.0,
+          "p_holm": 1.0,
+          "reject": false,
+          "placeholder": true
+        },
+        "dual_benchmark_label": "not run (enters Holm at p = 1)",
+        "label_basis": "Holm decisions (H1-R, m = 8) under both scorings (B1)",
+        "own_vs_trunk_max_abs_diff": null,
+        "own_scoring_informative": null,
+        "benchmark_shift": null,
+        "sc1_price_response": null,
+        "supported": false
+      },
+      "L8": {
+        "n": 0,
+        "mean": null,
+        "bca_lo": null,
+        "bca_hi": null,
+        "mqc": null,
+        "p": 1.0,
+        "p_holm": 1.0,
+        "reject": false,
+        "placeholder": true,
+        "own_scoring": {
+          "mean": null,
+          "bca_lo": null,
+          "bca_hi": null,
+          "p": 1.0,
+          "p_holm": 1.0,
+          "reject": false,
+          "placeholder": true
+        },
+        "dual_benchmark_label": "not run (enters Holm at p = 1)",
+        "label_basis": "Holm decisions (H1-R, m = 8) under both scorings (B1)",
+        "own_vs_trunk_max_abs_diff": null,
+        "own_scoring_informative": null,
+        "benchmark_shift": null,
+        "sc1_price_response": null,
+        "supported": false
+      }
+    },
+    "best_lever_split_sample": {
+      "label": "descriptive (no decision; selection on odd-seed, estimation on even-seed trunks)",
+      "selection_trunks": [],
+      "estimation_trunks": [],
+      "min_per_half": 3,
+      "selection_effects": {},
+      "best_lever": null,
+      "estimate": {},
+      "status": "off: 0 selection and 0 estimation trunks, fewer than 3 per half (D-22)"
+    },
+    "n_rejected_trunk": 0,
+    "n_rejected_own": 0,
+    "n_supported": 0
+  },
+  "mqc": {
+    "window": [
+      111,
+      150
+    ],
+    "unit": "pp of true-value surplus per period (sham - lever) / sham",
+    "reference_arm": "sham",
+    "max_pp": 5.0,
+    "levers": {
+      "L1": {
+        "status": "ok",
+        "label": "MQC-L1",
+        "n": 20,
+        "seeds_registered": 20,
+        "mean": -1.7829837289970356,
+        "bca_lo": -1.918823634930634,
+        "bca_hi": -1.6565039789349285,
+        "ratio_of_means": -1.7810863149298115,
+        "ts_reference_mean": 97.49709074432765,
+        "ts_treated_mean": 99.23359808502957,
+        "per_seed": {
+          "0": -1.6750604177927042,
+          "10": -1.410479958213419,
+          "11": -1.649176030061293,
+          "12": -1.677410440800674,
+          "13": -1.8691189800096843,
+          "14": -1.951758063426194,
+          "15": -1.938633546783989,
+          "16": -1.3970828482425968,
+          "17": -1.315453772278317,
+          "18": -2.227139986661384,
+          "19": -2.3939740221438397,
+          "1": -1.6610781248763722,
+          "2": -2.0380568317449175,
+          "3": -1.7624618751364844,
+          "4": -2.009362622680916,
+          "5": -1.5677264908257746,
+          "6": -1.3322174744456428,
+          "7": -1.9326885782251713,
+          "8": -2.259949785369488,
+          "9": -1.5908447302218522
+        },
+        "price_reference_mean": 1.350000000000001,
+        "price_treated_mean": 1.100000000000001,
+        "sc1_price_response": -0.25000000000000017
+      },
+      "L2": {
+        "status": "ok",
+        "label": "MQC-L2",
+        "n": 20,
+        "seeds_registered": 20,
+        "mean": 26.53171549528505,
+        "bca_lo": 26.28086223999978,
+        "bca_hi": 26.82515593718076,
+        "ratio_of_means": 26.531728736514474,
+        "ts_reference_mean": 97.49709074432765,
+        "ts_treated_mean": 71.62942710204928,
+        "per_seed": {
+          "0": 25.569974015633566,
+          "10": 26.516367479558,
+          "11": 27.126364381090706,
+          "12": 26.348959980672646,
+          "13": 27.433599227070992,
+          "14": 26.152814386178726,
+          "15": 25.77494435603721,
+          "16": 26.532370875122933,
+          "17": 27.241794982875906,
+          "18": 27.67057078406206,
+          "19": 26.318295090265742,
+          "1": 26.944613931171233,
+          "2": 25.828932549558925,
+          "3": 27.510967968337425,
+          "4": 26.72788527575429,
+          "5": 25.97025582088133,
+          "6": 26.80210944711262,
+          "7": 25.87735957891934,
+          "8": 26.00813421642912,
+          "9": 26.277995558968293
+        },
+        "price_reference_mean": 1.350000000000001,
+        "price_treated_mean": 1.350000000000001,
+        "sc1_price_response": 0.0
+      },
+      "L3": {
+        "status": "ok",
+        "label": "MQC-L3",
+        "n": 20,
+        "seeds_registered": 20,
+        "mean": -0.11055537831860134,
+        "bca_lo": -0.1354232109160565,
+        "bca_hi": -0.08737231418708943,
+        "ratio_of_means": -0.11031102915306845,
+        "ts_reference_mean": 97.49709074432764,
+        "ts_treated_mean": 97.604640788522,
+        "per_seed": {
+          "0": -0.20405871788860377,
+          "10": -0.08038146201703304,
+          "11": -0.09198346982438609,
+          "12": -0.05664213871708329,
+          "13": -0.1069733677933266,
+          "14": -0.11902759488389934,
+          "15": -0.17766483279227907,
+          "16": -0.04290841887423029,
+          "17": -0.12172657675030095,
+          "18": -0.12906420324673729,
+          "19": -0.07745248003620753,
+          "1": -0.06894899951399365,
+          "2": -0.1898878549494273,
+          "3": -0.017236024793604445,
+          "4": -0.16665733326161128,
+          "5": -0.0598403034917652,
+          "6": -0.05234016069408021,
+          "7": -0.13467397265104725,
+          "8": -0.11124762169961322,
+          "9": -0.20239203249279664
+        },
+        "price_reference_mean": 1.350000000000001,
+        "price_treated_mean": 1.3299999999999987,
+        "sc1_price_response": -0.020000000000002238
+      },
+      "L4a": {
+        "status": "ok",
+        "label": "MQC-L4a",
+        "n": 20,
+        "seeds_registered": 20,
+        "mean": -1.4246794367667891e-15,
+        "bca_lo": -4.27895470738339e-15,
+        "bca_hi": 0.0,
+        "ratio_of_means": 0.0,
+        "ts_reference_mean": 97.49709074432764,
+        "ts_treated_mean": 97.49709074432764,
+        "per_seed": {
+          "0": 0.0,
+          "10": 0.0,
+          "11": -1.4197630396837668e-14,
+          "12": 0.0,
+          "13": 0.0,
+          "14": 0.0,
+          "15": 0.0,
+          "16": 0.0,
+          "17": 0.0,
+          "18": 0.0,
+          "19": 0.0,
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": -1.429595833849811e-14,
+          "7": 0.0,
+          "8": 0.0,
+          "9": 0.0
+        },
+        "price_reference_mean": 1.350000000000001,
+        "price_treated_mean": 1.350000000000001,
+        "sc1_price_response": 0.0
+      },
+      "L5": {
+        "status": "too few paired seeds",
+        "n": 0,
+        "label": "MQC-L5"
+      },
+      "L6": {
+        "status": "ok",
+        "label": "MQC-L6",
+        "n": 20,
+        "seeds_registered": 20,
+        "mean": -0.5771922165057201,
+        "bca_lo": -0.6389479899798004,
+        "bca_hi": -0.5246911257042436,
+        "ratio_of_means": -0.5772931266210731,
+        "ts_reference_mean": 97.49709074432764,
+        "ts_treated_mean": 98.05993474785015,
+        "per_seed": {
+          "0": -0.656259403791921,
+          "10": -0.5920171171498985,
+          "11": -0.4987422473713095,
+          "12": -0.6140761032660923,
+          "13": -0.7952204100500047,
+          "14": -0.7898199804502329,
+          "15": -0.5901599938429712,
+          "16": -0.4371622676139558,
+          "17": -0.5706989141056457,
+          "18": -0.48273646945800364,
+          "19": -0.5261649702448392,
+          "1": -0.3822133152968353,
+          "2": -0.5959434283849521,
+          "3": -0.44725550194098057,
+          "4": -0.7612766925554632,
+          "5": -0.573688232855293,
+          "6": -0.41153141411895877,
+          "7": -0.4133466032625741,
+          "8": -0.8213981601011674,
+          "9": -0.5841331042533031
+        },
+        "price_reference_mean": 1.350000000000001,
+        "price_treated_mean": 1.3656624999999991,
+        "sc1_price_response": 0.01566249999999808
+      },
+      "L7": {
+        "status": "too few paired seeds",
+        "n": 0,
+        "label": "MQC-L7"
+      },
+      "L8": {
+        "status": "no MQC campaign registered",
+        "n": 0
+      }
+    }
+  }
+}

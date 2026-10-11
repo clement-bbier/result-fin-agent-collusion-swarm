@@ -1,0 +1,53 @@
+# PILOT-L -- Instrument check on lane L (Llama-3.3-70B via OpenRouter, paid): one trunk-like run, 5 periods x 4 dealers = 20 calls.
+# Purpose (amendment A-005, 2026-10-10): ministral-8b-latest and ministral-14b-latest both failed as dealer_v1 instruments
+# (14b: 40 % parse failures, 3.3 calls per decision), so the second model family moves to meta-llama/llama-3.3-70b-instruct
+# (lane openrouter_llama, 0.22 / 0.50 USD per million tokens, lane budget 10 USD). This pilot measures parse rate, repairs,
+# refusals, USD/call and latency with the real dealer_v1 (revision 3) prompt on the TR-M market before TR-M / SH-M / LT-M
+# are switched to it. UNREGISTERED on purpose (no prereg_id) and kept under configs/pilots/, OUTSIDE the hashed set (the freeze
+# hashes every YAML under configs/sprint and configs/controls). Seed 9003 keeps its samples out of the registered trunks' cache
+# (seeds 0-5); market, swarm, view and clock identical to TR-M (100 ticks per period). Protocol: temperature 1.0, no thinking
+# effort, max_tokens 2048, memory_step 25 (as every lane since A-004).
+# Expected LLM calls: 1 x 4 x 5 = 20 (about 0.02 USD at 1,500 in / 300 out tokens). Read parse / repair counts in llm_decisions.
+name: PILOT-L
+tier: 0
+seeds: [9003]
+max_concurrent_runs: 1
+lanes:
+  openrouter_llama: {provider: openrouter, models: [meta-llama/llama-3.3-70b-instruct], max_in_flight: 4, budget_usd: 0.5}
+base:
+  name: PILOT-L
+  periods: 5
+  ticks_per_period: 100
+  market:
+    mechanism: dealer
+    n_dealers: 4
+    cost: 1.0
+    alpha: 1.0
+    price_grid: {min: 1.0, max: 4.0, tick: 0.05}
+    routing: {tau: null, outside_utility: 0.0}
+    demand: {kind: swarm, a: 2.0, a0: 0.0, mu: 0.25, beta: 100.0}
+    fringe: {share: 0.0, horizon_ticks: 50}
+  swarm:
+    mode: agents
+    n_agents: 10000
+    arrivals: {lam_mean: 0.0001, lam_sd_log: 0.5}
+    type_weights: {ZI_BUYER: 0.75, INFORMED: 0.1, NOISE: 0.1, TREND: 0.05}
+  llm:
+    memory_step: 25
+    lane: openrouter_llama
+    mode: live
+    allow_mixed_families: false
+    params: {effort: null, max_tokens: 2048, temperature: 1.0}
+    slots:
+    - {name: Dealer A, role: dealer, model: meta-llama/llama-3.3-70b-instruct, family: llama, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer B, role: dealer, model: meta-llama/llama-3.3-70b-instruct, family: llama, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer C, role: dealer, model: meta-llama/llama-3.3-70b-instruct, family: llama, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer D, role: dealer, model: meta-llama/llama-3.3-70b-instruct, family: llama, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+  view: {id: V0, show_rival_quotes: true, show_trades: true, history_periods: 100}
+  clock: {mode: sync, epoch_ticks: 100}
+  checkpoint: {every_periods: 10, keep_last: 3}
+  logging: {swarm_order_sample: 0.01, snapshot_every: 10, snapshot_levels: 10, store_prompts: true}
+  events: []
+  tags:
+    arm: pilot
+    label: PILOT-L

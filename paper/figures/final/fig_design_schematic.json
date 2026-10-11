@@ -1,0 +1,18 @@
+{
+ "kind": "design schematic",
+ "data": null,
+ "windows": {
+  "trunk": [
+   71,
+   100
+  ],
+  "transition": [
+   101,
+   110
+  ],
+  "evaluation": [
+   111,
+   150
+  ]
+ }
+}

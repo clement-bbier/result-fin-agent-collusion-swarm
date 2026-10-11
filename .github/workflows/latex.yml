@@ -1,0 +1,34 @@
+name: latex
+
+on:
+  push:
+    paths: ["paper/latex/**", ".github/workflows/latex.yml"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile main.tex (pdflatex, bibtex, pdflatex x2)
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: paper/latex
+          root_file: main.tex
+          latexmk_use_xelatex: false
+          continue_on_error: true
+      - name: Summarise warnings
+        if: always()
+        working-directory: paper/latex
+        run: |
+          echo "## overfull/underfull" ; grep -c "Overfull\|Underfull" main.log || true
+          grep -n "Overfull\|Underfull\|Warning\|^!" main.log | head -80 || true
+          ls -la main.pdf || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: latex-build
+          path: |
+            paper/latex/main.pdf
+            paper/latex/main.log
+            paper/latex/main.blg

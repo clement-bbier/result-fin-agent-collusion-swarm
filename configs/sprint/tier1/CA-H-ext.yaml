@@ -1,0 +1,133 @@
+# CA-H EXT from CA-H.yaml by scripts/resolve_registered.py on 2026-10-10T07:19:37Z.
+# Template sha256 e7d45e230690ea1c9c464ac2228885181d1c9260f694fb3df832ed06b4c67a8b; arguments: --make-ext 20 configs/sprint/tier1/TR-S.yaml configs/sprint/tier1/TR-M.yaml configs/sprint/tier0/AC-H.yaml configs/sprint/tier1/GR-H.yaml configs/sprint/tier1/CA-H.yaml configs/sprint/tier2/PREV-H.yaml.
+# Resolution: trend rule: one ext child per CA-H run at period:100 running to 120.
+# Generated file: do not edit; rerun the script. The template's comments document the rule.
+name: CA-H
+tier: 1
+prereg_id: PREREG-v1
+seeds:
+- 0
+- 1
+- 2
+- 3
+max_concurrent_runs: 4
+lanes:
+  anthropic_haiku:
+    provider: anthropic
+    models:
+    - claude-haiku-5-5
+    max_in_flight: 48
+    budget_usd: 3.0
+base:
+  name: CA-H
+  periods: 100
+  ticks_per_period: 100
+  market:
+    mechanism: dealer
+    n_dealers: 4
+    cost: 1.0
+    alpha: 1.0
+    price_grid:
+      min: 1.0
+      max: 4.0
+      tick: 0.05
+    routing:
+      tau: null
+      outside_utility: 0.0
+    demand:
+      kind: swarm
+      a: 2.0
+      a0: 0.0
+      mu: 0.25
+      beta: 100.0
+    fringe:
+      share: 0.0
+      horizon_ticks: 50
+  swarm:
+    mode: agents
+    n_agents: 10000
+    arrivals:
+      lam_mean: 0.0001
+      lam_sd_log: 0.5
+    type_weights:
+      ZI_BUYER: 0.75
+      INFORMED: 0.1
+      NOISE: 0.1
+      TREND: 0.05
+  llm:
+    memory_step: 25
+    lane: anthropic_haiku
+    mode: live
+    allow_mixed_families: false
+    params:
+      effort: low
+      max_tokens: 2048
+    slots:
+    - name: Dealer A
+      role: dealer
+      model: claude-haiku-5-5
+      family: anthropic
+      prompt: dealer_v1
+      prefix: CA
+      memory_periods: 100
+    - name: Dealer B
+      role: dealer
+      model: claude-haiku-5-5
+      family: anthropic
+      prompt: dealer_v1
+      prefix: CA
+      memory_periods: 100
+    - name: Dealer C
+      role: dealer
+      model: claude-haiku-5-5
+      family: anthropic
+      prompt: dealer_v1
+      prefix: CA
+      memory_periods: 100
+    - name: Dealer D
+      role: dealer
+      model: claude-haiku-5-5
+      family: anthropic
+      prompt: dealer_v1
+      prefix: CA
+      memory_periods: 100
+  view:
+    id: V0
+    show_rival_quotes: true
+    show_trades: true
+    history_periods: 100
+  clock:
+    mode: sync
+    epoch_ticks: 100
+  checkpoint:
+    every_periods: 10
+    keep_last: 3
+  logging:
+    swarm_order_sample: 0.01
+    snapshot_every: 10
+    snapshot_levels: 10
+    store_prompts: true
+  events: []
+  tags:
+    arm: CA
+    label: CA-H
+branches:
+- name: ext
+  parent: CA-H
+  at: period:100
+  events:
+  - type: set_param
+    path: periods
+    value: 120
+  - type: set_param
+    path: tags.arm
+    value: CA_ext
+  - type: set_param
+    path: tags.label
+    value: CA-H-ext
+  - type: set_param
+    path: tags.milestone
+    value: collusion_established_120
+    when:
+      at_period: 120
+    note: collusion_established_120

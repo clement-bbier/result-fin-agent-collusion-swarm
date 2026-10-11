@@ -1,0 +1,151 @@
+# LT-S RESOLVED from LT-S.yaml by scripts/resolve_registered.py on 2026-10-10T13:34:55Z.
+# Template sha256 2d890eea9c977b8c7aef5ecbc80ec720f2c13d904e98f75626455c6bbbd74e21; arguments: configs/sprint/tier1/LT-S.yaml --lever L6 --lever L1.
+# Resolution: lever LT_2 = L6, LT_3 = L1.
+# Generated file: do not edit; rerun the script. The template's comments document the rule.
+# A-002 step 2 (one rule lever) and step 4 (first 6 qualified TR-S trunks, seeds 0-5) applied by lead on 2026-10-10; A-012: rule lever = L6.
+name: TR-S
+tier: 1
+prereg_id: PREREG-v1
+seeds:
+- 0
+- 1
+- 2
+- 3
+- 4
+- 5
+max_concurrent_runs: 8
+lanes:
+  anthropic_sonnet:
+    provider: anthropic
+    models:
+    - claude-sonnet-5-5
+    max_in_flight: 16
+    budget_usd: 43.5
+base:
+  name: TR-S
+  periods: 100
+  ticks_per_period: 100
+  market:
+    mechanism: dealer
+    n_dealers: 4
+    cost: 1.0
+    alpha: 1.0
+    price_grid:
+      min: 1.0
+      max: 4.0
+      tick: 0.05
+    routing:
+      tau: null
+      outside_utility: 0.0
+    demand:
+      kind: swarm
+      a: 2.0
+      a0: 0.0
+      mu: 0.25
+      beta: 100.0
+    fringe:
+      share: 0.0
+      horizon_ticks: 50
+  swarm:
+    mode: agents
+    n_agents: 10000
+    arrivals:
+      lam_mean: 0.0001
+      lam_sd_log: 0.5
+    type_weights:
+      ZI_BUYER: 0.75
+      INFORMED: 0.1
+      NOISE: 0.1
+      TREND: 0.05
+  llm:
+    memory_step: 25
+    lane: anthropic_sonnet
+    mode: live
+    allow_mixed_families: false
+    params:
+      effort: low
+      max_tokens: 2048
+    slots:
+    - name: Dealer A
+      role: dealer
+      model: claude-sonnet-5-5
+      family: anthropic
+      prompt: dealer_v1
+      prefix: P1
+      memory_periods: 100
+    - name: Dealer B
+      role: dealer
+      model: claude-sonnet-5-5
+      family: anthropic
+      prompt: dealer_v1
+      prefix: P1
+      memory_periods: 100
+    - name: Dealer C
+      role: dealer
+      model: claude-sonnet-5-5
+      family: anthropic
+      prompt: dealer_v1
+      prefix: P1
+      memory_periods: 100
+    - name: Dealer D
+      role: dealer
+      model: claude-sonnet-5-5
+      family: anthropic
+      prompt: dealer_v1
+      prefix: P1
+      memory_periods: 100
+  view:
+    id: V0
+    show_rival_quotes: true
+    show_trades: true
+    history_periods: 100
+  clock:
+    mode: sync
+    epoch_ticks: 100
+  checkpoint:
+    every_periods: 10
+    keep_last: 3
+  logging:
+    swarm_order_sample: 0.01
+    snapshot_every: 10
+    snapshot_levels: 10
+    store_prompts: true
+  events: []
+  tags:
+    arm: trunk
+    label: TR-S
+branches:
+- name: LT_1
+  parent: TR-S
+  at: period:100
+  events:
+  - type: set_param
+    path: periods
+    value: 150
+  - type: set_param
+    path: tags.arm
+    value: L2
+  - type: set_param
+    path: tags.label
+    value: LT-S
+  - type: set_param
+    path: market.fringe.share
+    value: 0.3
+- name: LT_2
+  parent: TR-S
+  at: period:100
+  events:
+  - type: set_param
+    path: periods
+    value: 150
+  - type: set_param
+    path: tags.arm
+    value: L6
+  - type: set_param
+    path: tags.label
+    value: LT-S
+  - type: add_scripted_agent
+    policy: no_regret_mm
+    params:
+      n_prices: 31
+      horizon: 50

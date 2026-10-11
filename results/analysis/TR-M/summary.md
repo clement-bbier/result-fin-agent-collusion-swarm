@@ -1,0 +1,41 @@
+# Analysis — TR-M
+
+Registry `configs\analysis\registered_arms.yaml` (sha256 0bc079093891); windows: branch 111–150, trunk 71–100; runs analysed: 18; excluded: 0; ignored (unregistered): 0; bootstrap B = 10000, seed 20261010.
+
+Primary estimand: delta_p: incumbents' CAPPED price index min(Delta_p, 1) with the pre-lever (trunk) benchmarks (D-16; raw index reported as delta_p_raw). Tests: one-sided (alternative='greater'): H1 is Delta(sham) - Delta(arm) > 0, a reduction of collusion; BCa intervals are two-sided 95 %; TOST is two one-sided tests by construction.
+
+Provisional (closed-form fringe) benchmarks: none; re-pin with scripts/analyze.py --make-benchmarks before the registered analysis.
+
+## Arms
+
+| arm | n | Delta [95% CI] |
+| :--- | ---: | :--- |
+| trunk_M | 6 | 0.85 [0.63, 1.00] |
+| sham_M | 6 | 0.81 [0.54, 1.00] |
+| L2_M | 6 | 0.80 [0.51, 1.00] |
+
+## H1 — primary lever L2 (no multiplicity; capped index, both scorings)
+
+Gate 2 outcome: not tested: no paired contrast.
+
+n = 0 qualified trunks; ΔC_p (trunk scoring) = – [–, –] (BCa 95 %); one-sided p = – (Wilcoxon sensitivity 1.000); own scoring ΔC_p = – [–, –], one-sided p = –; MQC 26.53 pp. Label (D-17): no significant reduction. Supported: no. Practical significance (D-19): not applicable (one-sided 95 % lower bound –; 90 % t interval – [–, –]; BCa 90 % – [–, –]); TOST ±0.20: not shown.
+
+## H1-M — lever L2_M on lane M (meta-llama/llama-3.3-70b-instruct; not tested: 2 qualified trunks, below the fallback threshold (F1 (s0.5, relaunch 12 trunks) then F2 (2 dealers)); estimates shown for transparency only)
+
+n = 2 qualified trunks; ΔC_p (trunk scoring) = 0.03 [0.03, 0.04], one-sided p = 0.012; own scoring p = 0.002; label: not tested (Gate 2 fallback); supported: no. cross-family replication, reported as robustness only (no instrument check on M)
+
+## H1-R — paired contrasts (primary Delta_p; Holm over m = 8)
+
+| contrast | n pairs | ΔC [BCa 95% CI] | p (t, one-sided) | p (Wilcoxon) | p Holm (m = 8) | TOST ±0.20 | dual-benchmark (D-17) |
+| :--- | ---: | :--- | :--- | :--- | :--- | :--- | :--- |
+| sham_M − L2_M | 2 | 0.03 [0.03, 0.04] | 0.012 | 0.250 | – | equivalent | not tested (fallback: F1 (s0.5, relaunch 12 trunks) then F2 (2 dealers)) |
+
+Missing levers counted at p = 1: L1, L2, L3, L4a, L5, L6, L7, L8.
+
+## Mechanical vs behavioural Delta C (levers)
+
+_(no lever contrasts)_
+
+## Empirical best lever (descriptive split sample)
+
+Status: off: 0 selection and 0 estimation trunks, fewer than 3 per half (D-22). Selected on odd-seed trunks (–): none; estimated on even-seed trunks (–): – [–, –]. Descriptive only, no decision. sigma_d (realised, pooled lever-minus-sham) = –.

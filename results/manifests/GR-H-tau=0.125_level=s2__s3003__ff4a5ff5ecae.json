@@ -1,0 +1,376 @@
+{
+ "alpha": 1.0,
+ "arm": "gradient",
+ "benchmarks": {
+  "p_mono": 1.9390701886601764,
+  "p_nash": 1.1666490011878616,
+  "pi_mono": 20.351754716505244,
+  "pi_nash": 4.164900118783665
+ },
+ "branch_events": [],
+ "branch_events_hash": null,
+ "branch_period": null,
+ "checkpoints": [
+  {
+   "names": [
+    "initial"
+   ],
+   "period": 0
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 70
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 80
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 90
+  },
+  {
+   "names": [
+    "final"
+   ],
+   "period": 100
+  }
+ ],
+ "condition": "GR-H-tau=0.125_level=s2",
+ "config_hash": "f0acc5fa0ae194a82a2cf96644091b5bb04ea7bd463bccb0f1dbb36859901605",
+ "cost_usd": 0.22275576500000008,
+ "environment": {
+  "implementation": "CPython",
+  "machine": "AMD64",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.12.10"
+ },
+ "error": null,
+ "finished_at": "2026-10-10T13:12:14+00:00",
+ "git": {
+  "commit": "af38cf74a65fd686b3dbdb19ceff39546e549735",
+  "dirty": true
+ },
+ "impl": {
+  "llm_agents": "agents.llm",
+  "market": "market.registry",
+  "view": "market.view"
+ },
+ "label": "GR-H",
+ "llm": {
+  "cache_hits": 0,
+  "cached_tokens": 1663309,
+  "calls": 400,
+  "cost_usd": 0.22275576500000008,
+  "input_tokens": 1995074,
+  "output_tokens": 344583,
+  "parse_failures": 0,
+  "refusals": 0
+ },
+ "llm_mode": "live",
+ "name": "GR-H-tau=0.125_level=s2",
+ "online": {
+  "delta": 1.0817481417100647,
+  "delta_ma20": 0.852125086930591,
+  "price_mean": 2.0125
+ },
+ "packages": {
+  "anthropic": "1.13.0",
+  "finswarm": "0.1.0",
+  "mistralai": "3.2.0",
+  "numpy": "2.5.3",
+  "polars": "2.0.0",
+  "pyarrow": "26.0.0",
+  "pydantic": "2.14.0"
+ },
+ "parent_run_id": null,
+ "periods": 100,
+ "periods_completed": 100,
+ "provider": "anthropic",
+ "resolved_config": {
+  "branch_period": null,
+  "checkpoint": {
+   "every_periods": 10,
+   "keep_last": 3
+  },
+  "clock": {
+   "epoch_ticks": 100,
+   "mode": "sync",
+   "speed_bump_jitter": 0,
+   "speed_bump_max": 0,
+   "staleness_window": 0
+  },
+  "events": [],
+  "ghost": {
+   "enabled": false,
+   "parent_run_id": null,
+   "rival_policy": "replay_parent"
+  },
+  "llm": {
+   "allow_mixed_families": false,
+   "comm_channel": "none",
+   "lane": "anthropic",
+   "max_repairs": 3,
+   "memory_step": 25,
+   "mode": "live",
+   "oversight_notice": false,
+   "params": {
+    "effort": "low",
+    "max_tokens": 2048,
+    "temperature": null
+   },
+   "slots": [
+    {
+     "family": "anthropic",
+     "memory_periods": 100,
+     "model": "claude-haiku-5-5",
+     "name": "Dealer A",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "dealer_v1",
+     "role": "dealer"
+    },
+    {
+     "family": "anthropic",
+     "memory_periods": 100,
+     "model": "claude-haiku-5-5",
+     "name": "Dealer B",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "dealer_v1",
+     "role": "dealer"
+    },
+    {
+     "family": "anthropic",
+     "memory_periods": 100,
+     "model": "claude-haiku-5-5",
+     "name": "Dealer C",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "dealer_v1",
+     "role": "dealer"
+    },
+    {
+     "family": "anthropic",
+     "memory_periods": 100,
+     "model": "claude-haiku-5-5",
+     "name": "Dealer D",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "dealer_v1",
+     "role": "dealer"
+    }
+   ]
+  },
+  "logging": {
+   "snapshot_every": 10,
+   "snapshot_levels": 10,
+   "store_prompts": true,
+   "swarm_order_sample": 0.01
+  },
+  "market": {
+   "alpha": 1.0,
+   "batch": {
+    "clearing": "uniform",
+    "k": 1,
+    "k_max": null,
+    "k_min": null,
+    "rationing": "prorata"
+   },
+   "book": {
+    "cap": 64,
+    "levels": 4096
+   },
+   "cost": 1.0,
+   "demand": {
+    "a": 2.0,
+    "a0": 0.0,
+    "beta": 100.0,
+    "kind": "swarm",
+    "mu": 0.25
+   },
+   "fringe": {
+    "horizon_ticks": 50,
+    "share": 0.0
+   },
+   "mechanism": "dealer",
+   "n_dealers": 4,
+   "price_grid": {
+    "max": 4.0,
+    "min": 1.0,
+    "tick": 0.05
+   },
+   "routing": {
+    "outside_utility": 0.0,
+    "tau": 0.125
+   },
+   "two_sided": false
+  },
+  "name": "GR-H-tau=0.125_level=s2",
+  "parent_run_id": null,
+  "periods": 100,
+  "seed": 3003,
+  "swarm": {
+   "arrivals": {
+    "lam_mean": 0.0001,
+    "lam_sd_log": 0.5
+   },
+   "attention_mean": 0.2,
+   "mode": "agents",
+   "n_agents": 10000,
+   "sentiment_rho": 0.99,
+   "sentiment_sigma": 0.05,
+   "sentiment_weight": 0.1,
+   "signal_noise_sd": 0.05,
+   "type_weights": {
+    "INFORMED": 0.1,
+    "NOISE": 0.1,
+    "TREND": 0.05,
+    "ZI_BUYER": 0.75
+   },
+   "value_private_sd": 0.1
+  },
+  "tags": {
+   "arm": "gradient",
+   "campaign": "GR-H",
+   "label": "GR-H",
+   "level": "s2",
+   "prereg_id": "PREREG-v1"
+  },
+  "ticks_per_period": 100,
+  "view": {
+   "aggregate_levels": 0,
+   "anonymise_ids": false,
+   "canonicalise": false,
+   "delay_ticks": 0,
+   "depth_truncation": 0,
+   "history_periods": 100,
+   "id": "V0",
+   "price_round": null,
+   "reshuffle_every": 0,
+   "show_flow": false,
+   "show_rival_quotes": true,
+   "show_trades": true,
+   "size_round": null
+  }
+ },
+ "resumes": [],
+ "run_id": "GR-H-tau=0.125_level=s2__s3003__ff4a5ff5ecae",
+ "schema_version": 1,
+ "seed": 3003,
+ "seeds": {
+  "root": 3003,
+  "streams": {
+   "batch": {
+    "entropy": 3003,
+    "spawn_key": [
+     3
+    ]
+   },
+   "interventions": {
+    "entropy": 3003,
+    "spawn_key": [
+     5
+    ]
+   },
+   "llm": {
+    "entropy": 3003,
+    "spawn_key": [
+     4
+    ]
+   },
+   "matching": {
+    "entropy": 3003,
+    "spawn_key": [
+     2
+    ]
+   },
+   "population": {
+    "entropy": 3003,
+    "spawn_key": [
+     0
+    ]
+   },
+   "swarm": {
+    "entropy": 3003,
+    "spawn_key": [
+     1
+    ]
+   },
+   "view": {
+    "entropy": 3003,
+    "spawn_key": [
+     6
+    ]
+   }
+  }
+ },
+ "slots": [
+  {
+   "active": true,
+   "agent_id": 10000,
+   "family": "anthropic",
+   "kind": "LLM",
+   "lane": "anthropic_haiku",
+   "model": "claude-haiku-5-5",
+   "name": "Dealer A",
+   "policy": null,
+   "prompt_version": "dealer_v1",
+   "slot": 0,
+   "spec_type": "llm"
+  },
+  {
+   "active": true,
+   "agent_id": 10001,
+   "family": "anthropic",
+   "kind": "LLM",
+   "lane": "anthropic_haiku",
+   "model": "claude-haiku-5-5",
+   "name": "Dealer B",
+   "policy": null,
+   "prompt_version": "dealer_v1",
+   "slot": 1,
+   "spec_type": "llm"
+  },
+  {
+   "active": true,
+   "agent_id": 10002,
+   "family": "anthropic",
+   "kind": "LLM",
+   "lane": "anthropic_haiku",
+   "model": "claude-haiku-5-5",
+   "name": "Dealer C",
+   "policy": null,
+   "prompt_version": "dealer_v1",
+   "slot": 2,
+   "spec_type": "llm"
+  },
+  {
+   "active": true,
+   "agent_id": 10003,
+   "family": "anthropic",
+   "kind": "LLM",
+   "lane": "anthropic_haiku",
+   "model": "claude-haiku-5-5",
+   "name": "Dealer D",
+   "policy": null,
+   "prompt_version": "dealer_v1",
+   "slot": 3,
+   "spec_type": "llm"
+  }
+ ],
+ "started_at": "2026-10-10T13:02:05+00:00",
+ "status": "ok",
+ "trunk_id": "GR-H-tau=0.125_level=s2__s3003__ff4a5ff5ecae",
+ "wall_time_s": 608.548
+}

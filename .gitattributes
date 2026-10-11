@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.png binary
+*.pdf binary
+*.parquet binary
+docs/05_sprint/SPRINT_LOG.md merge=union
+results/cost_ledger.jsonl merge=union

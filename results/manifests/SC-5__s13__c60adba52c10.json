@@ -1,0 +1,303 @@
+{
+ "alpha": 1.0,
+ "arm": "SC-5",
+ "benchmarks": {
+  "p_mono": 1.8019850078923354,
+  "p_nash": 1.8019850078923358,
+  "pi_mono": 55.19850078923307,
+  "pi_nash": 55.19850078923308
+ },
+ "branch_events": [],
+ "branch_events_hash": null,
+ "branch_period": null,
+ "checkpoints": [
+  {
+   "names": [
+    "initial"
+   ],
+   "period": 0
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 120
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 130
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 140
+  },
+  {
+   "names": [
+    "final"
+   ],
+   "period": 150
+  }
+ ],
+ "condition": "SC-5",
+ "config_hash": "db6cb78ca8b16ac8821695097af1350917e5a4af29febe170ee44dc6f3148af8",
+ "cost_usd": 0.0,
+ "environment": {
+  "implementation": "CPython",
+  "machine": "AMD64",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.12.10"
+ },
+ "error": null,
+ "finished_at": "2026-10-10T13:42:13+00:00",
+ "git": {
+  "commit": "d4e145d3088cca4b154ef49937c85d1abe8b2cee",
+  "dirty": true
+ },
+ "impl": {
+  "llm_agents": "agents.llm",
+  "market": "market.registry",
+  "view": "market.view"
+ },
+ "label": "SC-5",
+ "llm": {
+  "cache_hits": 0,
+  "cached_tokens": 0,
+  "calls": 0,
+  "cost_usd": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "parse_failures": 0,
+  "refusals": 0
+ },
+ "llm_mode": "mock",
+ "name": "SC-5",
+ "online": {
+  "delta": 1913818846474608.0,
+  "delta_ma20": -219761476992163.8,
+  "price_mean": 1.8
+ },
+ "packages": {
+  "anthropic": "1.13.0",
+  "finswarm": "0.1.0",
+  "mistralai": "3.2.0",
+  "numpy": "2.5.3",
+  "polars": "2.0.0",
+  "pyarrow": "26.0.0",
+  "pydantic": "2.14.0"
+ },
+ "parent_run_id": null,
+ "periods": 150,
+ "periods_completed": 150,
+ "provider": null,
+ "resolved_config": {
+  "branch_period": null,
+  "checkpoint": {
+   "every_periods": 10,
+   "keep_last": 3
+  },
+  "clock": {
+   "epoch_ticks": 100,
+   "mode": "sync",
+   "speed_bump_jitter": 0,
+   "speed_bump_max": 0,
+   "staleness_window": 0
+  },
+  "events": [],
+  "ghost": {
+   "enabled": false,
+   "parent_run_id": null,
+   "rival_policy": "replay_parent"
+  },
+  "llm": {
+   "allow_mixed_families": false,
+   "comm_channel": "none",
+   "lane": "mock",
+   "max_repairs": 3,
+   "memory_step": 0,
+   "mode": "mock",
+   "oversight_notice": false,
+   "params": {
+    "effort": "low",
+    "max_tokens": 2048,
+    "temperature": null
+   },
+   "slots": [
+    {
+     "family": "mock",
+     "memory_periods": 100,
+     "model": "scripted",
+     "name": "Dealer A",
+     "params": {},
+     "policy": "best_responder",
+     "prefix": "P1",
+     "prompt": "fish_v1",
+     "role": "dealer"
+    }
+   ]
+  },
+  "logging": {
+   "snapshot_every": 10,
+   "snapshot_levels": 10,
+   "store_prompts": true,
+   "swarm_order_sample": 0.01
+  },
+  "market": {
+   "alpha": 1.0,
+   "batch": {
+    "clearing": "uniform",
+    "k": 1,
+    "k_max": null,
+    "k_min": null,
+    "rationing": "prorata"
+   },
+   "book": {
+    "cap": 64,
+    "levels": 4096
+   },
+   "cost": 1.0,
+   "demand": {
+    "a": 2.0,
+    "a0": 0.0,
+    "beta": 100.0,
+    "kind": "swarm",
+    "mu": 0.25
+   },
+   "fringe": {
+    "horizon_ticks": 50,
+    "share": 0.0
+   },
+   "mechanism": "dealer",
+   "n_dealers": 1,
+   "price_grid": {
+    "max": 4.0,
+    "min": 1.0,
+    "tick": 0.05
+   },
+   "routing": {
+    "outside_utility": 0.0,
+    "tau": null
+   },
+   "two_sided": false
+  },
+  "name": "SC-5",
+  "parent_run_id": null,
+  "periods": 150,
+  "seed": 13,
+  "swarm": {
+   "arrivals": {
+    "lam_mean": 0.0001,
+    "lam_sd_log": 0.5
+   },
+   "attention_mean": 0.2,
+   "mode": "agents",
+   "n_agents": 10000,
+   "sentiment_rho": 0.99,
+   "sentiment_sigma": 0.05,
+   "sentiment_weight": 0.1,
+   "signal_noise_sd": 0.05,
+   "type_weights": {
+    "INFORMED": 0.1,
+    "NOISE": 0.1,
+    "TREND": 0.05,
+    "ZI_BUYER": 0.75
+   },
+   "value_private_sd": 0.1
+  },
+  "tags": {
+   "arm": "SC-5",
+   "campaign": "SC-5",
+   "label": "SC-5",
+   "prereg_id": "PREREG-v1"
+  },
+  "ticks_per_period": 100,
+  "view": {
+   "aggregate_levels": 0,
+   "anonymise_ids": false,
+   "canonicalise": false,
+   "delay_ticks": 0,
+   "depth_truncation": 0,
+   "history_periods": 100,
+   "id": "V0",
+   "price_round": null,
+   "reshuffle_every": 0,
+   "show_flow": false,
+   "show_rival_quotes": true,
+   "show_trades": true,
+   "size_round": null
+  }
+ },
+ "resumes": [],
+ "run_id": "SC-5__s13__c60adba52c10",
+ "schema_version": 1,
+ "seed": 13,
+ "seeds": {
+  "root": 13,
+  "streams": {
+   "batch": {
+    "entropy": 13,
+    "spawn_key": [
+     3
+    ]
+   },
+   "interventions": {
+    "entropy": 13,
+    "spawn_key": [
+     5
+    ]
+   },
+   "llm": {
+    "entropy": 13,
+    "spawn_key": [
+     4
+    ]
+   },
+   "matching": {
+    "entropy": 13,
+    "spawn_key": [
+     2
+    ]
+   },
+   "population": {
+    "entropy": 13,
+    "spawn_key": [
+     0
+    ]
+   },
+   "swarm": {
+    "entropy": 13,
+    "spawn_key": [
+     1
+    ]
+   },
+   "view": {
+    "entropy": 13,
+    "spawn_key": [
+     6
+    ]
+   }
+  }
+ },
+ "slots": [
+  {
+   "active": true,
+   "agent_id": 10000,
+   "family": null,
+   "kind": "SCRIPTED",
+   "lane": "mock",
+   "model": null,
+   "name": "Dealer A",
+   "policy": "best_responder",
+   "prompt_version": null,
+   "slot": 0,
+   "spec_type": "scripted"
+  }
+ ],
+ "started_at": "2026-10-10T13:41:53+00:00",
+ "status": "ok",
+ "trunk_id": "SC-5__s13__c60adba52c10",
+ "wall_time_s": 19.846
+}

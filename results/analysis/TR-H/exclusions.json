@@ -1,0 +1,122 @@
+[
+  {
+    "run_id": "TR-H--L6b__s0__91500c7bb715",
+    "arm": "L6b",
+    "reason": "empty analysis window"
+  },
+  {
+    "run_id": "TR-H--L6b__s10__2769dd50eba3",
+    "arm": "L6b",
+    "reason": "empty analysis window"
+  },
+  {
+    "run_id": "TR-H--L6b__s11__aa8fc3fc79ff",
+    "arm": "L6b",
+    "reason": "empty analysis window"
+  },
+  {
+    "run_id": "TR-H--L6b__s1__7a195072b362",
+    "arm": "L6b",
+    "reason": "empty analysis window"
+  },
+  {
+    "run_id": "TR-H--L6b__s2__bd63459f8fed",
+    "arm": "L6b",
+    "reason": "empty analysis window"
+  },
+  {
+    "run_id": "TR-H--L6b__s3__61104b86873f",
+    "arm": "L6b",
+    "reason": "empty analysis window"
+  },
+  {
+    "run_id": "TR-H--L6b__s4__f90f8b7a55c8",
+    "arm": "L6b",
+    "reason": "empty analysis window"
+  },
+  {
+    "run_id": "TR-H--L6b__s5__4755f61cd12f",
+    "arm": "L6b",
+    "reason": "empty analysis window"
+  },
+  {
+    "run_id": "TR-H--L6b__s6__b261f5f327d4",
+    "arm": "L6b",
+    "reason": "empty analysis window"
+  },
+  {
+    "run_id": "TR-H--L6b__s7__412e7cbcb80d",
+    "arm": "L6b",
+    "reason": "empty analysis window"
+  },
+  {
+    "run_id": "TR-H--L6b__s8__b9b581723f3d",
+    "arm": "L6b",
+    "reason": "empty analysis window"
+  },
+  {
+    "run_id": "TR-H--L6b__s9__26a032597ada",
+    "arm": "L6b",
+    "reason": "empty analysis window"
+  },
+  {
+    "run_id": "TR-H--R3__s0__d1af60b3db8c",
+    "arm": "R3",
+    "reason": "failed decisions 19.5% > 10%"
+  },
+  {
+    "run_id": "TR-H--R3__s10__e283a3c8c6ec",
+    "arm": "R3",
+    "reason": "failed decisions 24.5% > 10%"
+  },
+  {
+    "run_id": "TR-H--R3__s11__953977875dcd",
+    "arm": "R3",
+    "reason": "failed decisions 23.0% > 10%"
+  },
+  {
+    "run_id": "TR-H--R3__s1__7340bf8c6a10",
+    "arm": "R3",
+    "reason": "failed decisions 20.0% > 10%"
+  },
+  {
+    "run_id": "TR-H--R3__s2__ccfbea4705ba",
+    "arm": "R3",
+    "reason": "failed decisions 21.0% > 10%"
+  },
+  {
+    "run_id": "TR-H--R3__s3__c0a8d5853ebe",
+    "arm": "R3",
+    "reason": "failed decisions 18.5% > 10%"
+  },
+  {
+    "run_id": "TR-H--R3__s4__f9d373304d34",
+    "arm": "R3",
+    "reason": "failed decisions 23.5% > 10%"
+  },
+  {
+    "run_id": "TR-H--R3__s5__eb30dc97c47b",
+    "arm": "R3",
+    "reason": "failed decisions 19.5% > 10%"
+  },
+  {
+    "run_id": "TR-H--R3__s6__a3af4772b82a",
+    "arm": "R3",
+    "reason": "failed decisions 20.5% > 10%"
+  },
+  {
+    "run_id": "TR-H--R3__s7__e0987643a830",
+    "arm": "R3",
+    "reason": "failed decisions 23.5% > 10%"
+  },
+  {
+    "run_id": "TR-H--R3__s8__3ee7c109c5c7",
+    "arm": "R3",
+    "reason": "failed decisions 20.5% > 10%"
+  },
+  {
+    "run_id": "TR-H--R3__s9__d316266c25da",
+    "arm": "R3",
+    "reason": "failed decisions 23.0% > 10%"
+  }
+]

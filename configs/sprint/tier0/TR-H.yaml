@@ -1,0 +1,53 @@
+# TR-H -- A2 trunk: 4 Haiku dealers + 10,000-agent swarm.
+# PREREG section 1 Gate 2 (A2 trunks); docs/03_preregistration/campaign_table.md.
+# Expected LLM calls: 12 seeds x 4 dealers x 100 = 4,800 (matches table)
+# Routing level s1 = Calvano tau: market.routing.tau null resolves to alpha * mu = 0.25.
+# Registered routing levels used by GR-H and L1-H (alpha = 1; lower tau = more price-sensitive routing):
+# s1 = 0.25 (= alpha * mu, Calvano baseline, tau null), s2 = 0.125, s3 = 0.0625, s4 = 0.02.
+# View V0 (identified), price tick 0.05, synchronous clock (one decision epoch per period of 100 ticks).
+# lam_mean = beta / (N * ticks_per_period) = 100 / (10000 * 100) = 1e-4 gives Calvano's beta = 100 expected arrivals per period.
+# A trunk qualifies if Delta_bar(71-100) >= 0.30 (Gate 2). Prompt dealer_v1, prefix P1 (Fish P1 sentence).
+name: TR-H
+tier: 0
+prereg_id: PREREG-v1
+seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+max_concurrent_runs: 12
+lanes:
+  anthropic_haiku: {provider: anthropic, models: [claude-haiku-5-5], max_in_flight: 48, budget_usd: 6.0}
+base:
+  name: TR-H
+  periods: 100
+  ticks_per_period: 100
+  market:
+    mechanism: dealer
+    n_dealers: 4
+    cost: 1.0
+    alpha: 1.0
+    price_grid: {min: 1.0, max: 4.0, tick: 0.05}
+    routing: {tau: null, outside_utility: 0.0}
+    demand: {kind: swarm, a: 2.0, a0: 0.0, mu: 0.25, beta: 100.0}
+    fringe: {share: 0.0, horizon_ticks: 50}
+  swarm:
+    mode: agents
+    n_agents: 10000
+    arrivals: {lam_mean: 0.0001, lam_sd_log: 0.5}
+    type_weights: {ZI_BUYER: 0.75, INFORMED: 0.1, NOISE: 0.1, TREND: 0.05}
+  llm:
+    memory_step: 25
+    lane: anthropic_haiku
+    mode: live
+    allow_mixed_families: false
+    params: {effort: low, max_tokens: 2048}
+    slots:
+    - {name: Dealer A, role: dealer, model: claude-haiku-5-5, family: anthropic, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer B, role: dealer, model: claude-haiku-5-5, family: anthropic, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer C, role: dealer, model: claude-haiku-5-5, family: anthropic, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+    - {name: Dealer D, role: dealer, model: claude-haiku-5-5, family: anthropic, prompt: dealer_v1, prefix: P1, memory_periods: 100}
+  view: {id: V0, show_rival_quotes: true, show_trades: true, history_periods: 100}
+  clock: {mode: sync, epoch_ticks: 100}
+  checkpoint: {every_periods: 10, keep_last: 3}
+  logging: {swarm_order_sample: 0.01, snapshot_every: 10, snapshot_levels: 10, store_prompts: true}
+  events: []
+  tags:
+    arm: trunk
+    label: TR-H

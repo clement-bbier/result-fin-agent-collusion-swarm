@@ -1,0 +1,116 @@
+# H1 -- paired lever branches off the A2 trunks (T0 = 100, branches run to period 150;
+# outcome window 111-150, 0-indexed 110-149). Every lever has a sham ("factice") twin from the
+# same checkpoint, so Delta C_l = mean over trunks of [Delta(sham) - Delta(lever)].
+# BranchSpec has no horizon field: a set_param on path "periods" extends the child horizon.
+# The trunk config is repeated here (base) so branch parents resolve inside this campaign.
+# Validated by tests, not run by them.
+name: branch_levers
+tier: 0
+prereg_id: PREREG-v1
+seeds: [0, 1, 2, 3, 4, 5, 6, 7]
+max_concurrent_runs: 20
+lanes:
+  haiku:
+    provider: anthropic
+    models: [haiku]
+    rpm: 50
+    max_in_flight: 20
+    budget_usd: 6.0
+base:
+  name: a2_trunk
+  periods: 100
+  ticks_per_period: 100
+  market:
+    mechanism: dealer
+    n_dealers: 4
+    price_grid: {min: 1.0, max: 4.0, tick: 0.05}
+    routing: {tau: 0.25}  # s1 (= alpha * mu, Calvano baseline); registered levels s1..s4 = 0.25/0.125/0.0625/0.02
+    demand: {kind: swarm}
+  swarm: {mode: agents, n_agents: 10000}
+  llm:
+    lane: haiku
+    mode: live
+    params: {effort: low, max_tokens: 2048}
+    slots:
+      - {name: Dealer A, model: haiku, family: anthropic, prompt: dealer_v1}
+      - {name: Dealer B, model: haiku, family: anthropic, prompt: dealer_v1}
+      - {name: Dealer C, model: haiku, family: anthropic, prompt: dealer_v1}
+      - {name: Dealer D, model: haiku, family: anthropic, prompt: dealer_v1}
+  clock: {mode: sync, epoch_ticks: 100}
+  checkpoint: {every_periods: 10}
+branches:
+  - name: sham
+    parent: a2_trunk
+    at: "period:100"
+    events:
+      - {type: set_param, path: periods, value: 150}
+      - {type: set_param, path: tags.lever, value: sham}
+  - name: sham2
+    parent: a2_trunk
+    at: "period:100"
+    events:
+      - {type: set_param, path: periods, value: 150}
+      - {type: set_param, path: tags.lever, value: sham2}
+  - name: L1_routing
+    parent: a2_trunk
+    at: "period:100"
+    events:
+      - {type: set_param, path: periods, value: 150}
+      - {type: set_param, path: market.routing.tau, value: 0.0625}  # L1 = s1 -> s3 (more price-sensitive)
+  # L2 (mechanism B): from period 100, 30 % of arriving ZI buyers post one-lot public asks at
+  # c*alpha + u*(v - c*alpha), u ~ U[0,1) (rounded up to the grid, 50-tick lifetime), and buyers
+  # route by logit over {dealers, best fringe ask, outside}. Needs swarm.mode=agents.
+  # Benchmarks for Delta: recomputed by sweep for the market WITH the fringe (see
+  # finswarm.market.sweep / docs/02_design/interfaces.md); trades-based MQC.
+  - name: L2_fringe
+    parent: a2_trunk
+    at: "period:100"
+    events:
+      - {type: set_param, path: periods, value: 150}
+      - {type: set_param, path: market.fringe.share, value: 0.3}
+  # L3: live re-grid 0.05 -> 0.01 (p_min/p_max kept; standing asks re-quantised UP, exact here
+  # since 0.01 divides 0.05). The derived "regrid" event row logs per-dealer prices.
+  - name: L3_tick
+    parent: a2_trunk
+    at: "period:100"
+    events:
+      - {type: set_param, path: periods, value: 150}
+      - {type: set_param, path: market.price_grid.tick, value: 0.01}
+  - name: L4a_view
+    parent: a2_trunk
+    at: "period:100"
+    events:
+      - {type: set_param, path: periods, value: 150}
+      - {type: set_param, path: view.id, value: V1}
+      - {type: set_param, path: view.anonymise_ids, value: true}
+      - {type: set_param, path: view.canonicalise, value: true}
+  - name: L5_staggered
+    parent: a2_trunk
+    at: "period:100"
+    events:
+      - {type: set_param, path: periods, value: 150}
+      - {type: set_param, path: clock.mode, value: poisson}
+  - name: L6_no_regret_entry
+    parent: a2_trunk
+    at: "period:100"
+    events:
+      - {type: set_param, path: periods, value: 150}
+      - {type: add_scripted_agent, policy: no_regret_mm, params: {n_prices: 31, horizon: 50}}
+  - name: L7_speed_bump
+    parent: a2_trunk
+    at: "period:100"
+    events:
+      - {type: set_param, path: periods, value: 150}
+      - {type: set_param, path: clock.speed_bump_max, value: 300}
+  - name: probe_sting
+    parent: a2_trunk
+    at: "checkpoint:collusion_established"
+    events:
+      - {type: set_param, path: periods, value: 150}
+      - {type: sting, slot: 4, delta: 0.2, shadow_epochs: 5, hold_epochs: 5, probes: 3}
+  - name: probe_forced_cut
+    parent: a2_trunk
+    at: "period:100"
+    events:
+      - {type: set_param, path: periods, value: 150}
+      - {type: forced_deviation, slot: 0, delta: 0.3, periods: 1}

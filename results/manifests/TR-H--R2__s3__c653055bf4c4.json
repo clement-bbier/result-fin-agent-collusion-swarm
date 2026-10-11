@@ -1,0 +1,468 @@
+{
+ "alpha": 1.0,
+ "arm": "R2",
+ "benchmarks": {
+  "p_mono": 2.054411180500227,
+  "p_nash": 1.3314606898837602,
+  "pi_mono": 20.110279512503435,
+  "pi_nash": 8.146068988378701
+ },
+ "branch_events": [
+  {
+   "note": "",
+   "path": "tags.arm",
+   "source": "branch",
+   "type": "set_param",
+   "value": "R2",
+   "when": {
+    "at_period": 100,
+    "at_tick": null,
+    "on_condition": null
+   }
+  },
+  {
+   "note": "",
+   "path": "tags.label",
+   "source": "branch",
+   "type": "set_param",
+   "value": "R2-H",
+   "when": {
+    "at_period": 100,
+    "at_tick": null,
+    "on_condition": null
+   }
+  },
+  {
+   "keep_memory": true,
+   "keep_name": true,
+   "lane": "anthropic_haiku",
+   "model": "claude-haiku-5-5",
+   "note": "",
+   "prompt": null,
+   "slot": 0,
+   "source": "branch",
+   "type": "replace_agent",
+   "when": {
+    "at_period": 100,
+    "at_tick": null,
+    "on_condition": null
+   }
+  }
+ ],
+ "branch_events_hash": "ff23f52f4cb4d7d1",
+ "branch_horizon": 150,
+ "branch_name": "R2",
+ "branch_period": 100,
+ "checkpoints": [
+  {
+   "names": [
+    "branch_origin",
+    "event0_set_param",
+    "event1_set_param",
+    "event2_replace_agent",
+    "periodic"
+   ],
+   "period": 100
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 120
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 130
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 140
+  },
+  {
+   "names": [
+    "final"
+   ],
+   "period": 150
+  }
+ ],
+ "condition": "TR-H--R2",
+ "config_hash": "463f364017ceb0dbd0a962892e23f4d156d55ef332bcb7d1ab5ddc1e5e54d69a",
+ "cost_usd": 0.353699885,
+ "environment": {
+  "implementation": "CPython",
+  "machine": "AMD64",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.12.10"
+ },
+ "error": null,
+ "finished_at": "2026-10-10T16:21:17+00:00",
+ "git": {
+  "commit": "22fe2a4b0a0074b5594ea6985d28ee317e0821cf",
+  "dirty": false
+ },
+ "impl": {
+  "llm_agents": "agents.llm",
+  "market": "market.registry",
+  "view": "market.view"
+ },
+ "label": "R2-H",
+ "llm": {
+  "cache_hits": 2,
+  "cached_tokens": 3052071,
+  "calls": 600,
+  "cost_usd": 0.353699885,
+  "input_tokens": 3644136,
+  "output_tokens": 524203,
+  "parse_failures": 0,
+  "refusals": 0
+ },
+ "llm_mode": "live",
+ "name": "TR-H--R2",
+ "online": {
+  "delta": 0.25107640872451614,
+  "delta_ma20": 0.3862190490800766,
+  "price_mean": 2.5
+ },
+ "packages": {
+  "anthropic": "1.13.0",
+  "finswarm": "0.1.0",
+  "mistralai": "3.2.0",
+  "numpy": "2.5.3",
+  "polars": "2.0.0",
+  "pyarrow": "26.0.0",
+  "pydantic": "2.14.0"
+ },
+ "parent_run_id": "TR-H__s3__784c2eb07b8d",
+ "periods": 150,
+ "periods_completed": 150,
+ "provider": "anthropic",
+ "resolved_config": {
+  "branch_period": 100,
+  "checkpoint": {
+   "every_periods": 10,
+   "keep_last": 3
+  },
+  "clock": {
+   "epoch_ticks": 100,
+   "mode": "sync",
+   "speed_bump_jitter": 0,
+   "speed_bump_max": 0,
+   "staleness_window": 0
+  },
+  "events": [
+   {
+    "note": "",
+    "path": "tags.arm",
+    "source": "branch",
+    "type": "set_param",
+    "value": "R2",
+    "when": {
+     "at_period": 100,
+     "at_tick": null,
+     "on_condition": null
+    }
+   },
+   {
+    "note": "",
+    "path": "tags.label",
+    "source": "branch",
+    "type": "set_param",
+    "value": "R2-H",
+    "when": {
+     "at_period": 100,
+     "at_tick": null,
+     "on_condition": null
+    }
+   },
+   {
+    "keep_memory": true,
+    "keep_name": true,
+    "lane": "anthropic_haiku",
+    "model": "claude-haiku-5-5",
+    "note": "",
+    "prompt": null,
+    "slot": 0,
+    "source": "branch",
+    "type": "replace_agent",
+    "when": {
+     "at_period": 100,
+     "at_tick": null,
+     "on_condition": null
+    }
+   }
+  ],
+  "ghost": {
+   "enabled": false,
+   "parent_run_id": null,
+   "rival_policy": "replay_parent"
+  },
+  "llm": {
+   "allow_mixed_families": false,
+   "comm_channel": "none",
+   "lane": "anthropic",
+   "max_repairs": 3,
+   "memory_step": 25,
+   "mode": "live",
+   "oversight_notice": false,
+   "params": {
+    "effort": "low",
+    "max_tokens": 2048,
+    "temperature": null
+   },
+   "slots": [
+    {
+     "family": "anthropic",
+     "memory_periods": 100,
+     "model": "claude-haiku-5-5",
+     "name": "Dealer A",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "dealer_v1",
+     "role": "dealer"
+    },
+    {
+     "family": "anthropic",
+     "memory_periods": 100,
+     "model": "claude-haiku-5-5",
+     "name": "Dealer B",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "dealer_v1",
+     "role": "dealer"
+    },
+    {
+     "family": "anthropic",
+     "memory_periods": 100,
+     "model": "claude-haiku-5-5",
+     "name": "Dealer C",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "dealer_v1",
+     "role": "dealer"
+    },
+    {
+     "family": "anthropic",
+     "memory_periods": 100,
+     "model": "claude-haiku-5-5",
+     "name": "Dealer D",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "dealer_v1",
+     "role": "dealer"
+    }
+   ]
+  },
+  "logging": {
+   "snapshot_every": 10,
+   "snapshot_levels": 10,
+   "store_prompts": true,
+   "swarm_order_sample": 0.01
+  },
+  "market": {
+   "alpha": 1.0,
+   "batch": {
+    "clearing": "uniform",
+    "k": 1,
+    "k_max": null,
+    "k_min": null,
+    "rationing": "prorata"
+   },
+   "book": {
+    "cap": 64,
+    "levels": 4096
+   },
+   "cost": 1.0,
+   "demand": {
+    "a": 2.0,
+    "a0": 0.0,
+    "beta": 100.0,
+    "kind": "swarm",
+    "mu": 0.25
+   },
+   "fringe": {
+    "horizon_ticks": 50,
+    "share": 0.0
+   },
+   "mechanism": "dealer",
+   "n_dealers": 4,
+   "price_grid": {
+    "max": 4.0,
+    "min": 1.0,
+    "tick": 0.05
+   },
+   "routing": {
+    "outside_utility": 0.0,
+    "tau": null
+   },
+   "two_sided": false
+  },
+  "name": "TR-H--R2",
+  "parent_run_id": "TR-H__s3__784c2eb07b8d",
+  "periods": 150,
+  "seed": 3,
+  "swarm": {
+   "arrivals": {
+    "lam_mean": 0.0001,
+    "lam_sd_log": 0.5
+   },
+   "attention_mean": 0.2,
+   "mode": "agents",
+   "n_agents": 10000,
+   "sentiment_rho": 0.99,
+   "sentiment_sigma": 0.05,
+   "sentiment_weight": 0.1,
+   "signal_noise_sd": 0.05,
+   "type_weights": {
+    "INFORMED": 0.1,
+    "NOISE": 0.1,
+    "TREND": 0.05,
+    "ZI_BUYER": 0.75
+   },
+   "value_private_sd": 0.1
+  },
+  "tags": {
+   "arm": "trunk",
+   "campaign": "TR-H",
+   "label": "TR-H",
+   "prereg_id": "PREREG-v1",
+   "replicate_id": "R2"
+  },
+  "ticks_per_period": 100,
+  "view": {
+   "aggregate_levels": 0,
+   "anonymise_ids": false,
+   "canonicalise": false,
+   "delay_ticks": 0,
+   "depth_truncation": 0,
+   "history_periods": 100,
+   "id": "V0",
+   "price_round": null,
+   "reshuffle_every": 0,
+   "show_flow": false,
+   "show_rival_quotes": true,
+   "show_trades": true,
+   "size_round": null
+  }
+ },
+ "resumes": [],
+ "run_id": "TR-H--R2__s3__c653055bf4c4",
+ "schema_version": 1,
+ "seed": 3,
+ "seeds": {
+  "interventions_respawn": [
+   3,
+   618221327866427580
+  ],
+  "root": 3,
+  "streams": {
+   "batch": {
+    "entropy": 3,
+    "spawn_key": [
+     3
+    ]
+   },
+   "interventions": {
+    "entropy": 3,
+    "spawn_key": [
+     5
+    ]
+   },
+   "llm": {
+    "entropy": 3,
+    "spawn_key": [
+     4
+    ]
+   },
+   "matching": {
+    "entropy": 3,
+    "spawn_key": [
+     2
+    ]
+   },
+   "population": {
+    "entropy": 3,
+    "spawn_key": [
+     0
+    ]
+   },
+   "swarm": {
+    "entropy": 3,
+    "spawn_key": [
+     1
+    ]
+   },
+   "view": {
+    "entropy": 3,
+    "spawn_key": [
+     6
+    ]
+   }
+  }
+ },
+ "slots": [
+  {
+   "active": true,
+   "agent_id": 10000,
+   "family": "anthropic",
+   "kind": "LLM",
+   "lane": "anthropic_haiku",
+   "model": "claude-haiku-5-5",
+   "name": "Dealer A",
+   "policy": null,
+   "prompt_version": "dealer_v1",
+   "slot": 0,
+   "spec_type": "llm"
+  },
+  {
+   "active": true,
+   "agent_id": 10001,
+   "family": "anthropic",
+   "kind": "LLM",
+   "lane": "anthropic_haiku",
+   "model": "claude-haiku-5-5",
+   "name": "Dealer B",
+   "policy": null,
+   "prompt_version": "dealer_v1",
+   "slot": 1,
+   "spec_type": "llm"
+  },
+  {
+   "active": true,
+   "agent_id": 10002,
+   "family": "anthropic",
+   "kind": "LLM",
+   "lane": "anthropic_haiku",
+   "model": "claude-haiku-5-5",
+   "name": "Dealer C",
+   "policy": null,
+   "prompt_version": "dealer_v1",
+   "slot": 2,
+   "spec_type": "llm"
+  },
+  {
+   "active": true,
+   "agent_id": 10003,
+   "family": "anthropic",
+   "kind": "LLM",
+   "lane": "anthropic_haiku",
+   "model": "claude-haiku-5-5",
+   "name": "Dealer D",
+   "policy": null,
+   "prompt_version": "dealer_v1",
+   "slot": 3,
+   "spec_type": "llm"
+  }
+ ],
+ "started_at": "2026-10-10T16:16:41+00:00",
+ "status": "ok",
+ "trunk_id": "TR-H__s3__784c2eb07b8d",
+ "wall_time_s": 277.826
+}

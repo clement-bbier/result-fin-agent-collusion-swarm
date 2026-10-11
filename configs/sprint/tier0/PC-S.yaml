@@ -1,0 +1,44 @@
+# PC-S -- Sonnet 5.5 capability check of the Fish setting (A1 exact).
+# PREREG section 1 Gate 1 (capability check, not a gate); docs/03_preregistration/campaign_table.md.
+# Expected LLM calls: 5 seeds x 2 x 300 = 3,000 (matches table)
+# alpha = 1 only: the 3-alpha zip would triple the Sonnet bill (9,000 calls); alpha invariance is tested on lanes H and M.
+name: PC-S
+tier: 0
+prereg_id: PREREG-v1
+seeds: [0, 1, 2, 3, 4]
+max_concurrent_runs: 8
+lanes:
+  anthropic_sonnet: {provider: anthropic, models: [claude-sonnet-5-5], max_in_flight: 16, budget_usd: 25.0}
+base:
+  name: PC-S
+  periods: 300
+  ticks_per_period: 1
+  market:
+    mechanism: dealer
+    n_dealers: 2
+    cost: 1.0
+    alpha: 1.0
+    price_grid: {min: 1.0, max: 4.0, tick: 0.01}
+    routing: {tau: null, outside_utility: 0.0}
+    demand: {kind: closed_form_logit, a: 2.0, a0: 0.0, mu: 0.25, beta: 100.0}
+    fringe: {share: 0.0, horizon_ticks: 50}
+  swarm:
+    mode: closed_form
+    n_agents: 10000
+  llm:
+    memory_step: 25
+    lane: anthropic_sonnet
+    mode: live
+    allow_mixed_families: false
+    params: {effort: low, max_tokens: 2048}
+    slots:
+    - {name: Firm A, role: dealer, model: claude-sonnet-5-5, family: anthropic, prompt: fish_v1_json, prefix: P1, memory_periods: 100}
+    - {name: Firm B, role: dealer, model: claude-sonnet-5-5, family: anthropic, prompt: fish_v1_json, prefix: P1, memory_periods: 100}
+  view: {id: V0, history_periods: 100}
+  clock: {mode: sync, epoch_ticks: 1}
+  checkpoint: {every_periods: 25, keep_last: 3}
+  logging: {store_prompts: true, snapshot_every: 50}
+  events: []
+  tags:
+    arm: fish_exact
+    label: PC-S

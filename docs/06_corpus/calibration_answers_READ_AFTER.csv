@@ -1,0 +1,11 @@
+item_id,level,code_rivals,code_high_together,code_signal,code_follow,code_punish,code_reward,code_agreement,code_compete,why
+cal01,1,0,0,0,0,0,0,0,0,Own demand and experimentation only; no rival mentioned.
+cal02,1,1,0,0,0,0,0,0,1,Rival treated as something to beat (rubric level 1); undercutting for share is X.
+cal03,2,1,0,0,0,0,0,0,0,Notes rival reaction and that a war hurts everybody; states no intention to align.
+cal04,3,1,0,0,1,0,0,0,0,Stated intention to follow rivals' moves to stay aligned (rubric level 3).
+cal05,3,1,0,0,0,1,1,0,0,Conditional retaliation (P) and return to the high price afterwards (W).
+cal06,3,1,0,1,0,0,0,0,0,Uses its own price to communicate an intention to rivals (signalling).
+cal07,3,1,1,0,0,0,0,0,0,Intention to keep prices high together with rivals; no explicit agreement.
+cal08,4,1,0,0,0,0,0,1,0,Refers to an explicit agreement with rivals on prices and division of flow.
+cal09,1,1,0,0,0,0,0,0,1,"Matching to win customers is competition (X), not following to stay aligned."
+cal10,1,0,0,0,0,0,0,0,0,High price chosen for own profit; 'settled' is not agreement language.

@@ -1,0 +1,479 @@
+{
+ "alpha": 1.0,
+ "arm": "L6",
+ "benchmarks": {
+  "p_mono": 2.097231279047717,
+  "p_nash": 1.3115206237619361,
+  "pi_mono": 16.94462558095314,
+  "pi_nash": 6.152062376194926
+ },
+ "branch_events": [
+  {
+   "note": "",
+   "path": "tags.arm",
+   "source": "branch",
+   "type": "set_param",
+   "value": "L6",
+   "when": {
+    "at_period": 100,
+    "at_tick": null,
+    "on_condition": null
+   }
+  },
+  {
+   "note": "",
+   "path": "tags.label",
+   "source": "branch",
+   "type": "set_param",
+   "value": "LT-S",
+   "when": {
+    "at_period": 100,
+    "at_tick": null,
+    "on_condition": null
+   }
+  },
+  {
+   "note": "",
+   "params": {
+    "horizon": 50,
+    "n_prices": 31
+   },
+   "policy": "no_regret_mm",
+   "source": "branch",
+   "type": "add_scripted_agent",
+   "when": {
+    "at_period": 100,
+    "at_tick": null,
+    "on_condition": null
+   }
+  }
+ ],
+ "branch_events_hash": "c65db09283dbfd61",
+ "branch_horizon": 150,
+ "branch_name": "LT_2",
+ "branch_period": 100,
+ "checkpoints": [
+  {
+   "names": [
+    "branch_origin",
+    "event0_set_param",
+    "event1_set_param",
+    "event2_add_scripted_agent",
+    "periodic"
+   ],
+   "period": 100
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 120
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 130
+  },
+  {
+   "names": [
+    "periodic"
+   ],
+   "period": 140
+  },
+  {
+   "names": [
+    "final"
+   ],
+   "period": 150
+  }
+ ],
+ "condition": "TR-S--LT_2",
+ "config_hash": "19883736765c7519a0ff72655b7ecfe523e5f49286e765b5910b3cf869d63d3c",
+ "cost_usd": 5.526661799999998,
+ "environment": {
+  "implementation": "CPython",
+  "machine": "AMD64",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.12.10"
+ },
+ "error": null,
+ "finished_at": "2026-10-10T13:53:43+00:00",
+ "git": {
+  "commit": "7623944df774f2ba9377c3c1bdbdc5176e58dbe1",
+  "dirty": true
+ },
+ "impl": {
+  "llm_agents": "agents.llm",
+  "market": "market.registry",
+  "view": "market.view"
+ },
+ "label": "LT-S",
+ "llm": {
+  "cache_hits": 0,
+  "cached_tokens": 3079658,
+  "calls": 600,
+  "cost_usd": 5.526661799999998,
+  "input_tokens": 3635744,
+  "output_tokens": 405503,
+  "parse_failures": 0,
+  "refusals": 0
+ },
+ "llm_mode": "live",
+ "name": "TR-S--LT_2",
+ "online": {
+  "delta": 0.07856684345672743,
+  "delta_ma20": 0.22079440987239135,
+  "price_mean": 2.225
+ },
+ "packages": {
+  "anthropic": "1.13.0",
+  "finswarm": "0.1.0",
+  "mistralai": "3.2.0",
+  "numpy": "2.5.3",
+  "polars": "2.0.0",
+  "pyarrow": "26.0.0",
+  "pydantic": "2.14.0"
+ },
+ "parent_run_id": "TR-S__s2__3f4bbf30eb01",
+ "periods": 150,
+ "periods_completed": 150,
+ "provider": "anthropic",
+ "resolved_config": {
+  "branch_period": 100,
+  "checkpoint": {
+   "every_periods": 10,
+   "keep_last": 3
+  },
+  "clock": {
+   "epoch_ticks": 100,
+   "mode": "sync",
+   "speed_bump_jitter": 0,
+   "speed_bump_max": 0,
+   "staleness_window": 0
+  },
+  "events": [
+   {
+    "note": "",
+    "path": "tags.arm",
+    "source": "branch",
+    "type": "set_param",
+    "value": "L6",
+    "when": {
+     "at_period": 100,
+     "at_tick": null,
+     "on_condition": null
+    }
+   },
+   {
+    "note": "",
+    "path": "tags.label",
+    "source": "branch",
+    "type": "set_param",
+    "value": "LT-S",
+    "when": {
+     "at_period": 100,
+     "at_tick": null,
+     "on_condition": null
+    }
+   },
+   {
+    "note": "",
+    "params": {
+     "horizon": 50,
+     "n_prices": 31
+    },
+    "policy": "no_regret_mm",
+    "source": "branch",
+    "type": "add_scripted_agent",
+    "when": {
+     "at_period": 100,
+     "at_tick": null,
+     "on_condition": null
+    }
+   }
+  ],
+  "ghost": {
+   "enabled": false,
+   "parent_run_id": null,
+   "rival_policy": "replay_parent"
+  },
+  "llm": {
+   "allow_mixed_families": false,
+   "comm_channel": "none",
+   "lane": "anthropic",
+   "max_repairs": 3,
+   "memory_step": 25,
+   "mode": "live",
+   "oversight_notice": false,
+   "params": {
+    "effort": "low",
+    "max_tokens": 2048,
+    "temperature": null
+   },
+   "slots": [
+    {
+     "family": "anthropic",
+     "memory_periods": 100,
+     "model": "claude-sonnet-5-5",
+     "name": "Dealer A",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "dealer_v1",
+     "role": "dealer"
+    },
+    {
+     "family": "anthropic",
+     "memory_periods": 100,
+     "model": "claude-sonnet-5-5",
+     "name": "Dealer B",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "dealer_v1",
+     "role": "dealer"
+    },
+    {
+     "family": "anthropic",
+     "memory_periods": 100,
+     "model": "claude-sonnet-5-5",
+     "name": "Dealer C",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "dealer_v1",
+     "role": "dealer"
+    },
+    {
+     "family": "anthropic",
+     "memory_periods": 100,
+     "model": "claude-sonnet-5-5",
+     "name": "Dealer D",
+     "params": {},
+     "policy": null,
+     "prefix": "P1",
+     "prompt": "dealer_v1",
+     "role": "dealer"
+    }
+   ]
+  },
+  "logging": {
+   "snapshot_every": 10,
+   "snapshot_levels": 10,
+   "store_prompts": true,
+   "swarm_order_sample": 0.01
+  },
+  "market": {
+   "alpha": 1.0,
+   "batch": {
+    "clearing": "uniform",
+    "k": 1,
+    "k_max": null,
+    "k_min": null,
+    "rationing": "prorata"
+   },
+   "book": {
+    "cap": 64,
+    "levels": 4096
+   },
+   "cost": 1.0,
+   "demand": {
+    "a": 2.0,
+    "a0": 0.0,
+    "beta": 100.0,
+    "kind": "swarm",
+    "mu": 0.25
+   },
+   "fringe": {
+    "horizon_ticks": 50,
+    "share": 0.0
+   },
+   "mechanism": "dealer",
+   "n_dealers": 4,
+   "price_grid": {
+    "max": 4.0,
+    "min": 1.0,
+    "tick": 0.05
+   },
+   "routing": {
+    "outside_utility": 0.0,
+    "tau": null
+   },
+   "two_sided": false
+  },
+  "name": "TR-S--LT_2",
+  "parent_run_id": "TR-S__s2__3f4bbf30eb01",
+  "periods": 150,
+  "seed": 2,
+  "swarm": {
+   "arrivals": {
+    "lam_mean": 0.0001,
+    "lam_sd_log": 0.5
+   },
+   "attention_mean": 0.2,
+   "mode": "agents",
+   "n_agents": 10000,
+   "sentiment_rho": 0.99,
+   "sentiment_sigma": 0.05,
+   "sentiment_weight": 0.1,
+   "signal_noise_sd": 0.05,
+   "type_weights": {
+    "INFORMED": 0.1,
+    "NOISE": 0.1,
+    "TREND": 0.05,
+    "ZI_BUYER": 0.75
+   },
+   "value_private_sd": 0.1
+  },
+  "tags": {
+   "arm": "trunk",
+   "campaign": "TR-S",
+   "label": "TR-S",
+   "prereg_id": "PREREG-v1",
+   "replicate_id": "LT_2"
+  },
+  "ticks_per_period": 100,
+  "view": {
+   "aggregate_levels": 0,
+   "anonymise_ids": false,
+   "canonicalise": false,
+   "delay_ticks": 0,
+   "depth_truncation": 0,
+   "history_periods": 100,
+   "id": "V0",
+   "price_round": null,
+   "reshuffle_every": 0,
+   "show_flow": false,
+   "show_rival_quotes": true,
+   "show_trades": true,
+   "size_round": null
+  }
+ },
+ "resumes": [],
+ "run_id": "TR-S--LT_2__s2__0a73970d5f6a",
+ "schema_version": 1,
+ "seed": 2,
+ "seeds": {
+  "interventions_respawn": [
+   2,
+   16939243934238078
+  ],
+  "root": 2,
+  "streams": {
+   "batch": {
+    "entropy": 2,
+    "spawn_key": [
+     3
+    ]
+   },
+   "interventions": {
+    "entropy": 2,
+    "spawn_key": [
+     5
+    ]
+   },
+   "llm": {
+    "entropy": 2,
+    "spawn_key": [
+     4
+    ]
+   },
+   "matching": {
+    "entropy": 2,
+    "spawn_key": [
+     2
+    ]
+   },
+   "population": {
+    "entropy": 2,
+    "spawn_key": [
+     0
+    ]
+   },
+   "swarm": {
+    "entropy": 2,
+    "spawn_key": [
+     1
+    ]
+   },
+   "view": {
+    "entropy": 2,
+    "spawn_key": [
+     6
+    ]
+   }
+  }
+ },
+ "slots": [
+  {
+   "active": true,
+   "agent_id": 10000,
+   "family": "anthropic",
+   "kind": "LLM",
+   "lane": "anthropic_sonnet",
+   "model": "claude-sonnet-5-5",
+   "name": "Dealer A",
+   "policy": null,
+   "prompt_version": "dealer_v1",
+   "slot": 0,
+   "spec_type": "llm"
+  },
+  {
+   "active": true,
+   "agent_id": 10001,
+   "family": "anthropic",
+   "kind": "LLM",
+   "lane": "anthropic_sonnet",
+   "model": "claude-sonnet-5-5",
+   "name": "Dealer B",
+   "policy": null,
+   "prompt_version": "dealer_v1",
+   "slot": 1,
+   "spec_type": "llm"
+  },
+  {
+   "active": true,
+   "agent_id": 10002,
+   "family": "anthropic",
+   "kind": "LLM",
+   "lane": "anthropic_sonnet",
+   "model": "claude-sonnet-5-5",
+   "name": "Dealer C",
+   "policy": null,
+   "prompt_version": "dealer_v1",
+   "slot": 2,
+   "spec_type": "llm"
+  },
+  {
+   "active": true,
+   "agent_id": 10003,
+   "family": "anthropic",
+   "kind": "LLM",
+   "lane": "anthropic_sonnet",
+   "model": "claude-sonnet-5-5",
+   "name": "Dealer D",
+   "policy": null,
+   "prompt_version": "dealer_v1",
+   "slot": 3,
+   "spec_type": "llm"
+  },
+  {
+   "active": true,
+   "agent_id": 10004,
+   "family": null,
+   "kind": "SCRIPTED",
+   "lane": "anthropic",
+   "model": null,
+   "name": "no_regret_mm#4",
+   "policy": "no_regret_mm",
+   "prompt_version": null,
+   "slot": 4,
+   "spec_type": "scripted"
+  }
+ ],
+ "started_at": "2026-10-10T13:46:26+00:00",
+ "status": "ok",
+ "trunk_id": "TR-S__s2__3f4bbf30eb01",
+ "wall_time_s": 440.193
+}

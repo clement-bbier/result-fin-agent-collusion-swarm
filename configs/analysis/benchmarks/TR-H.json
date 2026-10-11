@@ -1,0 +1,548 @@
+{
+  "generated_by": "finswarm.analysis.benchmarks_file",
+  "markets": {
+    "CA": {
+      "benchmarks": {
+        "p_mono": 2.054411180500227,
+        "p_nash": 1.3314606898837602,
+        "pi_mono": 20.110279512503435,
+        "pi_nash": 8.146068988378701
+      },
+      "d7_cartel": 0.6212932414378864,
+      "ignored_events": [],
+      "market_sha256": "59b9e14f748089f811be30f2b8894d72351a4473be94fe42c60bcdc2d8f20941",
+      "method": "closed_form:routed_logit",
+      "model": {
+        "fringe_share": 0.0,
+        "n_entrants": 0,
+        "n_incumbents": 4,
+        "params": {
+          "a": 2.0,
+          "a0": 0.0,
+          "alpha": 1.0,
+          "beta": 100.0,
+          "c": 1.0,
+          "mu": 0.25,
+          "outside_utility": 0.0,
+          "tau": null
+        },
+        "tick": 0.05
+      },
+      "provisional": false,
+      "source": {
+        "branch": null,
+        "config": "configs/sprint/tier1/CA-H.yaml",
+        "grid": {},
+        "method": "auto",
+        "n_incumbents": null
+      }
+    },
+    "GR-s2": {
+      "benchmarks": {
+        "p_mono": 1.9390701886601764,
+        "p_nash": 1.1666490011878616,
+        "pi_mono": 20.351754716505244,
+        "pi_nash": 4.164900118783665
+      },
+      "d7_cartel": 0.4270719160439612,
+      "ignored_events": [],
+      "market_sha256": "805ba0275509425091dd5c460ffc8bfcc8794c533cf498e940c0bc2c3a4f1612",
+      "method": "closed_form:routed_logit",
+      "model": {
+        "fringe_share": 0.0,
+        "n_entrants": 0,
+        "n_incumbents": 4,
+        "params": {
+          "a": 2.0,
+          "a0": 0.0,
+          "alpha": 1.0,
+          "beta": 100.0,
+          "c": 1.0,
+          "mu": 0.25,
+          "outside_utility": 0.0,
+          "tau": 0.125
+        },
+        "tick": 0.05
+      },
+      "provisional": false,
+      "source": {
+        "branch": null,
+        "config": "configs/sprint/tier1/GR-H.yaml",
+        "grid": {
+          "market.routing.tau": 0.125
+        },
+        "method": "auto",
+        "n_incumbents": null
+      }
+    },
+    "GR-s3": {
+      "benchmarks": {
+        "p_mono": 1.922763860100165,
+        "p_nash": 1.0833333303685697,
+        "pi_mono": 21.50659650250399,
+        "pi_nash": 2.083333036859556
+      },
+      "d7_cartel": 0.26193227521076523,
+      "ignored_events": [],
+      "market_sha256": "22aa8420472e08b66ef98898124974472474523c13603209347c06a4dc2306cd",
+      "method": "closed_form:routed_logit",
+      "model": {
+        "fringe_share": 0.0,
+        "n_entrants": 0,
+        "n_incumbents": 4,
+        "params": {
+          "a": 2.0,
+          "a0": 0.0,
+          "alpha": 1.0,
+          "beta": 100.0,
+          "c": 1.0,
+          "mu": 0.25,
+          "outside_utility": 0.0,
+          "tau": 0.0625
+        },
+        "tick": 0.05
+      },
+      "provisional": false,
+      "source": {
+        "branch": null,
+        "config": "configs/sprint/tier1/GR-H.yaml",
+        "grid": {
+          "market.routing.tau": 0.0625
+        },
+        "method": "auto",
+        "n_incumbents": null
+      }
+    },
+    "GR-s4": {
+      "benchmarks": {
+        "p_mono": 1.9509171275167851,
+        "p_nash": 1.0266666666667073,
+        "pi_mono": 23.27292818792065,
+        "pi_nash": 0.6666666666676813
+      },
+      "d7_cartel": 0.10510326450521719,
+      "ignored_events": [],
+      "market_sha256": "d6a7e9f733fa4de603c83b6735d30571c4763560e2929932e87f6d42338f85db",
+      "method": "closed_form:routed_logit",
+      "model": {
+        "fringe_share": 0.0,
+        "n_entrants": 0,
+        "n_incumbents": 4,
+        "params": {
+          "a": 2.0,
+          "a0": 0.0,
+          "alpha": 1.0,
+          "beta": 100.0,
+          "c": 1.0,
+          "mu": 0.25,
+          "outside_utility": 0.0,
+          "tau": 0.02
+        },
+        "tick": 0.05
+      },
+      "provisional": false,
+      "source": {
+        "branch": null,
+        "config": "configs/sprint/tier1/GR-H.yaml",
+        "grid": {
+          "market.routing.tau": 0.02
+        },
+        "method": "auto",
+        "n_incumbents": null
+      }
+    },
+    "L1": {
+      "benchmarks": {
+        "p_mono": 1.922763860100165,
+        "p_nash": 1.0833333303685697,
+        "pi_mono": 21.50659650250399,
+        "pi_nash": 2.083333036859556
+      },
+      "d7_cartel": 0.26193227521076523,
+      "ignored_events": [],
+      "market_sha256": "22aa8420472e08b66ef98898124974472474523c13603209347c06a4dc2306cd",
+      "method": "closed_form:routed_logit",
+      "model": {
+        "fringe_share": 0.0,
+        "n_entrants": 0,
+        "n_incumbents": 4,
+        "params": {
+          "a": 2.0,
+          "a0": 0.0,
+          "alpha": 1.0,
+          "beta": 100.0,
+          "c": 1.0,
+          "mu": 0.25,
+          "outside_utility": 0.0,
+          "tau": 0.0625
+        },
+        "tick": 0.05
+      },
+      "provisional": false,
+      "source": {
+        "branch": "L1",
+        "config": "configs/sprint/tier0/L1-H.yaml",
+        "grid": {},
+        "method": "auto",
+        "n_incumbents": null
+      }
+    },
+    "L2": {
+      "benchmarks": {
+        "p_mono": 2.05,
+        "p_nash": 1.3375,
+        "pi_mono": 10.864875000000001,
+        "pi_nash": 5.331832500000002
+      },
+      "d7_cartel": 0.6212932414378864,
+      "ignored_events": [],
+      "market_sha256": "a26853195bbaac359effb58761dd97cffab49871a24a9fcb9d67b451553d1e57",
+      "method": "sweep:market.sweep.profit_fn",
+      "model": {
+        "fringe_share": 0.3,
+        "n_entrants": 0,
+        "n_incumbents": 4,
+        "params": {
+          "a": 2.0,
+          "a0": 0.0,
+          "alpha": 1.0,
+          "beta": 100.0,
+          "c": 1.0,
+          "mu": 0.25,
+          "outside_utility": 0.0,
+          "tau": null
+        },
+        "tick": 0.05
+      },
+      "provisional": false,
+      "source": {
+        "branch": "L2",
+        "config": "configs/sprint/tier0/L2-H.yaml",
+        "grid": {},
+        "method": "auto",
+        "n_incumbents": null
+      },
+      "sweep": {
+        "closed_form_flow_diversion": {
+          "p_mono": 2.054411180500227,
+          "p_nash": 1.3314606898837602,
+          "pi_mono": 14.077195658752403,
+          "pi_nash": 5.70224829186509
+        },
+        "grid_max": 2.55,
+        "grid_min": 1.05,
+        "grid_n": 31,
+        "n_agents": 4,
+        "n_converged": 10,
+        "n_starts": 10,
+        "nash_points": [
+          [
+            1.35,
+            1.35,
+            1.35,
+            1.35
+          ],
+          [
+            1.35,
+            1.35,
+            1.35,
+            1.35
+          ],
+          [
+            1.3,
+            1.3,
+            1.3,
+            1.3
+          ],
+          [
+            1.35,
+            1.35,
+            1.35,
+            1.35
+          ],
+          [
+            1.35,
+            1.35,
+            1.35,
+            1.35
+          ],
+          [
+            1.35,
+            1.35,
+            1.35,
+            1.35
+          ],
+          [
+            1.35,
+            1.3,
+            1.3,
+            1.35
+          ],
+          [
+            1.35,
+            1.3,
+            1.3,
+            1.35
+          ],
+          [
+            1.35,
+            1.3,
+            1.3,
+            1.35
+          ],
+          [
+            1.35,
+            1.35,
+            1.35,
+            1.35
+          ]
+        ],
+        "nash_spread": 0.050000000000000044,
+        "periods_per_evaluation": 50,
+        "replications": 10,
+        "seed": 0,
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      }
+    },
+    "L3": {
+      "benchmarks": {
+        "p_mono": 2.054411180500227,
+        "p_nash": 1.3314606898837602,
+        "pi_mono": 20.110279512503435,
+        "pi_nash": 8.146068988378701
+      },
+      "d7_cartel": 0.6212932414378864,
+      "ignored_events": [],
+      "market_sha256": "8d82e54fe6a5d02da4866f104e735e0dd0d8a549fa94627e00a740492af1dfd8",
+      "method": "closed_form:routed_logit",
+      "model": {
+        "fringe_share": 0.0,
+        "n_entrants": 0,
+        "n_incumbents": 4,
+        "params": {
+          "a": 2.0,
+          "a0": 0.0,
+          "alpha": 1.0,
+          "beta": 100.0,
+          "c": 1.0,
+          "mu": 0.25,
+          "outside_utility": 0.0,
+          "tau": null
+        },
+        "tick": 0.01
+      },
+      "provisional": false,
+      "source": {
+        "branch": "L3",
+        "config": "configs/sprint/tier0/L3-H.yaml",
+        "grid": {},
+        "method": "auto",
+        "n_incumbents": null
+      }
+    },
+    "L4a": {
+      "benchmarks": {
+        "p_mono": 2.054411180500227,
+        "p_nash": 1.3314606898837602,
+        "pi_mono": 20.110279512503435,
+        "pi_nash": 8.146068988378701
+      },
+      "d7_cartel": 0.6212932414378864,
+      "ignored_events": [
+        "set_param view.id",
+        "set_param view.anonymise_ids",
+        "set_param view.canonicalise",
+        "set_param view.price_round",
+        "set_param view.size_round"
+      ],
+      "market_sha256": "59b9e14f748089f811be30f2b8894d72351a4473be94fe42c60bcdc2d8f20941",
+      "method": "closed_form:routed_logit",
+      "model": {
+        "fringe_share": 0.0,
+        "n_entrants": 0,
+        "n_incumbents": 4,
+        "params": {
+          "a": 2.0,
+          "a0": 0.0,
+          "alpha": 1.0,
+          "beta": 100.0,
+          "c": 1.0,
+          "mu": 0.25,
+          "outside_utility": 0.0,
+          "tau": null
+        },
+        "tick": 0.05
+      },
+      "provisional": false,
+      "source": {
+        "branch": "L4a",
+        "config": "configs/sprint/tier0/L4a-H.yaml",
+        "grid": {},
+        "method": "auto",
+        "n_incumbents": null
+      }
+    },
+    "L5": {
+      "benchmarks": {
+        "p_mono": 2.054411180500227,
+        "p_nash": 1.3314606898837602,
+        "pi_mono": 20.110279512503435,
+        "pi_nash": 8.146068988378701
+      },
+      "d7_cartel": 0.6212932414378864,
+      "ignored_events": [
+        "set_param clock.mode"
+      ],
+      "market_sha256": "59b9e14f748089f811be30f2b8894d72351a4473be94fe42c60bcdc2d8f20941",
+      "method": "closed_form:routed_logit",
+      "model": {
+        "fringe_share": 0.0,
+        "n_entrants": 0,
+        "n_incumbents": 4,
+        "params": {
+          "a": 2.0,
+          "a0": 0.0,
+          "alpha": 1.0,
+          "beta": 100.0,
+          "c": 1.0,
+          "mu": 0.25,
+          "outside_utility": 0.0,
+          "tau": null
+        },
+        "tick": 0.05
+      },
+      "provisional": false,
+      "source": {
+        "branch": "L5",
+        "config": "configs/sprint/tier1/L5-H.yaml",
+        "grid": {},
+        "method": "auto",
+        "n_incumbents": null
+      }
+    },
+    "L6": {
+      "benchmarks": {
+        "p_mono": 2.097231279047717,
+        "p_nash": 1.3115206237619361,
+        "pi_mono": 16.94462558095314,
+        "pi_nash": 6.152062376194926
+      },
+      "d7_cartel": 0.6416798406312477,
+      "ignored_events": [],
+      "market_sha256": "ac2800b84f697ed761fe73c26a520bb016859122cba3b7b3ea67c07cfd898b44",
+      "method": "closed_form:routed_logit",
+      "model": {
+        "fringe_share": 0.0,
+        "n_entrants": 1,
+        "n_incumbents": 4,
+        "params": {
+          "a": 2.0,
+          "a0": 0.0,
+          "alpha": 1.0,
+          "beta": 100.0,
+          "c": 1.0,
+          "mu": 0.25,
+          "outside_utility": 0.0,
+          "tau": null
+        },
+        "tick": 0.05
+      },
+      "provisional": false,
+      "source": {
+        "branch": "L6",
+        "config": "configs/sprint/tier0/L6-H.yaml",
+        "grid": {},
+        "method": "auto",
+        "n_incumbents": null
+      }
+    },
+    "L7": {
+      "benchmarks": {
+        "p_mono": 2.054411180500227,
+        "p_nash": 1.3314606898837602,
+        "pi_mono": 20.110279512503435,
+        "pi_nash": 8.146068988378701
+      },
+      "d7_cartel": 0.6212932414378864,
+      "ignored_events": [
+        "set_param clock.speed_bump_max"
+      ],
+      "market_sha256": "59b9e14f748089f811be30f2b8894d72351a4473be94fe42c60bcdc2d8f20941",
+      "method": "closed_form:routed_logit",
+      "model": {
+        "fringe_share": 0.0,
+        "n_entrants": 0,
+        "n_incumbents": 4,
+        "params": {
+          "a": 2.0,
+          "a0": 0.0,
+          "alpha": 1.0,
+          "beta": 100.0,
+          "c": 1.0,
+          "mu": 0.25,
+          "outside_utility": 0.0,
+          "tau": null
+        },
+        "tick": 0.05
+      },
+      "provisional": false,
+      "source": {
+        "branch": "L7",
+        "config": "configs/sprint/tier1/L7-H.yaml",
+        "grid": {},
+        "method": "auto",
+        "n_incumbents": null
+      }
+    },
+    "trunk": {
+      "benchmarks": {
+        "p_mono": 2.054411180500227,
+        "p_nash": 1.3314606898837602,
+        "pi_mono": 20.110279512503435,
+        "pi_nash": 8.146068988378701
+      },
+      "d7_cartel": 0.6212932414378864,
+      "ignored_events": [],
+      "market_sha256": "59b9e14f748089f811be30f2b8894d72351a4473be94fe42c60bcdc2d8f20941",
+      "method": "closed_form:routed_logit",
+      "model": {
+        "fringe_share": 0.0,
+        "n_entrants": 0,
+        "n_incumbents": 4,
+        "params": {
+          "a": 2.0,
+          "a0": 0.0,
+          "alpha": 1.0,
+          "beta": 100.0,
+          "c": 1.0,
+          "mu": 0.25,
+          "outside_utility": 0.0,
+          "tau": null
+        },
+        "tick": 0.05
+      },
+      "provisional": false,
+      "source": {
+        "branch": null,
+        "config": "configs/sprint/tier0/TR-H.yaml",
+        "grid": {},
+        "method": "auto",
+        "n_incumbents": null
+      }
+    }
+  },
+  "pin": "TR-H",
+  "prereg_id": "PREREG-v1",
+  "version": 1
+}
